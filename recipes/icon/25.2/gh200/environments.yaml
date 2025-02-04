@@ -10,7 +10,7 @@ nvidia:
       gpu: cuda
   specs:
   - boost%gcc ~mpi
-  - python@3.10%
+  - python@3.10
   - cuda@12.6
   - eccodes@2.25.0%nvhpc +tools +fortran +aec +openmp jp2k=jasper
   - hdf5%nvhpc +szip +hl +fortran +mpi
