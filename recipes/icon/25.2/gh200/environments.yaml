@@ -1,10 +1,10 @@
 nvidia:
   compiler:
-      - toolchain: gcc
-        spec: gcc
+      - toolchain: gcc@13
+        spec: gcc@13
       - toolchain: llvm
         spec: nvhpc
-  unify: when_possible
+  unify: true
   mpi:
       spec: cray-mpich@8.1.30%nvhpc
       gpu: cuda
@@ -12,13 +12,13 @@ nvidia:
   - boost%gcc ~mpi
   - python@3.10
   - cuda@12.6
-  - eccodes@2.25.0%nvhpc +tools +fortran +aec +openmp jp2k=jasper
+  - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
   - hdf5%nvhpc +szip +hl +fortran +mpi
   - netcdf-c%nvhpc
   - netcdf-cxx4%nvhpc
   - netcdf-fortran%nvhpc
   - osu-micro-benchmarks@5.9%nvhpc
-  - openblas@0.3.21%nvhpc
+  - openblas%nvhpc
   # everything needed for nccl on SS11
   - nccl%gcc
   - nccl-tests%gcc
