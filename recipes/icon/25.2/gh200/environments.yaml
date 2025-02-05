@@ -1,15 +1,15 @@
-nvidia:
+gcc-env:
   compiler:
-      - toolchain: gcc@13
-        spec: gcc@13
+      - toolchain: gcc
+        spec: gcc
       - toolchain: llvm
         spec: nvhpc
-  unify: true
   mpi:
       spec: cray-mpich@8.1.30%nvhpc
       gpu: cuda
+  unify: true
   specs:
-  - boost%gcc ~mpi
+  - boost ~mpi
   - python@3.10
   - cuda@12.6
   - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
@@ -18,19 +18,21 @@ nvidia:
   - netcdf-cxx4%nvhpc
   - netcdf-fortran%nvhpc
   - osu-micro-benchmarks@5.9%nvhpc
-  - openblas%nvhpc
+  - openblas
   # everything needed for nccl on SS11
-  - nccl%gcc
-  - nccl-tests%gcc
+  - nccl
+  - nccl-tests
   # extras
   - libfyaml
   - zlib-ng
   - cmake
   variants:
-  - cuda_arch=90
   - +mpi
   - +cuda
-  packages: []
+  - cuda_arch=90
   views:
-    default:
+    nvfort:
       link: roots
+      uenv:
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
