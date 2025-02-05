@@ -1,4 +1,4 @@
-gcc-env:
+icon:
   compiler:
       - toolchain: gcc
         spec: gcc
@@ -31,7 +31,7 @@ gcc-env:
   - +cuda
   - cuda_arch=90
   views:
-    nvfort:
+    default:
       link: roots
       uenv:
         prefix_paths:
