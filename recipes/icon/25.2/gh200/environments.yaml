@@ -19,6 +19,8 @@ icon:
   - netcdf-fortran%nvhpc
   - osu-micro-benchmarks@5.9%nvhpc
   - openblas
+  # for validation
+  - cdo
   # everything needed for nccl on SS11
   - nccl
   - nccl-tests
