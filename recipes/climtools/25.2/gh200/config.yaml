@@ -1,0 +1,6 @@
+name: climtools
+spack:
+  commit: releases/v0.23
+  repo: https://github.com/spack/spack.git
+store: /user-environment
+description: C2SM climate tools
