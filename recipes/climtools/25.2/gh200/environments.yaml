@@ -7,6 +7,9 @@ gcc-env:
       gpu: false
   unify: true
   specs:
+  - hdf5
+  - netcdf-c
+  - netcdf-cxx4
   - ncview
   - cdo
   - nco
