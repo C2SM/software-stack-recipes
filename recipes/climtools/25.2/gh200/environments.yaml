@@ -19,6 +19,7 @@ gcc-env:
   - nco  # concretized to @5.1.9
   - python@3.12  # concretized to @3.12.1
   - eccodes@2.36.4 +tools +aec +openmp jp2k=jasper
+  - git-lfs  # concretized to @3.3.0
   views:
     default:
       link: roots
