@@ -7,14 +7,19 @@ gcc-env:
       gpu: false
   unify: true
   specs:
-  - hdf5
-  - netcdf-c
-  - netcdf-cxx4
-  - ncview
-  - cdo
-  - nco
+  # Info about versions for later update:
+  # - the eccodes version is pinned to match the icon/25.2 recipe
+  # - the python version is set to the latest minor one (3.13)
+  # - other versions where just picked by the spack concretizer
+  #   and then pinned to it in a second stage
+  - hdf5@1.14.5 +szip +hl
+  - netcdf-c@4.9.2
+  - netcdf-cxx4@4.3.1
+  - ncview@2.1.9
+  - cdo@2.4.4
+  - nco@5.2.4
   - python@3.13
-  - eccodes +tools +aec +openmp jp2k=jasper
+  - eccodes@2.36.4 +tools +aec +openmp jp2k=jasper
   views:
     default:
       link: roots
