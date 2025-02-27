@@ -1,0 +1,29 @@
+gcc-env:
+  compiler:
+      - toolchain: gcc
+        spec: gcc
+  mpi:
+      spec: cray-mpich@8.1.30
+      gpu: false
+  unify: true
+  specs:
+  # Info about versions for later update:
+  # - the eccodes version is pinned to 2.36.4 to match the icon/25.2 recipe
+  # - the python minor version is set to the latest possible spack accepts
+  # - other versions where just picked by the spack concretizer
+  - hdf5 +szip +hl
+  - netcdf-c
+  - netcdf-cxx4
+  - ncview
+  - cdo
+  - nco
+  - python@3.12
+  - eccodes@2.36.4 +tools +aec +openmp jp2k=jasper
+  - git-lfs
+  views:
+    default:
+      link: roots
+      uenv:
+        add_compilers: true
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
