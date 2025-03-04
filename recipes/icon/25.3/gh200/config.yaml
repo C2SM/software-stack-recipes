@@ -1,0 +1,6 @@
+name: icon
+store: /user-environment
+spack:
+  commit: releases/v0.22
+  repo: https://github.com/spack/spack.git
+description: Compilers and libraries required to build ICON
