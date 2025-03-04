@@ -15,9 +15,9 @@ icon:
   - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
   - cosmo-eccodes-definitions@2.36.0.3
   - hdf5%nvhpc +szip +hl +fortran +mpi
-  - netcdf-c%nvhpc
-  - netcdf-cxx4%nvhpc
-  - netcdf-fortran%nvhpc
+  - netcdf-c@4.9.2%nvhpc
+  - netcdf-cxx4@4.3.1%nvhpc
+  - netcdf-fortran@4.6.1%nvhpc
   - osu-micro-benchmarks@5.9%nvhpc
   - openblas
   # for validation
