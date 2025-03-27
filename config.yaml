@@ -31,10 +31,10 @@ uenvs:
         balfrin: [zen3, a100]
       develop: False
   icon:
-    "25.2:v2":
+    "25.2":
       recipes:
-        gh200: '25.3/gh200'
-        a100: '25.3/a100'
+        gh200: '25.2/gh200'
+        a100: '25.2/a100'
       deploy:
         santis: [gh200]
         balfrin: [a100]
