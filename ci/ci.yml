@@ -7,7 +7,7 @@ pipeline-configure:
   tags: [languard-k8s-lightweight]
   image: docker.io/python:latest
   script:
-    - git clone https://github.com/eth-cscs/uenv-pipeline.git
+    - git clone --branch=build-variables https://github.com/eth-cscs/uenv-pipeline.git
     - ./uenv-pipeline/configure-pipeline -c./config.yaml -r./recipes -s$system -u$uenv -a$uarch -o./pipeline.yml
   artifacts:
     paths:
@@ -20,9 +20,6 @@ generated-pipeline:
   variables:
     CSCS_NOTIFICATION_CONTEXT:  "$system-$uarch-$uenv"
     PARENT_PIPELINE_ID: "$CI_PIPELINE_ID"
-    GIT_CONFIG_COUNT: 1
-    GIT_CONFIG_KEY_0: url.https://oauth2:${GITLAB_DKRZ_TOKEN}@gitlab.dkrz.de/.insteadOf
-    GIT_CONFIG_VALUE_0: "git@gitlab.dkrz.de:"
   trigger:
     include:
       - artifact: pipeline.yml
