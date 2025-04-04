@@ -52,3 +52,10 @@ uenvs:
       deploy:
         balfrin: [a100]
       develop: False
+  climtools:
+    "25.2":
+      recipes:
+        gh200: '25.2/gh200'
+      deploy:
+        santis: [gh200]
+      develop: False
