@@ -1,0 +1,3 @@
+#!/bin/bash
+
+curl -LsSf https://astral.sh/uv/install.sh | env UV_UNMANAGED_INSTALL="store/env/default/bin" sh
