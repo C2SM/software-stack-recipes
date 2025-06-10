@@ -39,6 +39,13 @@ uenvs:
         santis: [gh200]
         balfrin: [a100]
       develop: False
+  icon-dsl:
+    "25.8":
+      recipes:
+        gh200: '25.8/gh200'
+      deploy:
+        santis: [gh200]
+      develop: False
   mch:
     "v7":
       recipes:
