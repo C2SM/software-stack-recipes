@@ -4,8 +4,13 @@ myenv:
     spec: gcc
   specs:
   - icon4py@icon_20250328 +distributed +cuda
+  - py-cupy
   - py-mpi4py
   - python
   unify: true
+  variants:
+  - +mpi
+  - +cuda
+  - cuda_arch=90
   views:
     default:
