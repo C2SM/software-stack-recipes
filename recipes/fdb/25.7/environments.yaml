@@ -1,0 +1,23 @@
+climana:
+  compiler:
+    - toolchain: gcc
+      spec: gcc@12
+  unify: when_possible
+  mpi: null
+  packages: []
+  specs:
+  - fdb@=5.13.106
+  - eckit@=1.28.3 linalg=none
+  - metkit@=1.11.22
+  - eccodes@=2.35.0 jp2k=none ~fortran
+  - hdf5
+  - ecbuild@=3.9.0
+  - python@=3.11
+  variants:
+  - ~mpi
+  views:
+    fdb:
+      link: roots
+      uenv:
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
