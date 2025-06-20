@@ -30,6 +30,12 @@ uenvs:
       deploy:
         balfrin: [zen3, a100]
       develop: False
+  fdb:
+    "25.7":
+      recipes:
+        zen2: '25.7'
+        zen3: '25.7'
+      develop: False
   icon:
     "25.2":
       recipes:
