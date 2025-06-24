@@ -1,7 +1,7 @@
 fdb:
   compiler:
     - toolchain: gcc
-      spec: gcc@12
+      spec: gcc@13.3
   unify: when_possible
   mpi: null
   packages: []
