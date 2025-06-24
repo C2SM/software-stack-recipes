@@ -1,4 +1,4 @@
-climana:
+fdb:
   compiler:
     - toolchain: gcc
       spec: gcc@12
@@ -9,7 +9,7 @@ climana:
   - fdb@=5.13.106
   - eckit@=1.28.3 linalg=none
   - metkit@=1.11.22
-  - eccodes@=2.35.0 jp2k=none ~fortran
+  - eccodes@=2.38.0 jp2k=none ~fortran
   - hdf5
   - ecbuild@=3.9.0
   - python@=3.11
@@ -21,3 +21,7 @@ climana:
       uenv:
         prefix_paths:
           LD_LIBRARY_PATH: [lib, lib64]
+          FDB_HOME: [bin]
+          FDB5_HOME: [bin]
+          GRIB_DEFINITION_PATH: [share/eccodes-cosmo-mars/definitions,share/definitions.edzw-2.38.3-1,share/eccodes/definitions]
+          FDB5_CONFIG_FILE: /scratch/mch/trajond/fdb-realtime-lcm/realtime_config.yaml
