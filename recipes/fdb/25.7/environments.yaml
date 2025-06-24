@@ -1,7 +1,7 @@
 fdb:
   compiler:
     - toolchain: gcc
-      spec: gcc@13.3
+      spec: gcc@13.3 ^gmake@4.4.1 build_system=autotools
   unify: when_possible
   mpi: null
   packages: []
@@ -13,6 +13,7 @@ fdb:
   - hdf5
   - ecbuild@=3.9.0
   - python@=3.11.6
+  - gcc@11.3.0 ^gmake@4.4.1 build_system=autotools
   variants:
   - ~mpi
   views:
