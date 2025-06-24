@@ -24,4 +24,4 @@ fdb:
           FDB_HOME: [bin]
           FDB5_HOME: [bin]
           GRIB_DEFINITION_PATH: [share/eccodes-cosmo-mars/definitions,share/definitions.edzw-2.38.3-1,share/eccodes/definitions]
-          FDB5_CONFIG_FILE: /scratch/mch/trajond/fdb-realtime-lcm/realtime_config.yaml
+          FDB5_CONFIG_FILE: [/scratch/mch/trajond/fdb-realtime-lcm/realtime_config.yaml]
