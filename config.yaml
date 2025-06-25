@@ -11,6 +11,7 @@ clusters:
         partition: 'postproc'
         variables:
           F7T_URL: 'https://api.cscs.ch/mch/firecrest/v1'
+          SLURM_CPUS_PER_TASK: "32"
     runner: f7t
   santis:
     targets:
