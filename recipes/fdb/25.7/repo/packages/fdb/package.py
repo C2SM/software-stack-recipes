@@ -59,6 +59,9 @@ class Fdb(CMakePackage):
 
     depends_on("lustre", when="backends=lustre")
 
+    # patch the language in order to include the mswiss mars type: ememb
+    patch("language_mswiss.patch", when="@1.11:")
+
     # Starting version 1.7.0, metkit installs GribHandle.h to another directory.
     # That is accounted for only starting version 5.8.0:
     patch("metkit_1.7.0.patch", when="@:5.7.10+tools^metkit@1.7.0:")
