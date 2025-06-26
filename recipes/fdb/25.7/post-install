@@ -49,9 +49,6 @@ description = "Demo scripts and notebooks for reading and processing forecast da
 authors = ["MeteoSwiss"]
 package-mode = false
 
-[[tool.poetry.source]]
-name = "pypi-mch"
-
 [tool.poetry.dependencies]
 python = "~3.11"
 meteodata-lab = {version = "*", extras = ["polytope", "regrid"] }
