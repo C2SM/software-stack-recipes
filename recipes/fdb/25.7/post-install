@@ -38,7 +38,7 @@ wd=${PWD}
 patch -d patch_dir -i ${wd}/language.yaml.patch
 
 
-pip3 install --user poetry
+pip install --user poetry
 
 #curl -sSL https://install.python-poetry.org | POETRY_HOME=/user-environment/bin python3 -
 
