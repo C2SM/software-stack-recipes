@@ -35,13 +35,9 @@ EOF
 
 wd=${PWD}
 
-patch -d patch_dir -i ${wd}/language.yaml.patch
+patch -d ${patch_dir} -i ${wd}/language.yaml.patch
 
-
-pip install --user poetry
-
-#curl -sSL https://install.python-poetry.org | POETRY_HOME=/user-environment/bin python3 -
-
+curl -sSL https://install.python-poetry.org | POETRY_HOME=/user-environment /user-environment/env/fdb/bin/python3.11 -
 
 cat << EOF > pyproject.toml
 [tool.poetry]
