@@ -37,7 +37,10 @@ wd=${PWD}
 
 patch -d patch_dir -i ${wd}/language.yaml.patch
 
-curl -sSL https://install.python-poetry.org | POETRY_HOME=/user-environment/bin python3 -
+
+pip3 install --user poetry
+
+#curl -sSL https://install.python-poetry.org | POETRY_HOME=/user-environment/bin python3 -
 
 
 cat << EOF > pyproject.toml
