@@ -72,4 +72,4 @@ build-backend = "poetry.core.masonry.api"
 
 EOF
 
-${wd}/bin/poetry install
+/user-environment/bin/poetry install
