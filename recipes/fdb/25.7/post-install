@@ -35,9 +35,10 @@ EOF
 
 wd=${PWD}
 
-patch -d ${PWD}/test -i ${wd}/language.yaml.patch
+patch -d patch_dir -i ${wd}/language.yaml.patch
 
-curl -sSL https://install.python-poetry.org | POETRY_HOME=${wd} python3 -
+curl -sSL https://install.python-poetry.org | python3 -
+
 
 cat << EOF > pyproject.toml
 [tool.poetry]
