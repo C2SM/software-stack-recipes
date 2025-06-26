@@ -10,3 +10,66 @@ git clone -b v0.0.1 https://github.com/MeteoSwiss/eccodes-cosmo-mars.git
 
 popd
 
+patch_dir=$(dirname $(find /user-environment/linux-sles15-zen3/gcc-13.3.0/ -name language.yaml))
+cat << EOF > language.yaml.patch
+--- language.yaml       2025-05-22 14:09:42.000000000 +0200
++++ language_new.yaml   2025-05-22 14:09:26.000000000 +0200
+@@ -89,6 +89,7 @@
+     flatten: false
+     type: enum
+     values:
++    - [ememb, whatever]
+     - [3g, 3d variational gradients]
+     - [3v, 3d variational analysis]
+     - [4g, 4d variational gradients]
+@@ -601,7 +602,7 @@
+     - ensemble
+     by: 1
+     only:
+-    - type: [pf, cr, cm, fcmean, fcmin, fcmax, fcstdev, sot, fc, wp, 4i, 4v]
++    - type: [pf, cr, cm, fcmean, fcmin, fcmax, fcstdev, sot, fc, wp, 4i, 4v, ememb]
+     never:
+     # This is to prevent number with type=fc and stream=oper
+     - stream: [oper, wave]
+EOF
+
+wd=${PWD}
+
+patch -d ${PWD}/test -i ${wd}/language.yaml.patch
+
+curl -sSL https://install.python-poetry.org | POETRY_HOME=${wd} python3 -
+
+cat << EOF > pyproject.toml
+[tool.poetry]
+name = "nwp-demo"
+# Keep only Major and Minor version in this configuration,
+# the patch version is calculated when releasing the library
+version = "1.0"
+description = "Demo scripts and notebooks for reading and processing forecast data using Polytope."
+authors = ["MeteoSwiss"]
+package-mode = false
+
+[[tool.poetry.source]]
+name = "pypi-mch"
+
+[tool.poetry.dependencies]
+python = "~3.11"
+meteodata-lab = {version = "*", extras = ["polytope", "regrid"] }
+pyfdb = "*"
+fdb-utils = { git = "https://github.com/MeteoSwiss/fdb-utils.git"}
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+pythonpath = "."
+
+[tool.yapf]
+based_on_style = "pep8"
+column_limit = "120"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+EOF
+
+${wd}/bin/poetry install
