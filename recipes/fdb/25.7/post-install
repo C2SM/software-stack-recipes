@@ -68,5 +68,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 EOF
-
+mkdir -p /user-environment/venvs/
+/user-environment/env/fdb/bin/python3.11 -m venv /user-environment/venvs/fdb
+source /user-environment/venvs/fdb/bin/activate
 /user-environment/bin/poetry install
