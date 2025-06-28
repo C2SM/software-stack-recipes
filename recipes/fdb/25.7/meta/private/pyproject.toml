@@ -13,6 +13,7 @@ meteodata-lab = {version = "*", extras = ["polytope", "regrid"] }
 pyfdb = "*"
 fdb-utils = { git = "https://github.com/MeteoSwiss/fdb-utils.git"}
 ipykernel = "*"
+earthkit-plots = "*"
 
 [tool.pytest.ini_options]
 testpaths = ["test"]
