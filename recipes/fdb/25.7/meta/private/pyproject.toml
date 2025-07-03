@@ -14,6 +14,7 @@ pyfdb = "*"
 fdb-utils = { git = "https://github.com/MeteoSwiss/fdb-utils.git"}
 ipykernel = "*"
 earthkit-plots = "*"
+nbconvert = "*"
 
 [tool.pytest.ini_options]
 testpaths = ["test"]
