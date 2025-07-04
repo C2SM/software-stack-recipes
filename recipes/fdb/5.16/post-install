@@ -1,0 +1,30 @@
+#!/bin/bash
+
+mkdir -p /user-environment/data/share
+pushd /user-environment/data/share
+wget https://opendata.dwd.de/weather/lib/grib/eccodes_definitions.edzw-2.38.3-1.tar.bz2
+bunzip2  eccodes_definitions.edzw-2.38.3-1.tar.bz2
+tar xvf eccodes_definitions.edzw-2.38.3-1.tar
+rm eccodes_definitions.edzw-2.38.3-1.tar
+git clone -b v0.0.1 https://github.com/MeteoSwiss/eccodes-cosmo-mars.git
+
+popd
+
+patch_dir=$(dirname $(find /user-environment/linux-sles15-zen3/gcc-13.3.0/ -name language.yaml))
+patch -d ${patch_dir} -i /user-environment/meta/recipe/meta/private/metkit_language.yaml.patch
+
+curl -sSL https://install.python-poetry.org | POETRY_HOME=/user-environment /user-environment/env/fdb/bin/python3.11 -
+
+pushd /user-environment/meta/recipe/meta/private/
+mkdir -p /user-environment/venvs/
+/user-environment/env/fdb/bin/python3.11 -m venv /user-environment/venvs/fdb
+source /user-environment/venvs/fdb/bin/activate
+/user-environment/bin/poetry install
+popd
+
+jq '.views.fdb.env.values.list.FDB5_HOME = [{"op":"prepend","value":["/user-environment/env/fdb/bin"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
+jq '.views.fdb.env.values.list.FDB_HOME = [{"op":"prepend","value":["/user-environment/env/fdb/bin"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
+jq '.views.fdb.env.values.list.GRIB_DEFINITION_PATH = [{"op":"prepend","value":["/user-environment/data/share/eccodes-cosmo-mars/definitions", "/user-environment/data/share/definitions.edzw-2.38.3-1","/user-environment/env/fdb/share/eccodes/definitions"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
+jq '.views.fdb.env.values.list.FDB5_CONFIG_FILE = [{"op":"prepend","value":["/user-environment/meta/recipe/meta/private/fdb_realtime_config.yaml"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
+jq '.views.fdb.env.values.list.PATH[0].value |= ["/user-environment/venvs/fdb/bin/"] + .' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
+
