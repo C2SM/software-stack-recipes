@@ -50,7 +50,7 @@ class Eccodes(CMakePackage):
 
     version("develop", branch="develop")
 
-    version("2.38.3", sha256="2f13adc4fbdfa3ea11f75ce4ed8937bf40a8fcedd760a519b15e4e17dedc9424")
+    version("2.38.3", sha256="fa7b7ffb22973ed1dfbeb208c042a67a805ab070f1288a0f1f0707a1020d1c81")
     version("2.38.2", sha256="b4ce8bd144ac957c7650e7013d3502573120502158cd03b8915bab83d3c52e9d")
     version("2.38.0", sha256="96a21fbe8ca3aa4c31bb71bbd378b7fd130cbc0f7a477567d70e66a000ff68d9")
     version("2.34.0", sha256="3cd208c8ddad132789662cf8f67a9405514bfefcacac403c0d8c84507f303aba")
