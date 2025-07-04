@@ -6,13 +6,12 @@ fdb:
   mpi: null
   packages: []
   specs:
-  - fdb@=5.13.106
-  - eckit@=1.28.3 linalg=none
+  - fdb@=5.16.2
+  - eckit@=1.28.8 linalg=none
   - metkit@=1.11.22
-  - eccodes@=2.38.0 jp2k=none ~fortran
-  - hdf5
-  - ecbuild@=3.9.0
-  - python@=3.11.6
+  - eccodes@=2.38.3 jp2k=none ~fortran
+  - ecbuild@=3.10.0
+  - python@=3.12.11
   variants:
   - ~mpi
   views:
