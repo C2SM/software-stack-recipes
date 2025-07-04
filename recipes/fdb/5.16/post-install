@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e 
 mkdir -p /user-environment/data/share
 pushd /user-environment/data/share
 wget https://opendata.dwd.de/weather/lib/grib/eccodes_definitions.edzw-2.38.3-1.tar.bz2
@@ -13,11 +13,11 @@ popd
 patch_dir=$(dirname $(find /user-environment/linux-sles15-zen3/gcc-13.3.0/ -name language.yaml))
 patch -d ${patch_dir} -i /user-environment/meta/recipe/meta/private/metkit_language.yaml.patch
 
-curl -sSL https://install.python-poetry.org | POETRY_HOME=/user-environment /user-environment/env/fdb/bin/python3.12 -
+curl -sSL https://install.python-poetry.org | POETRY_HOME=/user-environment /user-environment/env/fdb/bin/python3.11 -
 
 pushd /user-environment/meta/recipe/meta/private/
 mkdir -p /user-environment/venvs/
-/user-environment/env/fdb/bin/python3.12 -m venv /user-environment/venvs/fdb
+/user-environment/env/fdb/bin/python3.11 -m venv /user-environment/venvs/fdb
 source /user-environment/venvs/fdb/bin/activate
 /user-environment/bin/poetry install
 popd
