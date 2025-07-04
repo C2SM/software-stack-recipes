@@ -11,7 +11,7 @@ fdb:
   - metkit@=1.11.22
   - eccodes@=2.38.3 jp2k=none ~fortran
   - ecbuild@=3.10.0
-  - python@=3.12.11
+  - python@=3.12.5
   variants:
   - ~mpi
   views:
