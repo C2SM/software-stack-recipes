@@ -32,7 +32,7 @@ uenvs:
         balfrin: [zen3, a100]
       develop: False
   fdb:
-    "1.0":
+    "5.16":
       recipes:
         zen2: '5.16'
         zen3: '5.16'
