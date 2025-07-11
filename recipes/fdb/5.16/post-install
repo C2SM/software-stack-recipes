@@ -1,12 +1,12 @@
 #!/bin/bash
 set -e 
+rm -rf /user-environment/data/share
 mkdir -p /user-environment/data/share
 pushd /user-environment/data/share
 wget https://opendata.dwd.de/weather/lib/grib/eccodes_definitions.edzw-2.38.3-1.tar.bz2
 bunzip2  eccodes_definitions.edzw-2.38.3-1.tar.bz2
 tar xvf eccodes_definitions.edzw-2.38.3-1.tar
 rm eccodes_definitions.edzw-2.38.3-1.tar
-rm -rf eccodes-cosmo-mars
 git clone -b v0.0.1 https://github.com/MeteoSwiss/eccodes-cosmo-mars.git
 
 popd
@@ -17,6 +17,7 @@ patch -d ${patch_dir} -i /user-environment/meta/recipe/meta/private/metkit_langu
 curl -sSL https://install.python-poetry.org | POETRY_HOME=/user-environment /user-environment/env/fdb/bin/python3.11 -
 
 pushd /user-environment/meta/recipe/meta/private/
+rm -rf  /user-environment/venvs/
 mkdir -p /user-environment/venvs/
 /user-environment/env/fdb/bin/python3.11 -m venv /user-environment/venvs/fdb
 source /user-environment/venvs/fdb/bin/activate
