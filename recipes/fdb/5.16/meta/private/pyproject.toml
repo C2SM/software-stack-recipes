@@ -10,7 +10,7 @@ package-mode = false
 [tool.poetry.dependencies]
 python = "~3.11"
 meteodata-lab = {version = "*", extras = ["polytope", "regrid"] }
-pyfdb = "*"
+pyfdb = "0.1.2"
 fdb-utils = { git = "https://github.com/MeteoSwiss/fdb-utils.git"}
 ipykernel = "*"
 earthkit-plots = "*"
