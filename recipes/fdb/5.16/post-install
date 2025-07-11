@@ -6,6 +6,7 @@ wget https://opendata.dwd.de/weather/lib/grib/eccodes_definitions.edzw-2.38.3-1.
 bunzip2  eccodes_definitions.edzw-2.38.3-1.tar.bz2
 tar xvf eccodes_definitions.edzw-2.38.3-1.tar
 rm eccodes_definitions.edzw-2.38.3-1.tar
+rm -rf eccodes-cosmo-mars
 git clone -b v0.0.1 https://github.com/MeteoSwiss/eccodes-cosmo-mars.git
 
 popd
