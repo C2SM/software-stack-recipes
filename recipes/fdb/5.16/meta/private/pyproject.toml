@@ -16,7 +16,7 @@ ipykernel = "*"
 earthkit-plots = "*"
 earthkit-geo = "*"
 earthkit-meteo = "*"
-gribjump = { git = "https://github.com/ecmwf/gribjump.git", tag = "0.10.0" }
+pygribjump = { git = "https://github.com/ecmwf/gribjump.git", tag = "0.10.0" }
 nbconvert = "*"
 kaleido = "0.1.*"
 
