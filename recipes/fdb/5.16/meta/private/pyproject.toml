@@ -14,8 +14,9 @@ pyfdb = "*"
 fdb-utils = { git = "https://github.com/MeteoSwiss/fdb-utils.git"}
 ipykernel = "*"
 earthkit-plots = "*"
+earthkit-geo = "*"
 nbconvert = "*"
-kaleido = "*"
+kaleido = "0.1.*"
 
 [tool.pytest.ini_options]
 testpaths = ["test"]
