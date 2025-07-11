@@ -11,7 +11,7 @@ package-mode = false
 python = "~3.11"
 meteodata-lab = {version = "*", extras = ["polytope", "regrid"] }
 pyfdb = "0.1.2"
-fdb-utils = { git = "https://github.com/MeteoSwiss/fdb-utils.git"}
+fdb-utils = { git = "https://github.com/MeteoSwiss/fdb-utils.git", branch = "update_pyfdb"}
 ipykernel = "*"
 earthkit-plots = "*"
 earthkit-geo = "*"
