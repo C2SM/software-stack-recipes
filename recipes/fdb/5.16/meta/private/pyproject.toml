@@ -10,10 +10,14 @@ package-mode = false
 [tool.poetry.dependencies]
 python = "~3.11"
 meteodata-lab = {version = "*", extras = ["polytope", "regrid"] }
-pyfdb = "*"
-fdb-utils = { git = "https://github.com/MeteoSwiss/fdb-utils.git"}
+# version > 0.1.1 of pyfdb requires eccodes >= 2.39
+pyfdb = "0.1.1"
+fdb-utils = { git = "https://github.com/MeteoSwiss/fdb-utils.git", branch = "update_pyfdb"}
 ipykernel = "*"
 earthkit-plots = "*"
+earthkit-geo = "*"
+earthkit-meteo = "*"
+pygribjump = { git = "https://github.com/ecmwf/gribjump.git", tag = "0.10.0" }
 nbconvert = "*"
 
 [tool.pytest.ini_options]
