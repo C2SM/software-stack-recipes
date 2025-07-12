@@ -19,6 +19,7 @@ earthkit-geo = "*"
 earthkit-meteo = "*"
 pygribjump = { git = "https://github.com/ecmwf/gribjump.git", tag = "0.10.0" }
 nbconvert = "*"
+pyyaml = "*"
 
 [tool.pytest.ini_options]
 testpaths = ["test"]
