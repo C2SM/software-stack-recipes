@@ -35,10 +35,10 @@ def main():
 
     for key in icon_params:
         if int(key) not in metkit_params:
-            metkit_params[int(key)] = tuple(s.lower() for s in icon_params[key]) 
+            metkit_params[int(key)] = list(s.lower() for s in icon_params[key]) 
 
     with open(args.paramids, 'w') as file:
-        yaml.dump(metkit_params, file, sort_keys=True)
+        yaml.dump(metkit_params, file, sort_keys=True, default_flow_style=False, allow_unicode=True)
 
 if __name__ == "__main__":
     main()
