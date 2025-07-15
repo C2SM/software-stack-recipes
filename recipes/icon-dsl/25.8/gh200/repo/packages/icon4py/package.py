@@ -11,21 +11,17 @@ class Icon4py(Package):
     extends("python")
     depends_on("python@3.11:")
 
-    variant("cuda", default=True, description="Enable CUDA support")
-    variant("distributed", default=True, description="Enable multinode support")
-
     depends_on("git")
-    depends_on("boost@1.85:", type=("build", "run"))
-    depends_on("py-uv@0.7:")
+    depends_on("boost@1.85:+mpi+python", type=("build", "run"))
+    depends_on("py-uv@0.7:", type="build")
     depends_on("bzip2", type="build")
     depends_on("py-numpy")
     depends_on("py-cffi")
     depends_on("py-pybind11")
     depends_on("py-nanobind")
-    depends_on("py-mpi4py", when="+distributed")
-    depends_on("py-cupy +cuda", when="+cuda")
-    depends_on("ghex +python", when="+distributed")
-    depends_on("ghex +python +cuda", when="+distributed +cuda")
+    depends_on("py-mpi4py")
+    depends_on("py-cupy +cuda")
+    depends_on("ghex +python +cuda")
 
     version(
         "icon_20250328",
@@ -74,8 +70,6 @@ class Icon4py(Package):
         pathlib.Path(
             f"{venv_path.lib.python}{python_spec.version.up_to(2)}/site-packages/spack_installed.pth"
         ).write_text(pythonpath_to_pth())
-
-        # uv("run", "--active", "py2fgen", "icon4py.tools.py2fgen.wrappers.all_bindings", "diffusion_init,diffusion_run,grid_init,solve_nh_init,solve_nh_run", "icon4py_bindings", "-o", prefix.src, extra_env={"VIRTUAL_ENV": str(venv_path)})
 
         tty.msg(f"running py2fgen")
         py2fgen = Executable(venv_path.bin.py2fgen)

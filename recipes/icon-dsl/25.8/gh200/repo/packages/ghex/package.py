@@ -20,7 +20,11 @@ class Ghex(CMakePackage, CudaPackage, ROCmPackage):
 
     backends = ("mpi", "ucx", "libfabric")
     variant(
-        "backend", default="mpi", description="Transport backend", values=backends, multi=False
+        "backend",
+        default="mpi",
+        description="Transport backend",
+        values=backends,
+        multi=False,
     )
     variant("xpmem", default=False, description="Use xpmem shared memory")
     variant("python", default=True, description="Build Python bindings")
@@ -57,7 +61,9 @@ class Ghex(CMakePackage, CudaPackage, ROCmPackage):
             self.define("GHEX_USE_BUNDLED_GRIDTOOLS", True),
             self.define("GHEX_USE_BUNDLED_GTEST", self.run_tests),
             self.define("GHEX_USE_BUNDLED_OOMPH", False),
-            self.define("GHEX_TRANSPORT_BACKEND", spec.variants["backend"].value.upper()),
+            self.define(
+                "GHEX_TRANSPORT_BACKEND", spec.variants["backend"].value.upper()
+            ),
             self.define_from_variant("GHEX_USE_XPMEM", "xpmem"),
             self.define_from_variant("GHEX_BUILD_PYTHON_BINDINGS", "python"),
             self.define("GHEX_WITH_TESTING", self.run_tests),
@@ -73,7 +79,7 @@ class Ghex(CMakePackage, CudaPackage, ROCmPackage):
             arch_str = ";".join(spec.variants["cuda_arch"].value)
             args.append(self.define("CMAKE_CUDA_ARCHITECTURES", arch_str))
             args.append(self.define("GHEX_USE_GPU", True))
-            args.append(self.define("GHEX_GPU_TYPE", "CUDA"))
+            args.append(self.define("GHEX_GPU_TYPE", "NVIDIA"))
 
         if "+rocm" in spec and spec.variants["amdgpu_target"].value != "none":
             arch_str = ";".join(spec.variants["amdgpu_target"].value)

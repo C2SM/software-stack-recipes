@@ -10,7 +10,7 @@ def translate_platform(platform_name: str) -> str:
 
 
 def translate_arch(arch_name: str) -> str:
-    if arch_name in ["m1", "m2"]:
+    if arch_name in ["m1", "m2", "neoverse_v2"]:
         return "aarch64"
     return arch_name
 
@@ -27,6 +27,11 @@ class Uv(Package):
         sha256="189108cd026c25d40fb086eaaf320aac52c3f7aab63e185bac51305a1576fc7e",
         extension=".tar.gz",
     )
+    version(
+        "0.7.20",
+        sha256="675165f879d6833aa313ecb25ac44781e131933a984727e180b3218d2cd6c1e9",
+        extension=".tar.gz",
+    )
 
     def url_for_version(self, version):
         arch = translate_arch(self.spec.target)
@@ -41,7 +46,10 @@ class Uv(Package):
         checksums = {
             ("0.7.12", "apple-darwin", "aarch64"): (
                 "189108cd026c25d40fb086eaaf320aac52c3f7aab63e185bac51305a1576fc7e"
-            )
+            ),
+            ("0.7.20", "unknown-linux-gnu", "aarch64"): (
+                "675165f879d6833aa313ecb25ac44781e131933a984727e180b3218d2cd6c1e9"
+            ),
         }
         version = str(self.spec.version)
         arch = translate_arch(self.spec.target)
