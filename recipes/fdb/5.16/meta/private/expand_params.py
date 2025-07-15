@@ -24,18 +24,23 @@ def parse_file(filepath):
 def main():
     parser = argparse.ArgumentParser(description="Process two filenames.")
     parser.add_argument("paramids", type=str, help="Path to the first file")
-    parser.add_argument("shortnamedef", type=str, help="Path to the second file")
+    parser.add_argument("paramdefs", type=str, help="Path to the second file")
     
     args = parser.parse_args()
-    
-    icon_params = parse_file(args.shortnamedef)
+
+    # Convert the comma-separated string into a list
+    paramdef_list = args.paramdefs.split(',')
 
     with open(args.paramids, 'r') as file:
         metkit_params = yaml.safe_load(file)
 
-    for key in icon_params:
-        if int(key) not in metkit_params:
-            metkit_params[int(key)] = list(s.lower() for s in icon_params[key]) 
+    for paramdef in paramdef_list:
+
+        icon_params = parse_file(paramdef)
+
+        for key in icon_params:
+            if int(key) not in metkit_params:
+                metkit_params[int(key)] = list(s.lower() for s in icon_params[key]) 
 
     with open(args.paramids, 'w') as file:
         yaml.dump(metkit_params, file, sort_keys=True, default_flow_style=False, allow_unicode=True)

@@ -26,7 +26,7 @@ set +e
 patch -d ${patch_dir} -i /user-environment/meta/recipe/meta/private/metkit_language.yaml.patch
 set -e
 
-python /user-environment/meta/recipe/meta/private/expand_params.py ${patch_dir}/paramids.yaml /user-environment/data/share/definitions.edzw-2.38.3-1/grib2/shortName.def
+python /user-environment/meta/recipe/meta/private/expand_params.py ${patch_dir}/paramids.yaml /user-environment/data/share/definitions.edzw-2.38.3-1/grib2/shortName.def,/user-environment/data/share/definitions.edzw-2.38.3-1/grib2/localConcepts/edzw/shortName.def
 
 jq '.views.fdb.env.values.list.FDB5_HOME = [{"op":"prepend","value":["/user-environment/env/fdb/bin"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
 jq '.views.fdb.env.values.list.FDB_HOME = [{"op":"prepend","value":["/user-environment/env/fdb/bin"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
