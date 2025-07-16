@@ -13,7 +13,7 @@ class Icon4py(Package):
 
     depends_on("git")
     depends_on("boost@1.85:+mpi+python", type=("build", "run"))
-    depends_on("py-uv@0.7:", type="build")
+    depends_on("uv@0.7:", type="build")
     depends_on("bzip2", type="build")
     depends_on("py-numpy")
     depends_on("py-cffi")
