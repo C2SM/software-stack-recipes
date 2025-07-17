@@ -43,8 +43,10 @@ uenvs:
     "25.8":
       recipes:
         gh200: '25.8/gh200'
+        a100: '25.8/a100'
       deploy:
         santis: [gh200]
+        balfrin: [a100]
       develop: False
   mch:
     "v7":
