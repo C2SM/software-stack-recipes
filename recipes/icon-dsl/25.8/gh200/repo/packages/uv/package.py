@@ -18,9 +18,7 @@ def translate_arch(arch_name: str) -> str:
 class Uv(Package):
     """Install UV from binary releases"""
 
-    url = (
-        "https://github.com/astral-sh/uv/releases/download/0.7.12/uv-aarch64-apple-darwin.tar.gz",
-    )
+    url = "https://github.com/astral-sh/uv/releases/download/0.7.12/uv-aarch64-apple-darwin.tar.gz"
 
     version(
         "0.7.12",
@@ -36,10 +34,6 @@ class Uv(Package):
     def url_for_version(self, version):
         arch = translate_arch(self.spec.target)
         platform = translate_platform(self.spec.platform)
-        if platform == "darwin":
-            platform = "apple-darwin"
-        if arch == "m1":
-            arch = "aarch64"
         return f"https://github.com/astral-sh/uv/releases/download/{version}/uv-{arch}-{platform}.tar.gz"
 
     def do_stage(self, mirror_only=False):
