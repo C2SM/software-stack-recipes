@@ -7,9 +7,10 @@ fdb:
   packages: []
   specs:
   - fdb@=5.16.2
+  - gribjump@=0.10.0
   - eckit@=1.28.8 linalg=none
   - metkit@=1.11.22
-  - eccodes@=2.38.3 jp2k=none ~fortran
+  - eccodes@=2.38.3 jp2k=none ~fortran +pthreads +memfs +aec
   - ecbuild@=3.10.0
   - python@=3.11.6
   variants:
