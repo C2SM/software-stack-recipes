@@ -1,0 +1,22 @@
+myenv:
+  compiler:
+  - toolchain: gcc
+    spec: gcc
+  - toolchain: llvm
+    spec: nvhpc
+  mpi:
+    spec: cray-mpich@8.1.30%nvhpc
+    gpu: cuda
+  specs:
+  - python@3.11
+  - py-cupy +cuda cuda_arch=90
+  - ghex +python +cuda cuda_arch=90
+  - py-mpi4py
+  - icon4py@icon_20250328
+  unify: true
+  variants:
+  - +mpi
+  - +cuda
+  - cuda_arch=80
+  views:
+    default:
