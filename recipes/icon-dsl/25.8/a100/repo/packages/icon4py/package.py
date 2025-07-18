@@ -64,7 +64,7 @@ class Icon4py(Package):
             "--no-editable",
             "--python",
             str(venv_path.bin.python),
-            *no_install_options(spack_installed),
+            *no_install_options([*spack_installed, "cupy-cuda12x", "ghex"]),
             extra_env={"VIRTUAL_ENV": str(venv_path)},
         )
 
