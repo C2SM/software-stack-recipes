@@ -7,8 +7,7 @@ wget https://opendata.dwd.de/weather/lib/grib/eccodes_definitions.edzw-2.38.3-1.
 bunzip2  eccodes_definitions.edzw-2.38.3-1.tar.bz2
 tar xvf eccodes_definitions.edzw-2.38.3-1.tar
 rm eccodes_definitions.edzw-2.38.3-1.tar
-git clone -b missing_levtype https://github.com/MeteoSwiss/eccodes-cosmo-mars.git
-
+git clone -b v0.0.2 https://github.com/MeteoSwiss/eccodes-cosmo-mars.git
 popd
 
 curl -sSL https://install.python-poetry.org | POETRY_HOME=/user-environment /user-environment/env/fdb/bin/python3.11 -
