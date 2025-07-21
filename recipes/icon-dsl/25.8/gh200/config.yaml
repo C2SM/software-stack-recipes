@@ -1,4 +1,4 @@
-name: icon4pypoc
+name: icon-dsl
 store: /user-environment
 spack:
     repo: https://github.com/spack/spack.git
