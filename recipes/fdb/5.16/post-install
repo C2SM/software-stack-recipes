@@ -32,4 +32,5 @@ jq '.views.fdb.env.values.list.FDB_HOME = [{"op":"prepend","value":["/user-envir
 jq '.views.fdb.env.values.list.GRIB_DEFINITION_PATH = [{"op":"prepend","value":["/user-environment/data/share/eccodes-cosmo-mars/definitions", "/user-environment/data/share/definitions.edzw-2.38.3-1","/user-environment/env/fdb/share/eccodes/definitions"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
 jq '.views.fdb.env.values.list.FDB5_CONFIG_FILE = [{"op":"prepend","value":["/user-environment/meta/recipe/meta/private/fdb_realtime_config.yaml"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
 jq '.views.fdb.env.values.list.PATH[0].value |= ["/user-environment/venvs/fdb/bin/"] + .' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
+jq '.views.fdb.env.values.list.FDB_ENABLE_GRIBJUMP = [{"op":"set","value":"1"}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
 
