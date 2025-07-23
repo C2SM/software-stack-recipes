@@ -37,6 +37,11 @@ uenvs:
         zen2: '5.16'
         zen3: '5.16'
       develop: False
+    "5.17":
+      recipes:
+        zen2: '5.17'
+        zen3: '5.17'
+      develop: False
   icon:
     "25.2":
       recipes:
