@@ -11,7 +11,7 @@ fdb:
   - eckit@=1.28.8 linalg=none
   - metkit@=1.11.22
   - ecbuild@=3.10.0
-  - eccodes@=2.39.5 jp2k=none ~fortran +pthreads +memfs +aec
+  - eccodes@=2.39.5 jp2k=none ~fortran +pthreads +aec
   - python@=3.11.6
   variants:
   - ~mpi
