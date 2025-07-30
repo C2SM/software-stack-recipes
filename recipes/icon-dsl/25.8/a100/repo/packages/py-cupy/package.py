@@ -20,6 +20,10 @@ class PyCupy(PythonPackage, CudaPackage, ROCmPackage):
     pypi = "cupy/cupy-8.0.0.tar.gz"
 
     version(
+        "13.5.1",
+        sha256="3dba2f30258463482d52deb420862fbbbaf2c446165a5e8d67377ac6cb5c0870",
+    )
+    version(
         "13.1.0",
         sha256="5caf62288481a27713384523623045380ff42e618be4245f478238ed1786f32d",
     )
@@ -75,7 +79,10 @@ class PyCupy(PythonPackage, CudaPackage, ROCmPackage):
     # Based on https://github.com/cupy/cupy/releases
     depends_on("cuda@:11.9", when="@:11 +cuda")
     depends_on("cuda@:12.1", when="@12:12.1.0 +cuda")
-    depends_on("cuda@:12.4", when="@13: +cuda")
+    depends_on("cuda@:12.4", when="@13:13.2 +cuda")
+    depends_on("cuda@:12.6", when="@13:3:13.4 +cuda")
+    depends_on("cuda@:12.8", when="@13.4:13.5 +cuda")
+    depends_on("cuda@:12.9", when="@13.5: +cuda")
 
     for a in CudaPackage.cuda_arch_values:
         depends_on(
