@@ -1,147 +1,109 @@
-# Copyright Spack Project Developers. See COPYRIGHT file for details.
-#
-# SPDX-License-Identifier: (Apache-2.0 OR MIT)
-
+import json
 import os
+import pathlib
 
-from spack.package import *
+import llnl
+from llnl.util import tty
+from spack import *
 
 
-class PyCupy(PythonPackage, CudaPackage, ROCmPackage):
-    """CuPy is an open-source array library accelerated with
-    NVIDIA CUDA. CuPy provides GPU accelerated computing with
-    Python. CuPy uses CUDA-related libraries including cuBLAS,
-    cuRand, cuSolver, cuSPARSE, cuFFT and NCCL to make
-    full use of the GPU architecture.
+class Icon4py(Package):
+    extends("python")
+    depends_on("python@3.11:")
 
-    This version does not use CudNN."""
-
-    homepage = "https://cupy.dev/"
-    pypi = "cupy/cupy-8.0.0.tar.gz"
+    depends_on("git")
+    depends_on("boost@1.85:+mpi+python", type=("build", "run"))
+    depends_on("uv@0.7:", type="build")
+    depends_on("bzip2", type="build")
+    depends_on("py-numpy")
+    depends_on("py-cffi")
+    depends_on("py-pybind11")
+    depends_on("py-nanobind")
+    depends_on("py-mpi4py")
+    depends_on("py-cupy +cuda")
+    depends_on("ghex +python +cuda")
 
     version(
-        "13.5.1",
-        sha256="3dba2f30258463482d52deb420862fbbbaf2c446165a5e8d67377ac6cb5c0870",
-    )
-    version(
-        "13.1.0",
-        sha256="5caf62288481a27713384523623045380ff42e618be4245f478238ed1786f32d",
-    )
-    version(
-        "12.1.0",
-        sha256="f6d31989cdb2d96581da12822e28b102f29e254427195c2017eac327869b7320",
-    )
-    version(
-        "12.0.0",
-        sha256="61ddbbef73d50d606bd5087570645f3c91ec9176c2566784c1d486d6a3404545",
-    )
-    version(
-        "11.6.0",
-        sha256="53dbb840072bb32d4bfbaa6bfa072365a30c98b1fcd1f43e48969071ad98f1a7",
-    )
-    version(
-        "11.5.0",
-        sha256="4bc8565bded22cc89b210fd9fb48a5d5316f30701e12bb23852a60314e1f9f6e",
-    )
-    version(
-        "11.4.0",
-        sha256="03d52b2626e02a3a2b46d714c1cd03e702c8fe33915fcca6ed8de5c539964f49",
-    )
-    version(
-        "11.3.0",
-        sha256="d057cc2f73ecca06fae8b9c270d9e14116203abfd211a704810cc50a453b4c9e",
-    )
-    version(
-        "11.2.0",
-        sha256="c33361f117a347a63f6996ea97446d17f1c038f1a1f533e502464235076923e2",
+        "icon_20250328",
+        sha256="8573ef031d207438f549511e859f522c60163ea660aafea93ef4991b9010739a",
+        extension="zip",
     )
 
-    variant(
-        "all", default=False, description="Enable optional py-scipy, optuna, and cython"
-    )
+    def url_for_version(self, version):
+        return f"https://github.com/c2sm/icon4py/archive/refs/heads/{version}.zip"
 
-    depends_on("cxx", type="build")  # generated
+    def install(self, spec, prefix):
+        uv = prepare_uv()
+        python_spec = spec["python"]
+        venv_path = prefix.share.venv
 
-    depends_on("python@3.7:", when="@:11", type=("build", "run"))
-    depends_on("python@3.8:", when="@12:", type=("build", "run"))
-    depends_on("py-setuptools", type="build")
-    depends_on("py-cython@0.29.22:2", type="build")
-    depends_on("py-fastrlock@0.5:", type=("build", "run"))
-    depends_on("py-numpy@1.20:1.25", when="@:11", type=("build", "run"))
-    depends_on("py-numpy@1.20:1.26", when="@12:", type=("build", "run"))
-    depends_on("py-numpy@1.22:1.28", when="@13:", type=("build", "run"))
-
-    depends_on("py-scipy@1.6:1.12", when="@:12+all", type=("build", "run"))
-    depends_on("py-scipy@1.7:1.13", when="@13:+all", type=("build", "run"))
-    depends_on("py-cython@0.29.22:2", when="+all", type=("build", "run"))
-    depends_on("py-optuna@2:", when="+all", type=("build", "run"))
-
-    # Based on https://github.com/cupy/cupy/releases
-    depends_on("cuda@:11.9", when="@:11 +cuda")
-    depends_on("cuda@:12.1", when="@12:12.1.0 +cuda")
-    depends_on("cuda@:12.4", when="@13:13.3 +cuda")
-    depends_on("cuda@:12.6", when="@13.3:13.4 +cuda")
-    depends_on("cuda@:12.8", when="@13.4:13.5 +cuda")
-    depends_on("cuda@:12.9", when="@13.5: +cuda")
-
-    for a in CudaPackage.cuda_arch_values:
-        depends_on(
-            "nccl +cuda cuda_arch={0}".format(a), when="+cuda cuda_arch={0}".format(a)
+        tty.msg(f"creating venv using spack python at: {python_spec.command.path}")
+        uv(
+            "venv",
+            "--seed",
+            "--relocatable",
+            "--system-site-packages",
+            str(venv_path),
+            "--python",
+            python_spec.command.path,
         )
 
-    depends_on("cutensor", when="@:12.1.0 +cuda")
-    depends_on("cutensor@2.0.1.2", when="@13.1: +cuda")
+        tty.msg(f"grabbing spack installed packages (distributions)")
+        pip = Executable(venv_path.bin.pip)
+        spack_installed = get_installed_pkg(pip)
 
-    for _arch in ROCmPackage.amdgpu_targets:
-        arch_str = "amdgpu_target={0}".format(_arch)
-        rocm_str = "+rocm {0}".format(arch_str)
-        depends_on("rocprim {0}".format(arch_str), when=rocm_str, type=("link"))
-        depends_on("rocsolver {0}".format(arch_str), when=rocm_str, type=("link"))
-        depends_on("rocthrust {0}".format(arch_str), when=rocm_str, type=("link"))
-        depends_on("rocrand {0}".format(arch_str), when=rocm_str, type=("link"))
-        depends_on("hipcub {0}".format(rocm_str), when=rocm_str, type=("link"))
-        depends_on("hipblas {0}".format(rocm_str), when=rocm_str, type=("link"))
-        depends_on("hiprand {0}".format(rocm_str), when=rocm_str, type=("link"))
-        depends_on("hipsparse {0}".format(rocm_str), when=rocm_str, type=("link"))
-        depends_on("hipfft {0}".format(rocm_str), when=rocm_str, type=("link"))
+        tty.msg(f"installing missing packages")
+        uv(
+            "sync",
+            "--active",
+            "--extra",
+            "all",
+            "--extra",
+            "cuda12",
+            "--inexact",
+            "--no-editable",
+            "--python",
+            str(venv_path.bin.python),
+            *no_install_options([*spack_installed, "cupy-cuda12x", "ghex"]),
+            extra_env={"VIRTUAL_ENV": str(venv_path)},
+        )
 
-    depends_on("rccl", when="+rocm", type=("link"))
-    depends_on("roctracer-dev", when="+rocm", type=("link"))
-    depends_on("rocprofiler-dev", when="+rocm", type=("link"))
+        tty.msg(f"linking spack installed packages into venv")
+        pathlib.Path(
+            f"{venv_path.lib.python}{python_spec.version.up_to(2)}/site-packages/spack_installed.pth"
+        ).write_text(pythonpath_to_pth())
 
-    conflicts("~cuda ~rocm")
-    conflicts("+cuda +rocm")
-    conflicts("+cuda cuda_arch=none")
+        tty.msg(f"running py2fgen")
+        py2fgen = Executable(venv_path.bin.py2fgen)
+        py2fgen(
+            "icon4py.tools.py2fgen.wrappers.all_bindings",
+            "diffusion_init,diffusion_run,grid_init,solve_nh_init,solve_nh_run",
+            "icon4py_bindings",
+            "-o",
+            prefix.src,
+            extra_env={"VIRTUAL_ENV": str(venv_path)},
+        )
 
-    def setup_build_environment(self, env):
-        env.set("CUPY_NUM_BUILD_JOBS", make_jobs)
-        if self.spec.satisfies("+cuda"):
-            cuda_arch = self.spec.variants["cuda_arch"].value
-            arch_str = ";".join(
-                "arch=compute_{0},code=sm_{0}".format(i) for i in cuda_arch
-            )
-            env.set("CUPY_NVCC_GENERATE_CODE", arch_str)
-        elif self.spec.satisfies("+rocm"):
-            spec = self.spec
 
-            incs = {
-                "roctracer-dev": ["include/roctracer"],
-                "hiprand": ["include"],
-                "rocrand": ["include"],
-                "rocthrust": ["include"],
-                "rocprim": ["include"],
-                "hip": ["include", "include/hip"],
-            }
+def prepare_uv():
+    uv = which("uv")
+    uv.add_default_env("UV_NO_CACHE", "true")
+    uv.add_default_env("UV_NO_MANAGED_PYTHON", "true")
+    uv.add_default_env("UV_PYTHON_DOWNLOADS", "never")
+    return uv
 
-            inc_dirs = []
-            for pkg, ds in incs.items():
-                for d in ds:
-                    p = os.path.join(spec[pkg].prefix, d)
-                    if os.path.exists(p):
-                        inc_dirs.append(p)
 
-            env.set("CUPY_INCLUDE_PATH", ":".join(inc_dirs))
+def get_installed_pkg(pip):
+    return [
+        item["name"] for item in json.loads(pip("list", "--format", "json", output=str))
+    ]
 
-            env.set("HIPCC", self.spec["hip"].hipcc)
-            env.set("ROCM_HOME", self.spec["hipcub"].prefix)
-            env.set("CUPY_INSTALL_USE_HIP", 1)
+
+def no_install_options(installed):
+    for name in installed:
+        yield "--no-install-package"
+        yield name
+
+
+def pythonpath_to_pth():
+    return "\n".join(os.environ["PYTHONPATH"].split(":"))
