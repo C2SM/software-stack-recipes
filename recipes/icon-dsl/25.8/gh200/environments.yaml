@@ -8,11 +8,32 @@ myenv:
     spec: cray-mpich@8.1.30%nvhpc
     gpu: cuda
   specs:
+  # icon4py deps
   - python@3.11
   - py-cupy +cuda cuda_arch=90
   - ghex +python +cuda cuda_arch=90
   - py-mpi4py
   - icon4py@icon_20250328
+  # icon deps 
+  - boost ~mpi
+  - cuda@12.6
+  - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
+  - cosmo-eccodes-definitions@2.36.0.3
+  - hdf5%nvhpc +szip +hl +fortran +mpi
+  - netcdf-c@4.9.2%nvhpc
+  - netcdf-cxx4@4.3.1%nvhpc
+  - netcdf-fortran@4.6.1%nvhpc
+  - osu-micro-benchmarks@5.9%nvhpc
+  - openblas
+  # for validation
+  - cdo
+  # everything needed for nccl on SS11
+  - nccl
+  - nccl-tests
+  # extras
+  - libfyaml
+  - zlib-ng
+  - cmake
   unify: true
   variants:
   - +mpi
@@ -20,3 +41,7 @@ myenv:
   - cuda_arch=90
   views:
     default:
+      link: roots
+      uenv:
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]

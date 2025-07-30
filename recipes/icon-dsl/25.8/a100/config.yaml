@@ -4,4 +4,4 @@ spack:
     repo: https://github.com/spack/spack.git
     commit: releases/v0.23
 modules: false
-description: icon4py proof-of-concept
+description: Build and runtime dependencies for ICON-DSL
