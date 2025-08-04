@@ -18,6 +18,7 @@ class Metkit(CMakePackage):
 
     license("Apache-2.0")
 
+    version("1.14.1", sha256="798c7067dc0c586b83eb081fcb31a9d9f7135b45da8dc8cd656cecffb65e3bba")
     version("1.11.22", sha256="e2a2ea1532f9e187e37b807dbf35cd09325b2aef29bd5117203d57ba2e65a0d6")
     version("1.11.5", sha256="717e0d92499d7a1b49338c3762d829aa83c75f8095dc9e7cdc7f49c209bb847b")
     version("1.10.17", sha256="1c525891d77ed28cd4c87b065ba4d1aea24d0905452c18d885ccbd567bbfc9b1")
