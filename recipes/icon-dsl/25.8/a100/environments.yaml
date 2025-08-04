@@ -16,7 +16,7 @@ myenv:
   - icon4py@icon_20250328
   # icon deps
   - boost
-  - cuda@12.6
+  - cuda@12.4
   - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
   - cosmo-eccodes-definitions@2.36.0.3
   - hdf5%nvhpc +szip +hl +fortran +mpi
