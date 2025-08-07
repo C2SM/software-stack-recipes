@@ -4,8 +4,7 @@ fdb:
       spec: gcc@13.3
   unify: when_possible
   mpi: null
-  packages:
-    - "eckit@1.31.4 linalg=none"
+  packages: []
   specs:
   - fdb@=5.17.3
   - gribjump@=0.10.0
