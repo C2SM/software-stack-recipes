@@ -2,9 +2,12 @@ fdb:
   compiler:
     - toolchain: gcc
       spec: gcc@13.3
-  unify: true
+  unify: when_possible
   mpi: null
-  packages: []
+  packages:
+    eckit:
+      version: [1.31.4]
+      require: "linalg=none"
   specs:
   - fdb@=5.17.3
   - gribjump@=0.10.0
