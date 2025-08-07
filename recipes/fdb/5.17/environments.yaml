@@ -5,9 +5,7 @@ fdb:
   unify: when_possible
   mpi: null
   packages:
-    eckit:
-      version: [1.31.4]
-      require: "linalg=none"
+    - "eckit@1.31.4 linalg=none"
   specs:
   - fdb@=5.17.3
   - gribjump@=0.10.0
