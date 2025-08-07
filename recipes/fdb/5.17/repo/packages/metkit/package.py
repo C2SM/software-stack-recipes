@@ -18,6 +18,11 @@ class Metkit(CMakePackage):
 
     license("Apache-2.0")
 
+    version(
+        "levelist-double",
+        sha256="d63181aecd6e3128609145e381b214b81b79072b414313351e7d3914377eda13",
+        url="https://github.com/ecmwf/metkit/archive/refs/tags/levelist-double.tar.gz",
+    )
     version("1.14.1", sha256="996cc1d4b569c73b20490bfccbd8ee09d78a94dd9c15e643528d7d9a360f3d2e")
     version("1.11.22", sha256="e2a2ea1532f9e187e37b807dbf35cd09325b2aef29bd5117203d57ba2e65a0d6")
     version("1.11.5", sha256="717e0d92499d7a1b49338c3762d829aa83c75f8095dc9e7cdc7f49c209bb847b")
