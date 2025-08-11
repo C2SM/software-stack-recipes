@@ -1,0 +1,23 @@
+fdb:
+  compiler:
+    - toolchain: gcc
+      spec: gcc@13.3
+  unify: when_possible
+  mpi: null
+  packages: []
+  specs:
+  - fdb@=5.17.3
+  - gribjump@=0.10.0
+  - eckit@=1.31.4 linalg=none
+  - metkit@=9999.99 # hack tag containing the fix for the levelist as double
+  - eccodes@=2.39.5 jp2k=none ~fortran +pthreads +aec
+  - ecbuild@=3.11.0
+  - python@=3.11.6
+  variants:
+  - ~mpi
+  views:
+    fdb:
+      link: roots
+      uenv:
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
