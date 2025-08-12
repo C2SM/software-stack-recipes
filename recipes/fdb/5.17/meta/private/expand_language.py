@@ -46,6 +46,7 @@ def main():
     )
 
     yaml.add_representer(tuple, tuple_representer, Dumper=NoAliasDumper)
+    # convert list to tuples so that the yaml dump generates [] (original formatting of the yaml) instead of rows of "-"
     metkit_lang = convert_nested_lists(metkit_lang)
 
     with open(args.langyaml, "w") as file:
