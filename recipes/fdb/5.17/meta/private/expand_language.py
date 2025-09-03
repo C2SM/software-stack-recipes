@@ -44,6 +44,10 @@ def main():
         {"type": "enum", "values": [["icon-ch1-eps"], ["icon-ch2-eps"]]}
     )
 
+    metkit_lang["_field"]["stream"]["values"].append(
+        ["reanl", "icon reanalysis light CH1"]
+    )
+
     yaml.add_representer(tuple, tuple_representer, Dumper=NoAliasDumper)
     # convert list to tuples so that the yaml dump generates [] (original formatting of the yaml) instead of rows of "-"
     metkit_lang = convert_nested_lists(metkit_lang)
