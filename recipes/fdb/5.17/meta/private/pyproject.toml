@@ -9,7 +9,7 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "~3.11"
-meteodata-lab = {extras = ["polytope", "regrid"], git = "https://github.com/MeteoSwiss/meteodata-lab.git", rev="d6ecd27f5ce4bf35d75eb2001f79b62b5641be70" }
+meteodata-lab = {version = "0.6.0", extras = ["polytope", "regrid"]}
 # version > 0.1.1 of pyfdb requires eccodes >= 2.39
 pyfdb = "0.1.2"
 fdb-utils = { git = "https://github.com/MeteoSwiss/fdb-utils.git", tag = "v1.1.5"}
