@@ -41,7 +41,14 @@ def main():
         metkit_lang = yaml.safe_load(file)
 
     metkit_lang["_field"]["model"]["type"].append(
-        {"type": "enum", "values": [["icon-ch1-eps"], ["icon-ch2-eps"]]}
+        {
+            "type": "enum",
+            "values": [["icon-ch1-eps"], ["icon-ch2-eps"], ["icon-rea-l-ch1"]],
+        }
+    )
+
+    metkit_lang["_field"]["stream"]["values"].append(
+        ["reanl", "icon reanalysis light CH1"]
     )
 
     yaml.add_representer(tuple, tuple_representer, Dumper=NoAliasDumper)
