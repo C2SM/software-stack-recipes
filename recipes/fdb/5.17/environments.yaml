@@ -16,7 +16,22 @@ fdb:
   variants:
   - ~mpi
   views:
-    fdb:
+    realtime:
+      link: roots
+      uenv:
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
+    real-ch1:
+      link: roots
+      uenv:
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
+    remote-devt:
+      link: roots
+      uenv:
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
+    remote-depl:
       link: roots
       uenv:
         prefix_paths:
