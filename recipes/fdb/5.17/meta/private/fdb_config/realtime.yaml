@@ -1,7 +1,7 @@
 ---
 type: local
 engine: toc
-schema: /scratch/mch/trajond/fdb-realtime-lcm/schema
+schema: /scratch/mch/trajond/fdb-realtime-lcm/schema TODO: bring into the recipe
 spaces:
 - handler: Default
   roots:
