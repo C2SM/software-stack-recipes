@@ -30,18 +30,11 @@ uenvs:
         a100: '24.10'
       deploy:
         balfrin: [zen3, a100]
-      develop: False
   fdb:
-    "5.16":
-      recipes:
-        zen2: '5.16'
-        zen3: '5.16'
-      develop: False
     "5.17":
       recipes:
         zen2: '5.17'
         zen3: '5.17'
-      develop: False
   icon:
     "25.2":
       recipes:
@@ -50,17 +43,14 @@ uenvs:
       deploy:
         santis: [gh200]
         balfrin: [a100]
-      develop: False
   mch:
     "v7":
       recipes:
         a100: 'v7'
       deploy:
         balfrin: [a100]
-      develop: False
     "v8":
       recipes:
         a100: 'v8'
       deploy:
         balfrin: [a100]
-      develop: False
