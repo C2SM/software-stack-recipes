@@ -1,8 +1,8 @@
 ---
 type: local
 engine: toc
-schema: /scratch/mch/trajond/fdb-realtime-lcm/schema TODO: bring into the recipe
+schema: /user-environment/meta/recipe/meta/private/fdb_config/realtime.schema
 spaces:
 - handler: Default
   roots:
-  - path: /scratch/mch/trajond/fdb-root-realtime
+  - path: /opr/mch/trajond/fdb-root-realtime
