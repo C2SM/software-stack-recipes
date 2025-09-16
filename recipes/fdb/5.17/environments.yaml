@@ -21,7 +21,7 @@ fdb:
       uenv:
         prefix_paths:
           LD_LIBRARY_PATH: [lib, lib64]
-    real-ch1:
+    rea-l-ch1:
       link: roots
       uenv:
         prefix_paths:
