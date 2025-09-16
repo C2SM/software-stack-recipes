@@ -31,6 +31,7 @@ python /user-environment/meta/recipe/meta/private/expand_language.py ${metkit_di
 
 fdb_config_dir="/user-environment/meta/recipe/meta/private/fdb_config"
 
+declare -A views
 views=(
   ["rea-1-ch1"]="${fdb_config_dir}/rea-l-ch1.yaml"
   ["realtime"]="${fdb_config_dir}/realtime.yaml2"
