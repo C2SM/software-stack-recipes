@@ -9,7 +9,7 @@ icon:
       gpu: cuda
   unify: true
   specs:
-  - boost ~mpi
+  - boost ~mpi +thread
   - serialbox@2.6.2%nvhpc +fortran
   - python@3.10
   - cuda@12.6
