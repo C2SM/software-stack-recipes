@@ -41,7 +41,7 @@ views=(
 
 for view in "${!views[@]}"
 do
-    config="${views[$view]}"
+    config_file="${views[$view]}"
     jq --arg view "$view" --arg env "/user-environment/env/$view" '.views[$view].env.values.list.FDB_HOME = [{"op":"set","value":$env}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
     jq --arg view "$view" --arg env "/user-environment/env/$view" '.views[$view].env.values.list.FDB5_HOME = [{"op":"set","value":$env}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
     jq --arg view "$view" '.views[$view].env.values.list.GRIB_DEFINITION_PATH = [{"op":"prepend","value":["/user-environment/data/share/eccodes-cosmo-mars/definitions", "/user-environment/data/share/definitions.edzw-2.38.3-1","/user-environment/env/fdb/share/eccodes/definitions"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
@@ -49,5 +49,5 @@ do
     jq --arg view "$view" '.views[$view].env.values.list.FDB_ENABLE_GRIBJUMP = [{"op":"set","value":"1"}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
     jq --arg view "$view" '.views[$view].env.values.list.AUTO_LOAD_PLUGINS = [{"op":"set","value":"1"}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
     jq --arg view "$view" --arg env "/user-environment/env/$view" '.views[$view].env.values.list.ECKIT_HOME = [{"op":"set","value":$env}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
-    jq --arg view "$view" '.views[$view].env.values.list.FDB5_CONFIG_FILE = [{"op":"set","value":"${config}"}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
+    jq --arg view "$view" --arg config $config_file '.views[$view].env.values.list.FDB5_CONFIG_FILE = [{"op":"set","value":$config_file}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
 done
