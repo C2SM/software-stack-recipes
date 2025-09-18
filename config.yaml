@@ -11,7 +11,9 @@ clusters:
         partition: 'postproc'
         variables:
           F7T_URL: 'https://api.cscs.ch/mch/firecrest/v1'
-          SLURM_CPUS_PER_TASK: "32"
+          SLURM_EXCLUSIVE: ''
+          SLURM_NODES: '1'
+          SLURM_CPU_BIND: 'none'
     runner: f7t
   santis:
     targets:
@@ -35,6 +37,7 @@ uenvs:
       recipes:
         zen2: '5.17'
         zen3: '5.17'
+        a100: '5.17'
   icon:
     "25.2":
       recipes:

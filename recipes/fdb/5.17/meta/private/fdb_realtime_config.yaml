@@ -1,8 +1,0 @@
----
-type: local
-engine: toc
-schema: /scratch/mch/trajond/fdb-realtime-lcm/schema
-spaces:
-- handler: Default
-  roots:
-  - path: /scratch/mch/trajond/fdb-root-realtime
