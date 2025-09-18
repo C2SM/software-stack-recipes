@@ -9,7 +9,7 @@ icon:
       gpu: cuda
   unify: true
   specs:
-  - boost ~mpi
+  - boost ~mpi +thread
   - serialbox@2.6.2%nvhpc +fortran
   - python@3.10
   - cuda@12.6
@@ -22,7 +22,7 @@ icon:
   - osu-micro-benchmarks@5.9%nvhpc
   - openblas
   # for validation
-  - cdo
+  # - cdo
   # everything needed for nccl on SS11
   - nccl
   - nccl-tests
