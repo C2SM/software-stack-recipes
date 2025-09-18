@@ -35,6 +35,7 @@ uenvs:
       recipes:
         zen2: '5.17'
         zen3: '5.17'
+        a100: '5.17'
   icon:
     "25.2":
       recipes:
