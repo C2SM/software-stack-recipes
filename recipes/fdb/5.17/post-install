@@ -10,26 +10,44 @@ rm eccodes_definitions.edzw-2.38.3-1.tar
 git clone -b v0.0.4 https://github.com/MeteoSwiss/eccodes-cosmo-mars.git
 popd
 
-curl -sSL https://install.python-poetry.org | POETRY_HOME=/user-environment /user-environment/env/fdb/bin/python3.11 -
+install_root=/user-environment/linux-sles15-zen3/gcc-13.3.0/
+
+python_exe=$(find $install_root -path "*/bin/python3.11" -type f)
+
+curl -sSL https://install.python-poetry.org | POETRY_HOME=/user-environment $python_exe -
 
 pushd /user-environment/meta/recipe/meta/private/
 rm -rf  /user-environment/venvs/
 mkdir -p /user-environment/venvs/
-/user-environment/env/fdb/bin/python3.11 -m venv /user-environment/venvs/fdb
+$python_exe -m venv /user-environment/venvs/fdb
 source /user-environment/venvs/fdb/bin/activate
 /user-environment/bin/poetry install
 popd
 
-metkit_dir=$(dirname $(find /user-environment/linux-sles15-zen3/gcc-13.3.0/ -name language.yaml))
+metkit_dir=$(dirname $(find $install_root -name language.yaml))
 
 python /user-environment/meta/recipe/meta/private/expand_params.py ${metkit_dir}/paramids.yaml /user-environment/data/share/definitions.edzw-2.38.3-1/grib2/shortName.def,/user-environment/data/share/definitions.edzw-2.38.3-1/grib2/localConcepts/edzw/shortName.def
 python /user-environment/meta/recipe/meta/private/expand_language.py ${metkit_dir}/language.yaml 
 
-jq '.views.fdb.env.values.list.FDB_HOME = [{"op":"prepend","value":["/user-environment/env/fdb"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
-jq '.views.fdb.env.values.list.FDB5_HOME = [{"op":"prepend","value":["/user-environment/env/fdb"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
-jq '.views.fdb.env.values.list.GRIB_DEFINITION_PATH = [{"op":"prepend","value":["/user-environment/data/share/eccodes-cosmo-mars/definitions", "/user-environment/data/share/definitions.edzw-2.38.3-1","/user-environment/env/fdb/share/eccodes/definitions"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
-jq '.views.fdb.env.values.list.FDB5_CONFIG_FILE = [{"op":"prepend","value":["/user-environment/meta/recipe/meta/private/fdb_realtime_config.yaml"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
-jq '.views.fdb.env.values.list.PATH[0].value |= ["/user-environment/venvs/fdb/bin/"] + .' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
-jq '.views.fdb.env.values.list.FDB_ENABLE_GRIBJUMP = [{"op":"set","value":"1"}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
-jq '.views.fdb.env.values.list.AUTO_LOAD_PLUGINS = [{"op":"set","value":"1"}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
-jq '.views.fdb.env.values.list.ECKIT_HOME = [{"op":"prepend","value":["/user-environment/env/fdb/"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
+fdb_config_dir="/user-environment/meta/recipe/meta/private/fdb_config"
+
+declare -A views
+views=(
+  ["rea-l-ch1"]="${fdb_config_dir}/rea-l-ch1.yaml"
+  ["realtime"]="${fdb_config_dir}/realtime.yaml"
+  ["remote-depl"]="${fdb_config_dir}/remote-depl.yaml"
+  ["remote-devt"]="${fdb_config_dir}/remote-devt.yaml"
+)
+
+for view in "${!views[@]}"
+do
+    config_file="${views[$view]}"
+    jq --arg view "$view" --arg env "/user-environment/env/$view" '.views[$view].env.values.list.FDB_HOME = [{"op":"prepend","value":[$env]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
+    jq --arg view "$view" --arg env "/user-environment/env/$view" '.views[$view].env.values.list.FDB5_HOME = [{"op":"prepend","value":[$env]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
+    jq --arg view "$view" '.views[$view].env.values.list.GRIB_DEFINITION_PATH = [{"op":"prepend","value":["/user-environment/data/share/eccodes-cosmo-mars/definitions", "/user-environment/data/share/definitions.edzw-2.38.3-1","/user-environment/env/fdb/share/eccodes/definitions"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
+    jq --arg view "$view" '.views[$view].env.values.list.PATH[0].value |= ["/user-environment/venvs/fdb/bin/"] + .' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
+    jq --arg view "$view" '.views[$view].env.values.list.FDB_ENABLE_GRIBJUMP = [{"op":"set","value":"1"}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
+    jq --arg view "$view" '.views[$view].env.values.list.AUTO_LOAD_PLUGINS = [{"op":"set","value":"1"}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
+    jq --arg view "$view" --arg env "/user-environment/env/$view" '.views[$view].env.values.list.ECKIT_HOME = [{"op":"set","value":[$env]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
+    jq --arg view "$view" --arg config_file "$config_file" '.views[$view].env.values.list.FDB5_CONFIG_FILE = [{"op":"prepend","value":[$config_file]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
+done
