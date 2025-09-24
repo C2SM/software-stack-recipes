@@ -19,6 +19,7 @@ earthkit-geo = "*"
 earthkit-meteo = "*"
 earthkit-data = ">=0.16.3"
 pygribjump = { git = "https://github.com/ecmwf/gribjump.git", tag = "0.10.0" }
+polytope-client = "0.7.8"
 nbconvert = "*"
 pyyaml = "*"
 
