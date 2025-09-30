@@ -1,6 +1,6 @@
 ---
 type: remote
-host: balfrin-ln003.cscs.ch
+host: balfrin-ln002.cscs.ch
 port: 30040
 store: remote
 engine: remote
