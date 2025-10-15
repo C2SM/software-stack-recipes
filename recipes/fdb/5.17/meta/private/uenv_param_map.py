@@ -34,6 +34,8 @@ _OVERRIDES = {
 # Absolute path to the paramId table used by this environment.
 _PARAMIDS_PATH = "/user-environment/env/rea-l-ch1/share/metkit/paramids.yaml"
 
+# Cache variable: stores the mapping once it's built (so we don't rebuild it every call)
+_cached_mapping = None
 
 def _load_table() -> dict:
     """Load the paramId table from the paramids YAML file."""
@@ -73,8 +75,7 @@ def _build_map(table: dict, min_pid: int = 500000) -> dict:
             mapping[shortname] = pid
 
     # Apply overrides for shortNames with multiple paramIds (use REA-L-CH1 metadata)
-    mapping.update(_OVERRIDES)
-    return mapping
+    return mapping | _OVERRIDES
 
 
 def var_to_paramid(names: list[str]) -> list[int]:
@@ -90,9 +91,14 @@ def var_to_paramid(names: list[str]) -> list[int]:
     Raises:
         KeyError: If any short name is not found in the mapping.
     """
-    table = _load_table()
-    mapping = _build_map(table)
+    global _cached_mapping
 
+    # Build the mapping only once and reuse it for future calls
+    if _cached_mapping is None:
+        table = _load_table()
+        _cached_mapping = _build_map(table)
+
+    mapping = _cached_mapping
     missing = [n for n in names if n.lower() not in mapping]
     if missing:
         raise KeyError(f"Short names not found in param mapping: {missing}")
