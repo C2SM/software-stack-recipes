@@ -22,7 +22,7 @@ pygribjump = { git = "https://github.com/ecmwf/gribjump.git", tag = "0.10.0" }
 polytope-client = "^0.7.8"
 nbconvert = "*"
 pyyaml = "*"
-kaleido = "^0.2.1"
+kaleido = "^1.1.0"
 
 [tool.pytest.ini_options]
 testpaths = ["test"]

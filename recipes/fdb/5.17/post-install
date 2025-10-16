@@ -1,5 +1,14 @@
 #!/bin/bash
-set -e 
+# Post-install for the uenv:
+#  - Fetch eccodes/GRIB shared definitions
+#  - Install Poetry and create a venv for FDB tooling
+#  - Expand metkit param/language tables (adds ICON models/streams/params)
+#  - Configure env vars per view
+#  - For 'rea-l-ch1' only: install a tiny Python helper (shortName -> paramId)
+
+set -e
+
+# --- Fetch GRIB/eccodes resources  ----------------------------------------
 rm -rf /user-environment/data/share
 mkdir -p /user-environment/data/share
 pushd /user-environment/data/share
@@ -10,8 +19,8 @@ rm eccodes_definitions.edzw-2.38.3-1.tar
 git clone -b v0.0.4 https://github.com/MeteoSwiss/eccodes-cosmo-mars.git
 popd
 
+# --- Tooling: locate Python, install Poetry, create venv for FDB tooling ---
 install_root=/user-environment/linux-sles15-zen3/gcc-13.3.0/
-
 python_exe=$(find $install_root -path "*/bin/python3.11" -type f)
 
 curl -sSL https://install.python-poetry.org | POETRY_HOME=/user-environment $python_exe -
@@ -24,11 +33,13 @@ source /user-environment/venvs/fdb/bin/activate
 /user-environment/bin/poetry install
 popd
 
+# --- Expand metkit tables with ICON parameter, model, and stream definitions --
 metkit_dir=$(dirname $(find $install_root -name language.yaml))
 
 python /user-environment/meta/recipe/meta/private/expand_params.py ${metkit_dir}/paramids.yaml /user-environment/data/share/definitions.edzw-2.38.3-1/grib2/shortName.def,/user-environment/data/share/definitions.edzw-2.38.3-1/grib2/localConcepts/edzw/shortName.def
 python /user-environment/meta/recipe/meta/private/expand_language.py ${metkit_dir}/language.yaml 
 
+# --- Configure FDB views and runtime environment ------------------------------
 fdb_config_dir="/user-environment/meta/recipe/meta/private/fdb_config"
 
 declare -A views
@@ -50,4 +61,19 @@ do
     jq --arg view "$view" '.views[$view].env.values.list.AUTO_LOAD_PLUGINS = [{"op":"set","value":"1"}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
     jq --arg view "$view" --arg env "/user-environment/env/$view" '.views[$view].env.values.list.ECKIT_HOME = [{"op":"set","value":[$env]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
     jq --arg view "$view" --arg config_file "$config_file" '.views[$view].env.values.list.FDB5_CONFIG_FILE = [{"op":"prepend","value":[$config_file]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
+
+    # --- rea-l-ch1 only: install Python helper for shortName → paramId mapping ---
+    # Makes it importable via: from uenv_param_map import shortname_to_paramid
+    if [[ "$view" == "rea-l-ch1" ]]; then
+        helper_src="/user-environment/meta/recipe/meta/private/uenv_param_map.py"
+        helper_dir="/user-environment/env/$view/share/python"
+        mkdir -p "$helper_dir"
+        cp -f "$helper_src" "$helper_dir/"
+
+        # Add helper path to PYTHONPATH for this view
+        jq --arg view "$view" --arg pydir "$helper_dir" \
+          '.views[$view].env.values.list.PYTHONPATH = [{"op":"prepend","value":[$pydir]}]' \
+          store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
+    fi
+
 done
