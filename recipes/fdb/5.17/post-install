@@ -63,7 +63,7 @@ do
     jq --arg view "$view" --arg config_file "$config_file" '.views[$view].env.values.list.FDB5_CONFIG_FILE = [{"op":"prepend","value":[$config_file]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
 
     # --- rea-l-ch1 only: install Python helper for shortName → paramId mapping ---
-    # Makes it importable via: from uenv_param_map import var_to_paramid
+    # Makes it importable via: from uenv_param_map import shortname_to_paramid
     if [[ "$view" == "rea-l-ch1" ]]; then
         helper_src="/user-environment/meta/recipe/meta/private/uenv_param_map.py"
         helper_dir="/user-environment/env/$view/share/python"

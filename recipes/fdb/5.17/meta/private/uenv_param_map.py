@@ -1,7 +1,7 @@
 """
 Convert ICON short names to their corresponding paramIds.
 
-Provides `var_to_paramid(names)` for mapping ICON short names
+Provides `shortname_to_paramid(names)` for mapping ICON short names
 (e.g. 'ASOB_S', 'CLCM') to paramIds used in the rea-l-ch1 environment.
 
 Uses the fixed table:
@@ -13,8 +13,8 @@ overrides for shortNames that have multiple paramIds, matching the
 metadata found in the REA-L-CH1 dataset.
 
 Example:
-    >>> from uenv_param_map import var_to_paramid
-    >>> var_to_paramid(["ASOB_S", "CLCM"])
+    >>> from uenv_param_map import shortname_to_paramid
+    >>> shortname_to_paramid(["ASOB_S", "CLCM"])
     [500078, 500049]
 """
 
@@ -78,7 +78,7 @@ def _build_map(table: dict, min_pid: int = 500000) -> dict:
     return mapping | _OVERRIDES
 
 
-def var_to_paramid(names: list[str]) -> list[int]:
+def shortname_to_paramid(names: list[str]) -> list[int]:
     """
     Convert a list of ICON short names to their corresponding paramIds.
 
