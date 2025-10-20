@@ -9,7 +9,7 @@ fdb:
   - fdb@=5.17.3 backends=lustre
   - gribjump@=0.10.2
   - eckit@=1.31.4 linalg=none
-  - metkit@=9999.99 # hack tag containing the fix for the levelist as double
+  - metkit@=1.15.2-levelist
   - eccodes@=2.39.5 jp2k=none ~fortran +pthreads +aec
   - ecbuild@=3.11.0
   - python@=3.11.6
