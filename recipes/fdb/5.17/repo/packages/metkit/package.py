@@ -19,9 +19,8 @@ class Metkit(CMakePackage):
     license("Apache-2.0")
 
     version(
-        "99999.99",
+        "1.15.2-levelist",
         sha256="25cebe7610949848671131ee3681e3e7e01d376e7b74e1a269872b9fba15ab54",
-        url="https://github.com/ecmwf/metkit/archive/refs/tags/1.15.2-levelist.tar.gz",
     )
     version(
         "9999.99",
