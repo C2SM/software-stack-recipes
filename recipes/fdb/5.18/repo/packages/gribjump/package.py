@@ -13,12 +13,12 @@ class Gribjump(CMakePackage):
 
     homepage = "https://github.com/ecmwf/gribjump"
     url = "https://github.com/ecmwf/gribjump/archive/refs/tags/0.10.0.tar.gz"
-    git = "https://github.com/ecmwf/fdb.git"
+    git = "https://github.com/ecmwf/gribjump.git"
 
     maintainers("cosunae")
 
     license("Apache-2.0")
-
+    version("0.10.2", sha256="c1635c1f902daa244592b60c9b1a81375b467409635bd2cbfc6993d32554bd3d")
     version("0.10.0", sha256="04a6c7322e585acb7e432e74d68f073ab584a42af9dcb2b4b97f17aebf17d07f")
 
     depends_on("c", type="build")  # generated
