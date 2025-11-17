@@ -1,0 +1,54 @@
+icon:
+  compiler: [gcc, nvhpc]
+  network:
+    mpi: cray-mpich@8.1.32 +cuda %c,cxx,fortran=nvhpc
+    specs:
+    - libfabric@2.3 +gdrcopy %c=gcc
+    - gdrcopy %c,cxx=gcc
+    - libcxi %c=gcc
+  unify: true
+  duplicates:
+    strategy: full
+  specs:
+  - boost ~mpi +thread %c,cxx=gcc
+  - serialbox@2.6.2 +fortran %c,cxx,fortran=nvhpc
+  - python@3.11 +optimizations %c,cxx=gcc ^libffi %c,cxx=gcc ^expat %c=gcc ^libmd %c=gcc ^libxcrypt %c=gcc ^gettext %c,cxx=gcc
+  - cuda@12
+  - eccodes@2.36.4 +tools +fortran +aec +openmp jp2k=jasper %c,cxx,fortran=nvhpc ^libjpeg-turbo %c,cxx=gcc
+  - cosmo-eccodes-definitions@2.36.0.3
+  - hdf5 +szip +hl +fortran +mpi %c,cxx,fortran=nvhpc
+  - netcdf-c@4.9.2 %c,cxx=nvhpc
+  - netcdf-cxx4@4.3.1 %c,cxx=nvhpc
+  - netcdf-fortran@4.6.1 %c,cxx,fortran=nvhpc
+  - nvhpc
+  - osu-micro-benchmarks %c,cxx=gcc
+  - openblas %c,cxx,fortran=nvhpc
+  # for validation
+  # - cdo # dependencies don't build (check cache?)
+  # everything needed for nccl on SS11
+  - aws-ofi-nccl %c,cxx=gcc ^findutils %c=gcc
+  - nccl %c,cxx=gcc
+  - nccl-tests %cxx=gcc
+  # extras
+  - libfyaml %c=gcc ^m4 %c,cxx=gcc
+  - zlib-ng %c,cxx=gcc
+  - cmake %c,cxx=gcc
+  # for icon-exclaim
+  - libxml2 %c=gcc ^libiconv %c=gcc
+  # force compiler on transitive dependencies
+  - texinfo %c,cxx=gcc
+  - numactl %c=gcc
+  - libnl %c=gcc
+  - libuv %c=gcc
+  - ninja %c,cxx=gcc
+  - libfuse %c,cxx=gcc
+  variants:
+  - +mpi
+  - +cuda
+  - cuda_arch=90a
+  views:
+    default:
+      link: roots
+      uenv:
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
