@@ -8,7 +8,7 @@ fdb:
   specs:
   - fdb@=5.18.3 backends=lustre
   - gribjump@=0.10.2
-  - eckit@=1.32.2 linalg=none
+  - eckit@=1.32.3 linalg=none
   - metkit@=1.15.2-levelist
   - eccodes@=2.39.5 jp2k=none ~fortran +pthreads +aec
   - ecbuild@=3.12.0
