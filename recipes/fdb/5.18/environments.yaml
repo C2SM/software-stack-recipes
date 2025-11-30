@@ -6,7 +6,7 @@ fdb:
   mpi: null
   packages: []
   specs:
-  - fdb@=5.18.0 backends=lustre
+  - fdb@=5.18.3 backends=lustre
   - gribjump@=0.10.2
   - eckit@=1.32.2 linalg=none
   - metkit@=1.15.2-levelist
