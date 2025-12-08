@@ -19,7 +19,7 @@ icon:
   - netcdf-cxx4@4.3.1%nvhpc
   - netcdf-fortran@4.6.1%nvhpc
   - osu-micro-benchmarks@5.9%nvhpc
-  - openblas
+  - openblas@0.3.21%nvhpc
   # for validation
   - cdo
   # everything needed for nccl on SS11
