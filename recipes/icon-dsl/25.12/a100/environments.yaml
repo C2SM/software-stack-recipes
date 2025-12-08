@@ -10,13 +10,14 @@ icon:
   unify: true
   specs:
   # icon4py deps
-  # - python@3.11
-  # - py-cupy +cuda cuda_arch=80
-  # - ghex +python +cuda cuda_arch=80
+  - python@3.11
+  - py-cupy@13.1.0%gcc +cuda cuda_arch=80
+  - cutensor@2.0.1.2%gcc
+  - ghex +python +cuda cuda_arch=80
   # - py-mpi4py
   # - icon4py
   # icon deps
-  - cuda@12.6
+  - cuda@12.4
   - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
   - cosmo-eccodes-definitions@2.36.0.3
   - hdf5%nvhpc +szip +hl +fortran +mpi
@@ -24,7 +25,7 @@ icon:
   - netcdf-cxx4@4.3.1%nvhpc
   - netcdf-fortran@4.6.1%nvhpc
   - osu-micro-benchmarks@5.9%nvhpc
-  - openblas
+  - openblas@0.3.21%nvhpc
   # for validation
   - cdo
   # everything needed for nccl on SS11

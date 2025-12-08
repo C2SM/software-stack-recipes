@@ -2,6 +2,6 @@ name: icon-dsl
 store: /user-environment
 spack:
     repo: https://github.com/spack/spack.git
-    commit: releases/v0.22
+    commit: releases/v0.23
 modules: false
 description: Build and runtime dependencies for ICON-DSL
