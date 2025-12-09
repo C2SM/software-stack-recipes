@@ -19,6 +19,7 @@ class Fdb(CMakePackage):
     license("Apache-2.0")
 
     version("master", branch="master")
+    version("5.18.3", sha256="8b6fff6c32923bd8e456f2ec1540b171b4efdbf92e81ae2e5ff2967dec224a86")
     version("5.18.0", sha256="d72c7180b9c0e3048a19bc60df6f2827e7849dea8299b7d3f21d5ffb7fc99951")
     version("5.17.3", sha256="b477f95a00bd0177e26490e0d0911679aba9183c53ac525625fe1665487068d0")
     version("5.16.2", sha256="1014c85f7bd6f406f9abd04d0f5bd5bd757c17a1556dd6e49e0288bf455da12a")
