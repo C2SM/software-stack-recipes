@@ -6,7 +6,7 @@ set -euo pipefail
 # --------------------------
 packages=(
     "cosmo-eccodes-definitions"
-    # "ghex"
+    "ghex"
     "hwmalloc"
     "oomph"
     "uv"

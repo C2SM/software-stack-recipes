@@ -11,11 +11,10 @@ icon:
   specs:
   # icon4py deps
   - python@3.11
-  - py-cupy@13.1.0%gcc +cuda cuda_arch=80
-  - cutensor@2.0.1.2%gcc
+  - py-cupy +cuda cuda_arch=80
   - ghex +python +cuda cuda_arch=80
-  # - py-mpi4py
-  # - icon4py
+  - py-mpi4py
+  - icon4py@icon_20250328
   # icon deps
   - cuda@12.4
   - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
@@ -25,7 +24,7 @@ icon:
   - netcdf-cxx4@4.3.1%nvhpc
   - netcdf-fortran@4.6.1%nvhpc
   - osu-micro-benchmarks@5.9%nvhpc
-  - openblas@0.3.21%nvhpc
+  - openblas
   # for validation
   - cdo
   # everything needed for nccl on SS11
