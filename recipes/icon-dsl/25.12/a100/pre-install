@@ -10,7 +10,7 @@ packages=(
     "hwmalloc"
     "oomph"
     "uv"
-    # "icon4py"
+    "icon4py"
     # "icon"
     # "icon-exclaim"
 )

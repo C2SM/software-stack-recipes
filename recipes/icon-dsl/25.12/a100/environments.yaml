@@ -14,7 +14,7 @@ icon:
   - py-cupy +cuda cuda_arch=80
   - ghex +python +cuda cuda_arch=80
   - py-mpi4py
-  - icon4py@icon_20250328
+  - icon4py@main
   # icon deps
   - cuda@12.4
   - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
