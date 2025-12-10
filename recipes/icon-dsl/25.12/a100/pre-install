@@ -7,9 +7,9 @@ set -euo pipefail
 packages=(
     "cosmo-eccodes-definitions"
     # "ghex"
-    # "hwmalloc"
-    # "oomph"
-    # "uv"
+    "hwmalloc"
+    "oomph"
+    "uv"
     # "icon4py"
     # "icon"
     # "icon-exclaim"
