@@ -1,4 +1,4 @@
-myenv:
+icon:
   compiler:
   - toolchain: gcc
     spec: gcc
@@ -10,13 +10,15 @@ myenv:
   specs:
   # icon4py deps
   - python@3.11
-  - py-cupy +cuda cuda_arch=80
-  - ghex +python +cuda cuda_arch=80
+  - py-cupy +cuda cuda_arch=90
+  - ghex +python +cuda cuda_arch=90
   - py-mpi4py
-  - icon4py@icon_20250328
+  - icon4py@main
+  - icon-exclaim @develop %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
+    ~emvorado +art +dace gpu=nvidia-80 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
+    ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
   # icon deps
-  - boost
-  - cuda@12.4
+  - cuda@12
   - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
   - cosmo-eccodes-definitions@2.36.0.3
   - hdf5%nvhpc +szip +hl +fortran +mpi
@@ -38,7 +40,7 @@ myenv:
   variants:
   - +mpi
   - +cuda
-  - cuda_arch=80
+  - cuda_arch=90
   views:
     default:
       link: roots

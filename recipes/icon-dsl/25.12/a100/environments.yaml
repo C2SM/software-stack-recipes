@@ -1,21 +1,24 @@
-myenv:
+icon:
   compiler:
-  - toolchain: gcc
-    spec: gcc
-  - toolchain: llvm
-    spec: nvhpc
+      - toolchain: gcc
+        spec: gcc
+      - toolchain: llvm
+        spec: nvhpc
   mpi:
-    spec: cray-mpich@8.1.30%nvhpc
-    gpu: cuda
+      spec: cray-mpich@8.1.30%nvhpc
+      gpu: cuda
+  unify: true
   specs:
   # icon4py deps
   - python@3.11
   - py-cupy +cuda cuda_arch=80
   - ghex +python +cuda cuda_arch=80
   - py-mpi4py
-  - icon4py@icon_20250328
+  - icon4py@main
+  - icon-exclaim @develop %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
+    ~emvorado +art +dace gpu=nvidia-80 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
+    ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
   # icon deps
-  - boost
   - cuda@12.4
   - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
   - cosmo-eccodes-definitions@2.36.0.3
@@ -34,7 +37,6 @@ myenv:
   - libfyaml
   - zlib-ng
   - cmake
-  unify: true
   variants:
   - +mpi
   - +cuda
