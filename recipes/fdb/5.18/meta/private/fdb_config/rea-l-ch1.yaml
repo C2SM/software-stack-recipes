@@ -1,0 +1,8 @@
+---
+type: local
+engine: toc
+schema: /user-environment/meta/recipe/meta/private/fdb_config/rea-l-ch1.schema
+spaces:
+- handler: Default
+  roots:
+  - path: /store_new/mch/msopr/rea-l-ch1/fdb/data
