@@ -14,7 +14,10 @@ icon:
   - py-cupy +cuda cuda_arch=80
   - ghex +python +cuda cuda_arch=80
   - py-mpi4py
-  - icon4py@icon_20250328
+  - icon4py@main
+  - icon-exclaim @develop %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
+    ~emvorado +art +dace gpu=nvidia-80 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
+    ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
   # icon deps
   - cuda@12.4
   - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
