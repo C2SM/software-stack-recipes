@@ -6,13 +6,12 @@ set -euo pipefail
 # --------------------------
 packages=(
     "cosmo-eccodes-definitions"
-    # "ghex"
-    # "hwmalloc"
-    # "oomph"
-    # "uv"
-    # "icon4py"
-    # "icon"
-    # "icon-exclaim"
+    "ghex"
+    "hwmalloc"
+    "oomph"
+    "uv"
+    "icon4py"
+    "icon-exclaim"
 )
 SPACK_C2SM_TAG="v0.22.2.5"
 
