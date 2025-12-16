@@ -11,6 +11,9 @@ clusters:
         partition: 'postproc'
         variables:
           F7T_URL: 'https://api.cscs.ch/mch/firecrest/v1'
+          SLURM_EXCLUSIVE: ''
+          SLURM_NODES: '1'
+          SLURM_CPU_BIND: 'none'
     runner: f7t
   santis:
     targets:
@@ -29,7 +32,12 @@ uenvs:
         a100: '24.10'
       deploy:
         balfrin: [zen3, a100]
-      develop: False
+  fdb:
+    "5.18":
+      recipes:
+        zen2: '5.18'
+        zen3: '5.18'
+        a100: '5.18'
   icon:
     "25.2":
       recipes:
@@ -38,7 +46,6 @@ uenvs:
       deploy:
         santis: [gh200]
         balfrin: [a100]
-      develop: False
   icon-dsl:
     "25.8":
       recipes:
@@ -47,17 +54,14 @@ uenvs:
       deploy:
         santis: [gh200]
         balfrin: [a100]
-      develop: False
   mch:
     "v7":
       recipes:
         a100: 'v7'
       deploy:
         balfrin: [a100]
-      develop: False
     "v8":
       recipes:
         a100: 'v8'
       deploy:
         balfrin: [a100]
-      develop: False

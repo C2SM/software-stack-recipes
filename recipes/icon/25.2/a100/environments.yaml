@@ -10,6 +10,7 @@ icon:
   unify: true
   specs:
   - boost ~mpi
+  - serialbox@2.6.2%nvhpc +fortran
   - python@3.10
   - cuda@12.6
   - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
@@ -29,6 +30,8 @@ icon:
   - libfyaml
   - zlib-ng
   - cmake
+  # for icon-exclaim
+  - libxml2
   variants:
   - +mpi
   - +cuda
