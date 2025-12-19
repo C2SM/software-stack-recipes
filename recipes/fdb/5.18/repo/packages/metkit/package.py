@@ -36,6 +36,7 @@ class Metkit(CMakePackage):
     version("1.7.0", sha256="8c34f6d8ea5381bd1bcfb22462349d03e1592e67d8137e76b3cecf134a9d338c")
 
 
+    depends_on("c", type="build")
     depends_on("cxx", type="build")  # generated
 
     variant("tools", default=True, description="Build the command line tools")
