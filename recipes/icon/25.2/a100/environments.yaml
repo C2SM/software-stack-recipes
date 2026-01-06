@@ -11,7 +11,7 @@ icon:
   specs:
   - boost ~mpi
   - serialbox@2.6.2%nvhpc +fortran
-  - python@3.11
+  - python@3.13
   - cuda@12.6
   - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
   - cosmo-eccodes-definitions@2.36.0.3
