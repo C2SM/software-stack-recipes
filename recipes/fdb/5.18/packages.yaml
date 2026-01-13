@@ -1,0 +1,6 @@
+packages:
+  lustre:
+    buildable: false
+    externals:
+    - spec: lustre@2.15
+      prefix: /usr

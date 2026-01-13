@@ -1,5 +1,4 @@
-# Copyright 2013-2024 Lawrence Livermore National Security, LLC and other
-# Spack Project Developers. See the top-level COPYRIGHT file for details.
+# Copyright Spack Project Developers. See COPYRIGHT file for details.
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
@@ -45,15 +44,18 @@ class Eccodes(CMakePackage):
     git = "https://github.com/ecmwf/eccodes.git"
     list_url = "https://confluence.ecmwf.int/display/ECC/Releases"
 
-    maintainers("skosukhin", "victoria-cherkas", "dominichofer", "climbfuji")
+    maintainers("skosukhin", "victoria-cherkas", "climbfuji")
 
     license("Apache-2.0")
 
     version("develop", branch="develop")
-    version("2.36.4",
-            sha256="198ccb26e8df96544c668ea6853ea153535ab78b10c43339a678f271337aa0da",
-            url="https://github.com/ecmwf/eccodes/archive/refs/tags/2.36.4.tar.gz"
-            )
+
+    version("2.42.0", sha256="60371b357cb011dee546db2eabace5b7e27f0f87d3ea4a5adde7891371b3c128")
+    version("2.39.5", git="https://github.com/ecmwf/eccodes.git", tag="2.39.5")
+    version("2.39.0", sha256="0c4d746700acc49af9c878925f1b26bdd42443ff7c2d7c676deb2babb6847afb")
+    version("2.38.3", sha256="fa7b7ffb22973ed1dfbeb208c042a67a805ab070f1288a0f1f0707a1020d1c81")
+    version("2.38.2", sha256="b4ce8bd144ac957c7650e7013d3502573120502158cd03b8915bab83d3c52e9d")
+    version("2.38.0", sha256="96a21fbe8ca3aa4c31bb71bbd378b7fd130cbc0f7a477567d70e66a000ff68d9")
     version("2.34.0", sha256="3cd208c8ddad132789662cf8f67a9405514bfefcacac403c0d8c84507f303aba")
     version("2.33.0", sha256="bdcec8ce63654ec6803400c507f01220a9aa403a45fa6b5bdff7fdcc44fd7daf")
     version("2.32.1", sha256="ad2ac1bf36577b1d35c4a771b4d174a06f522a1e5ef6c1f5e53a795fb624863e")
@@ -70,11 +72,6 @@ class Eccodes(CMakePackage):
     version("2.13.0", sha256="c5ce1183b5257929fc1f1c8496239e52650707cfab24f4e0e1f1a471135b8272")
     version("2.5.0", sha256="18ab44bc444168fd324d07f7dea94f89e056f5c5cd973e818c8783f952702e4e")
     version("2.2.0", sha256="1a4112196497b8421480e2a0a1164071221e467853486577c4f07627a702f4c3")
-
-    # we are still using spack v0.21 v0.22, so comment these out for now
-    #depends_on("c", type="build")  # generated
-    #depends_on("cxx", type="build")  # generated
-    #depends_on("fortran", type="build")  # generated
 
     variant("tools", default=False, description="Build the command line tools")
     variant("netcdf", default=False, description="Enable GRIB to NetCDF conversion tool")
@@ -102,6 +99,10 @@ class Eccodes(CMakePackage):
         description="List of extra definitions to install",
     )
 
+    depends_on("c", type="build")  # generated
+    depends_on("cxx", type="build")  # generated
+    depends_on("fortran", type="build")  # generated
+
     depends_on("netcdf-c", when="+netcdf")
     # Cannot be built with openjpeg@2.0.x.
     depends_on("openjpeg@1.5.0:1.5,2.1.0:2.3", when="jp2k=openjpeg")
@@ -121,12 +122,7 @@ class Eccodes(CMakePackage):
     depends_on("cmake@3.6:", type="build")
     depends_on("cmake@3.12:", when="@2.19:", type="build")
 
-    # TODO: ecbuild was only used for the @develop branch
-    # however, testing 2.36.4, it appears to be a requirement.
-    # this might be because they package the software differently in GitHub
-    # (they normally provide releases as tar balls on Confluence)
-    depends_on("ecbuild", type="build")
-    #depends_on("ecbuild", type="build", when="@develop")
+    depends_on("ecbuild", type="build", when="@develop")
 
     conflicts("+openmp", when="+pthreads", msg="Cannot enable both POSIX threads and OMP")
 
@@ -168,7 +164,7 @@ class Eccodes(CMakePackage):
         when="@:2.4.0+netcdf",
     )
 
-    @when("%nag+fortran")
+    @when("+fortran%nag")
     def patch(self):
         # A number of Fortran source files assume that the kinds of integer and
         # real variables are specified in bytes. However, the NAG compiler
@@ -311,14 +307,9 @@ class Eccodes(CMakePackage):
             return libs
 
         msg = "Unable to recursively locate {0} {1} libraries in {2}"
-        raise spack.error.NoLibrariesError(
+        raise NoLibrariesError(
             msg.format("shared" if shared else "static", self.spec.name, self.spec.prefix)
         )
-
-    @run_before("cmake")
-    def check_fortran(self):
-        if "+fortran" in self.spec and self.compiler.fc is None:
-            raise InstallError("Fortran interface requires a Fortran compiler!")
 
     def cmake_args(self):
         jp2k = self.spec.variants["jp2k"].value
