@@ -57,3 +57,9 @@ uenvs:
         a100: 'v8'
       deploy:
         balfrin: [a100]
+  climtools:
+    "25.2":
+      recipes:
+        gh200: '25.2/gh200'
+      deploy:
+        santis: [gh200]

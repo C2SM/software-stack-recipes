@@ -1,0 +1,32 @@
+tools:
+  compiler:
+      - toolchain: gcc
+        spec: gcc
+  mpi:
+      spec: cray-mpich@8.1.30
+      gpu: false
+  unify: true
+  specs:
+  # Info about versions for later update:
+  # - the eccodes version is pinned to 2.36.4 to match the icon/25.2 recipe
+  # - the python minor version is set to the latest possible spack accepts
+  # - netcdf versions are pinned for "documentation" as they could be sensitive
+  #   but should be updated to the latest possible
+  - hdf5 +szip +hl
+  - netcdf-c@4.9.2
+  - netcdf-cxx4@4.3.1
+  - netcdf-fortran@4.6.1
+  - ncview
+  - cdo
+  - nco
+  - python@3.12
+  - eccodes@2.36.4 +tools +aec +openmp jp2k=jasper
+  - git-lfs
+  - icontools@2.5.2
+  views:
+    climtools:
+      link: roots
+      uenv:
+        add_compilers: true
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
