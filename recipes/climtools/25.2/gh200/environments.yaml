@@ -24,7 +24,7 @@ tools:
   - git-lfs
   - icontools@2.5.2
   views:
-    icontools:
+    climtools:
       link: roots
       uenv:
         add_compilers: true
