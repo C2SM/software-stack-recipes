@@ -1,4 +1,4 @@
-gcc-env:
+tools:
   compiler:
       - toolchain: gcc
         spec: gcc
@@ -24,7 +24,7 @@ gcc-env:
   - git-lfs
   - icontools@2.5.2
   views:
-    default:
+    icontools:
       link: roots
       uenv:
         add_compilers: true
