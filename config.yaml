@@ -46,6 +46,21 @@ uenvs:
       deploy:
         santis: [gh200]
         balfrin: [a100]
+  icon-dsl:
+    "25.8":
+      recipes:
+        gh200: '25.8/gh200'
+        a100: '25.8/a100'
+      deploy:
+        santis: [gh200]
+        balfrin: [a100]
+    "25.12":
+      recipes:
+        gh200: '25.12/gh200'
+        a100: '25.12/a100'
+      deploy:
+        santis: [gh200]
+        balfrin: [a100]
   mch:
     "v7":
       recipes:

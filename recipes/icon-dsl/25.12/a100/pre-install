@@ -1,0 +1,59 @@
+#!/bin/bash
+set -euo pipefail
+
+# --------------------------
+# Configuration
+# --------------------------
+packages=(
+    "cosmo-eccodes-definitions"
+    "ghex"
+    "hwmalloc"
+    "oomph"
+    "uv"
+    "icon4py"
+    # "icon"
+    # "icon-exclaim"
+)
+SPACK_C2SM_TAG="v0.22.2.5"
+
+echo "----------------------------------------"
+echo "SPACK C2SM Setup Script"
+echo "Tag to clone: ${SPACK_C2SM_TAG}"
+echo "Packages to copy: ${packages[*]}"
+echo "----------------------------------------"
+
+# --------------------------
+# Clone the spack-c2sm repository
+# --------------------------
+echo "Cloning spack-c2sm repository (branch/tag: ${SPACK_C2SM_TAG})..."
+git clone --depth 1 -b "${SPACK_C2SM_TAG}" https://github.com/C2SM/spack-c2sm.git
+echo "Clone complete."
+
+# --------------------------
+# Copy packages into store/repo/packages
+# --------------------------
+for package in "${packages[@]}"; do
+    SRC="spack-c2sm/repos/c2sm/packages/${package}"
+    DEST="store/repo/packages/${package}"
+    
+    echo "Copying package '${package}'..."
+    
+    if [[ ! -d "$SRC" ]]; then
+        echo "ERROR: Source package directory does not exist: $SRC"
+        exit 1
+    fi
+    
+    mkdir -p "$(dirname "$DEST")"
+    cp -r "$SRC" "$DEST"
+    
+    echo "Package '${package}' copied to '$DEST'."
+done
+
+# --------------------------
+# Cleanup
+# --------------------------
+echo "Removing temporary clone 'spack-c2sm'..."
+rm -rf spack-c2sm
+echo "Cleanup complete."
+
+echo "All done!"
