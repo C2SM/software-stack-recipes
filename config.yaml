@@ -35,7 +35,9 @@ uenvs:
   fdb:
     "5.19":
       recipes:
+        zen2: '5.19'
         zen3: '5.19'
+        a100: '5.19'
   icon:
     "25.2":
       recipes:
