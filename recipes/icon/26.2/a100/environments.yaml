@@ -1,0 +1,36 @@
+icon:
+  compiler: [gcc, nvhpc]
+  network:
+    mpi: cray-mpich@8.1.30 +cuda
+  unify: true
+  specs:
+  - boost ~mpi
+  - python@3.10
+  - cuda@12.6
+  # - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
+  # - eccodes-cosmo-resources@2.36.0.3
+  # - hdf5%nvhpc +szip +hl +fortran +mpi
+  # - netcdf-c@4.9.2%nvhpc
+  # - netcdf-cxx4@4.3.1%nvhpc
+  # - netcdf-fortran@4.6.1%nvhpc
+  # - osu-micro-benchmarks@5.9%nvhpc
+  - openblas
+  # for validation
+  - cdo
+  # everything needed for nccl on SS11
+  - nccl
+  - nccl-tests
+  # extras
+  - libfyaml
+  - zlib-ng
+  - cmake
+  variants:
+  - +mpi
+  - +cuda
+  - cuda_arch=80
+  views:
+    default:
+      link: roots
+      uenv:
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
