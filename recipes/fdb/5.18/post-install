@@ -30,8 +30,8 @@ rm -rf  /user-environment/venvs/
 mkdir -p /user-environment/venvs/
 $python_exe -m venv /user-environment/venvs/fdb
 source /user-environment/venvs/fdb/bin/activate
+export DEPEND_ON_ECCODESLIB=0
 /user-environment/bin/poetry install
-poetry remove eccodeslib
 popd
 
 # --- Expand metkit tables with ICON parameter, model, and stream definitions --
