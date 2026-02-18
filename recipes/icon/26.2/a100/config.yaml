@@ -3,10 +3,9 @@ store: /user-environment
 spack:
   repo: https://github.com/spack/spack.git
   commit: releases/v1.1
-  packages:         # 
+  packages:
     repo: https://github.com/spack/spack-packages.git
-    # commit: 5e506ab69aed5199b6d01083016fa592f4fb4296
-    commit: releases/v2025.11
+    commit: 5e506ab69aed5199b6d01083016fa592f4fb4296
 modules: true
 description: "Compilers and libraries required to build ICON"
 version: 2
