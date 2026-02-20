@@ -5,12 +5,12 @@ clusters:
         uarch: 'a100'
         partition: 'normal'
         variables:
-          F7T_URL: 'https://api.cscs.ch/mch/firecrest/v1'
+          F7T_URL: 'https://api.cscs.ch/mch/firecrest/v2'
       -
         uarch: 'zen3'
         partition: 'postproc'
         variables:
-          F7T_URL: 'https://api.cscs.ch/mch/firecrest/v1'
+          F7T_URL: 'https://api.cscs.ch/mch/firecrest/v2'
           SLURM_EXCLUSIVE: ''
           SLURM_NODES: '1'
           SLURM_CPU_BIND: 'none'
