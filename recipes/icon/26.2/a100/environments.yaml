@@ -7,12 +7,13 @@ icon:
   # - boost ~mpi
   - python@3.10
   - cuda@12.6
-  - eccodes@2.36.4 +aec+fortran~ipo~memfs~netcdf~openmp~png~pthreads+shared~tools extra_definitions:=none jp2k=openjpeg %c,cxx,fortran=nvhpc
+  - eccodes@2.36.4 +aec+fortran~ipo~memfs~netcdf~openmp~png~pthreads+shared~tools jp2k=openjpeg %c,cxx,fortran=nvhpc
   - eccodes-cosmo-resources@2.36.0.3
   - hdf5@1.14.6 ~cxx+fortran+hl~ipo~java~map+mpi+shared~subfiling+szip~threadsafe+tools api=default %c,fortran=nvhpc
   - netcdf-c@4.9.3 +blosc~byterange~dap~fsync~hdf4~jna~logging+mpi~nczarr_zip+optimize~parallel-netcdf+pic+shared+szip+zstd %c=nvhpc
   - netcdf-fortran@4.6.2 ~doc+pic+shared %c,fortran=nvhpc
   - openblas %c,cxx,fortran=nvhpc
+  - findutils 
   # # for validation
   # - cdo
   # # everything needed for nccl on SS11
