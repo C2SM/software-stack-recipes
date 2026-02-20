@@ -1,4 +1,5 @@
 #!/bin/bash
+# test
 # Post-install for the uenv:
 #  - Fetch eccodes/GRIB shared definitions
 #  - Install Poetry and create a venv for FDB tooling
