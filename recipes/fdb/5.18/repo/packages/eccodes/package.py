@@ -331,7 +331,6 @@ class Eccodes(CMakePackage):
             self.define_from_variant("ENABLE_ECCODES_OMP_THREADS", "openmp"),
             self.define_from_variant("ENABLE_MEMFS", "memfs"),
             self.define_from_variant("ENABLE_ECKIT_GEO", "geo"),
-            self.define_from_variant("ENABLE_GEOGRAPHY", "geo"),
             self.define(
                 "ENABLE_PYTHON{0}".format("2" if self.spec.satisfies("@2.20.0:") else ""), False
             ),
