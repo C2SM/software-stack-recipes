@@ -49,6 +49,7 @@ class Eccodes(CMakePackage):
     license("Apache-2.0")
 
     version("develop", branch="develop")
+    version("native", branch="feature/eckit-geo")
 
     version("2.45.0", sha256="6c84b39d7cc5e3b8330eeabe880f3e337f9b2ee1ebce20ea03eecd785f6c39a1")
     version("2.44.0", sha256="c75fb1f91b765b6b8b4774632a8a6fbcec96934db015fb63c2ad2560aedd443b")
