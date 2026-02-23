@@ -14,7 +14,7 @@ packages=(
     # "icon"
     # "icon-exclaim"
 )
-SPACK_C2SM_TAG="v0.22.2.5"
+SPACK_C2SM_TAG="ghex_async-mpi"
 
 echo "----------------------------------------"
 echo "SPACK C2SM Setup Script"
