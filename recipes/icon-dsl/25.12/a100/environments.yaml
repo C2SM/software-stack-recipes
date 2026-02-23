@@ -13,7 +13,7 @@ icon:
   - python@3.11
   - py-cupy +cuda cuda_arch=80
   - ghex@async-mpi +python +cuda cuda_arch=80
-  - boost +threads
+  - boost +thread
   - py-mpi4py
   - icon4py@main
   - icon-exclaim @develop %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
