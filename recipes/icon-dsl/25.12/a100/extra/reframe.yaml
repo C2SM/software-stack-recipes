@@ -1,5 +1,5 @@
 default:
-  features: [osu-micro-benchmarks, mpi, serial, openmp]
+  features: [osu-micro-benchmarks, mpi, serial, openmp, icon, icon4py]
   cc: mpicc
   cxx: mpic++
   ftn: mpifort
