@@ -9,6 +9,7 @@ class Ghex(CMakePackage, CudaPackage, ROCmPackage):
     git = "https://github.com/ghex-org/GHEX.git"
     maintainers = ["boeschf"]
 
+    version("async-mpi", git="https://github.com/msimberg/GHEX.git", branch="async-mpi", submodules=True)
     version("0.4.1", tag="v0.4.1", submodules=True)
     version("0.4.0", tag="v0.4.0", submodules=True)
     version("0.3.0", tag="v0.3.0", submodules=True)
