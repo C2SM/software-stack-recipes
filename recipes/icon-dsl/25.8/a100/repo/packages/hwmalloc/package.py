@@ -9,6 +9,7 @@ class Hwmalloc(CMakePackage, CudaPackage, ROCmPackage):
     git = "https://github.com/ghex-org/hwmalloc.git"
     maintainers = ["boeschf"]
 
+    version("async-mpi", commit="c3ddc35f58ad6709388c209dfaec59b1ff40d472")
     version("0.3.0", sha256="d4d4ac6087a806600d79fb62c02719ca3d58a412968fe1ef4a2fd58d9e7ee950")
     version("0.2.0", sha256="734758a390a3258b86307e4aef50a7ca2e5d0e2e579f18aeefcd05397e114419")
     version("0.1.0", sha256="06e9bfcef0ecce4d19531ccbe03592b502d1281c7a092bc0ff51ca187899b21c")
