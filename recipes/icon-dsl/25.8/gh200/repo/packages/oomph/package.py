@@ -42,6 +42,7 @@ class Oomph(CMakePackage, CudaPackage, ROCmPackage):
         description="Enable thread barrier (disable for task based runtime)",
     )
 
+    depends_on("hwmalloc@async-mpi", when="@async-mpi")
     depends_on("hwmalloc+cuda", when="+cuda")
     depends_on("hwmalloc+rocm", when="+rocm")
     depends_on("hwmalloc", when="~cuda~rocm")
