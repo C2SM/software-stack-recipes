@@ -12,7 +12,7 @@ icon:
   # icon4py deps
   - python@3.11
   - py-cupy +cuda cuda_arch=80
-  - ghex +python +cuda cuda_arch=80
+  - ghex@async-mpi +python +cuda cuda_arch=80
   - boost +threads
   - py-mpi4py
   - icon4py@main
