@@ -10,7 +10,7 @@ icon:
   specs:
   # icon4py deps
   - python@3.11
-  - py-cupy +cuda cuda_arch=90
+  - py-cupy@13.1.0 +cuda cuda_arch=90
   - ghex@async-mpi +python +cuda cuda_arch=90
   - boost +thread
   - py-mpi4py
@@ -37,7 +37,7 @@ icon:
   - libfyaml
   - zlib-ng
   - cmake
-  unify: when_possible
+  unify: true
   variants:
   - +mpi
   - +cuda
