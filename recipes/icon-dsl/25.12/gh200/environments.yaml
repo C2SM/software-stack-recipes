@@ -37,7 +37,7 @@ icon:
   - libfyaml
   - zlib-ng
   - cmake
-  unify: true
+  unify: when_possible
   variants:
   - +mpi
   - +cuda

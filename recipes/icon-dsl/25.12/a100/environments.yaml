@@ -7,7 +7,7 @@ icon:
   mpi:
       spec: cray-mpich@8.1.30%nvhpc
       gpu: cuda
-  unify: true
+  unify: when_possible
   specs:
   # icon4py deps
   - python@3.11
