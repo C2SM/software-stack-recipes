@@ -5,12 +5,12 @@ clusters:
         uarch: 'a100'
         partition: 'normal'
         variables:
-          F7T_URL: 'https://api.cscs.ch/mch/firecrest/v1'
+          F7T_URL: 'https://api.cscs.ch/mch/firecrest/v2'
       -
         uarch: 'zen3'
         partition: 'postproc'
         variables:
-          F7T_URL: 'https://api.cscs.ch/mch/firecrest/v1'
+          F7T_URL: 'https://api.cscs.ch/mch/firecrest/v2'
           SLURM_EXCLUSIVE: ''
           SLURM_NODES: '1'
           SLURM_CPU_BIND: 'none'
@@ -21,7 +21,7 @@ clusters:
         uarch: 'gh200'
         partition: 'normal'
         variables:
-          F7T_URL: "https://api.cscs.ch/cw/firecrest/v1"
+          F7T_URL: "https://api.cscs.ch/cw/firecrest/v2"
     runner: f7t
 uenvs:
   climana:
@@ -72,3 +72,9 @@ uenvs:
         a100: 'v8'
       deploy:
         balfrin: [a100]
+  climtools:
+    "25.2":
+      recipes:
+        gh200: '25.2/gh200'
+      deploy:
+        santis: [gh200]
