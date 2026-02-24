@@ -79,8 +79,6 @@ class PyCupy(PythonPackage, CudaPackage, ROCmPackage):
             "nccl@2.16:2.26 +cuda cuda_arch={0}".format(a), when="@13+cuda cuda_arch={0}".format(a)
         )
 
-    depends_on("cudnn@8.8", when="@12.0.0: +cuda")
-    depends_on("cudnn@8.5", when="@11.2.0:11.6.0 +cuda")
     depends_on("cutensor", when="@:12.1.0 +cuda")
     depends_on("cutensor@2.0", when="@13.1: +cuda")
 
