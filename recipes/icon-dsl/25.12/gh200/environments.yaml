@@ -10,7 +10,7 @@ icon:
   specs:
   # icon4py deps
   - python@3.11
-  - py-cupy +cuda cuda_arch=90
+  - py-cupy@13.3 +cuda cuda_arch=90
   - ghex@async-mpi +python +cuda cuda_arch=90
   - boost +thread
   - py-mpi4py
