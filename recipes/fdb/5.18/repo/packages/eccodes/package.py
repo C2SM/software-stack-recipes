@@ -50,6 +50,8 @@ class Eccodes(CMakePackage):
 
     version("develop", branch="develop")
 
+    version("2.45.0", sha256="6c84b39d7cc5e3b8330eeabe880f3e337f9b2ee1ebce20ea03eecd785f6c39a1")
+    version("2.44.0", sha256="c75fb1f91b765b6b8b4774632a8a6fbcec96934db015fb63c2ad2560aedd443b")
     version("2.42.0", sha256="60371b357cb011dee546db2eabace5b7e27f0f87d3ea4a5adde7891371b3c128")
     version("2.39.5", git="https://github.com/ecmwf/eccodes.git", tag="2.39.5")
     version("2.39.0", sha256="0c4d746700acc49af9c878925f1b26bdd42443ff7c2d7c676deb2babb6847afb")
@@ -99,9 +101,12 @@ class Eccodes(CMakePackage):
         description="List of extra definitions to install",
     )
 
+    variant("geo", default=False, description="Enable eckit::geo")
+
     depends_on("c", type="build")  # generated
     depends_on("cxx", type="build")  # generated
     depends_on("fortran", type="build")  # generated
+    depends_on("eckit", when="+geo")
 
     depends_on("netcdf-c", when="+netcdf")
     # Cannot be built with openjpeg@2.0.x.
@@ -325,6 +330,7 @@ class Eccodes(CMakePackage):
             self.define_from_variant("ENABLE_ECCODES_THREADS", "pthreads"),
             self.define_from_variant("ENABLE_ECCODES_OMP_THREADS", "openmp"),
             self.define_from_variant("ENABLE_MEMFS", "memfs"),
+            self.define_from_variant("ENABLE_ECKIT_GEO", "geo"),
             self.define(
                 "ENABLE_PYTHON{0}".format("2" if self.spec.satisfies("@2.20.0:") else ""), False
             ),
