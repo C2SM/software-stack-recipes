@@ -29,7 +29,7 @@ icon:
   - osu-micro-benchmarks@5.9%nvhpc
   - openblas
   # for validation
-  - cdo
+  # - cdo # TODO: Enable? Currently broken.
   # everything needed for nccl on SS11
   - nccl
   - nccl-tests
