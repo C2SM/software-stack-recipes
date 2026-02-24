@@ -6,15 +6,15 @@ fdb:
   mpi: null
   packages: []
   specs:
-  - fdb@=5.18.3 backends=lustre
-  - gribjump@=0.10.2
-  - eckit@=1.32.3 linalg=none
-  - metkit@=1.15.2-levelist
-  - eccodes@=2.39.5 jp2k=none ~fortran +pthreads +aec
-  - ecbuild@=3.12.0
-  - python@=3.11.6
+    - fdb@=5.18.3 backends=lustre
+    - gribjump@=0.10.2
+    - eckit@=native linalg=none compression=lz4 +curl +ssl
+    - metkit@=1.15.2-levelist
+    - eccodes@=native jp2k=none ~fortran +pthreads +aec +geo
+    - ecbuild@=3.12.0
+    - python@=3.11.6
   variants:
-  - ~mpi
+    - ~mpi
   views:
     realtime:
       link: roots
