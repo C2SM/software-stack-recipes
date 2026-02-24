@@ -9,7 +9,6 @@ class Oomph(CMakePackage, CudaPackage, ROCmPackage):
     git = "https://github.com/ghex-org/oomph.git"
     maintainers = ["boeschf"]
 
-    version("async-mpi", commit="2814e2a7d66b96737f1845c510dadd1b816ab5eb")
     version("0.4.0", sha256="e342c872dfe4832be047f172dc55c12951950c79da2630b071c61607ef913144")
     version("0.3.0", sha256="61e346d1ba28a859745de47f37edce39c7f5c5e1aab716493dc964e158fd99ec")
     version("0.2.0", sha256="135cdb856aa817c053b6af1617869dbcd0ee97d34607e78874dd775ea389434e")
@@ -43,7 +42,6 @@ class Oomph(CMakePackage, CudaPackage, ROCmPackage):
         description="Enable thread barrier (disable for task based runtime)",
     )
 
-    depends_on("hwmalloc@async-mpi", when="@async-mpi")
     depends_on("hwmalloc+cuda", when="+cuda")
     depends_on("hwmalloc+rocm", when="+rocm")
     depends_on("hwmalloc", when="~cuda~rocm")

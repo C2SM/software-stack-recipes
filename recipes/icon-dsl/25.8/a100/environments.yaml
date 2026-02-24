@@ -11,7 +11,7 @@ myenv:
   # icon4py deps
   - python@3.11
   - py-cupy +cuda cuda_arch=80
-  - ghex@async-mpi +python +cuda cuda_arch=80
+  - ghex +python +cuda cuda_arch=80
   - py-mpi4py
   - icon4py@icon_20250328
   # icon deps
