@@ -46,5 +46,6 @@ icon:
     default:
       link: roots
       uenv:
+        add_compilers: true
         prefix_paths:
           LD_LIBRARY_PATH: [lib, lib64]
