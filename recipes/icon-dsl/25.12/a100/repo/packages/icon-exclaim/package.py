@@ -364,7 +364,11 @@ class IconExclaim(Icon):
     maintainers('jonasjucker', 'huppd')
 
     version('develop', branch='icon-dsl', submodules=True)
-
+    version("0.3.0",
+            # commit="5c5b742a969af2bd491e26cd0a05a35838f121c4",
+            commit="177c5d6a27177560b5321ad9d57a0ae24978085d",
+            submodules=True)
+  
     # EXCLAIM-GT4Py specific features:
     dsl_values = ('substitute', 'verify')
     variant('dsl',
@@ -374,6 +378,7 @@ class IconExclaim(Icon):
             description='Build with GT4Py dynamical core',
             multi=True)
 
+    depends_on("icon4py@0.0.15", when="@0.3.0")       
     for x in dsl_values:
         depends_on('icon4py', type="build", when=f"dsl={x}")
 
