@@ -6,7 +6,7 @@ fdb:
   mpi: null
   packages: []
   specs:
-  - fdb@=5.18.3 backends=lustre
+  - fdb@git.develop backends=lustre
   - gribjump@=0.10.2
   - eckit@git.feature/eckit-geo linalg=none compression=lz4 +curl +ssl
   - metkit@=1.16.2
