@@ -15,7 +15,7 @@ icon:
   - boost +thread
   - py-mpi4py
   - icon4py@0.0.15
-  - icon-exclaim @develop %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
+  - icon-exclaim @0.3.0 %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
     ~emvorado +art +dace gpu=nvidia-90 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
     ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
   # icon deps
