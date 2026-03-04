@@ -19,6 +19,9 @@ class Metkit(CMakePackage):
 
     license("Apache-2.0")
 
+    # As of 04.03.2026, the levelist branch has been rebased on top of v1.16.2
+    version("levelist", branch="levelist")
+
     version("1.16.2", sha256="30a65a2cc14942e7ce64ea5539a1b6b85ecce336811014aba70e1f4f9e651f68")
     version("1.16.1", sha256="0520cba65afeaede6553c8b62941e67c0f88123602e19d0898538a52e2b0f522")
     version("1.16.0", sha256="7b93e4fc1608c1ac205fbf3e094d50ba8a88e7223b65eab7a12362f55550c8e1")

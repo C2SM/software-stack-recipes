@@ -17,6 +17,8 @@ class Ecbuild(CMakePackage):
 
     license("Apache-2.0")
 
+    version("3.13.1", sha256="9759815aef22c9154589ea025056db086c575af9dac635614b561ab825f9477e")
+    version("3.13.0", sha256="7be83510e7209c61273121bcf817780597c3afa41a5129bfccc281f0df1ffda1")
     version("3.12.0", sha256="70c7fc9b17f736a3312167c2c36d13b3b5833a255fe2b168b2886ad7c743ffdf")
     version("3.11.0", sha256="38a96bdeb38feb65446b6f95b35492232abd188c41b8a28fd128f9f88e00b05d")
     version("3.10.0", sha256="7065e1725584b507517cbfc456299ff588e20adf37bc6210ce89fb65a1ad08d0") 
