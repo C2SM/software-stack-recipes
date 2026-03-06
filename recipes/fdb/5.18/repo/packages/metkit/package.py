@@ -19,9 +19,8 @@ class Metkit(CMakePackage):
 
     license("Apache-2.0")
 
-    # As of 04.03.2026, the levelist branch has been rebased on top of v1.16.2
-    version("levelist", branch="levelist")
-
+    version("1.16.3-levelist", sha256="90bd8ca8be1c954f8d6af44b5a416c7357a37bcc9247fa3cdec8ec5cb7c411d0")
+    version("1.16.3", sha256="b2da2ce50aac68365506c7fb8661889df61a01e53ca7e8f699fe9d3015d44974")
     version("1.16.2", sha256="30a65a2cc14942e7ce64ea5539a1b6b85ecce336811014aba70e1f4f9e651f68")
     version("1.16.1", sha256="0520cba65afeaede6553c8b62941e67c0f88123602e19d0898538a52e2b0f522")
     version("1.16.0", sha256="7b93e4fc1608c1ac205fbf3e094d50ba8a88e7223b65eab7a12362f55550c8e1")
@@ -30,11 +29,11 @@ class Metkit(CMakePackage):
         "1.15.2-levelist",
         sha256="25cebe7610949848671131ee3681e3e7e01d376e7b74e1a269872b9fba15ab54",
     )
-    version(
-        "9999.99",
-        sha256="d63181aecd6e3128609145e381b214b81b79072b414313351e7d3914377eda13",
-        url="https://github.com/ecmwf/metkit/archive/refs/tags/levelist-double.tar.gz",
-    )
+    #version(
+        #"999.999.999",
+        #sha256="d63181aecd6e3128609145e381b214b81b79072b414313351e7d3914377eda13",
+        #url="https://github.com/ecmwf/metkit/archive/refs/tags/levelist-double.tar.gz",
+    #)
     version("1.14.1", sha256="996cc1d4b569c73b20490bfccbd8ee09d78a94dd9c15e643528d7d9a360f3d2e")
     version("1.11.22", sha256="e2a2ea1532f9e187e37b807dbf35cd09325b2aef29bd5117203d57ba2e65a0d6")
     version("1.11.5", sha256="717e0d92499d7a1b49338c3762d829aa83c75f8095dc9e7cdc7f49c209bb847b")
