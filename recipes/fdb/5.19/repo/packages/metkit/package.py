@@ -19,6 +19,10 @@ class Metkit(CMakePackage):
     license("Apache-2.0")
 
     version(
+        "1.16.3-levelist",
+        sha256="90bd8ca8be1c954f8d6af44b5a416c7357a37bcc9247fa3cdec8ec5cb7c411d0",
+    )
+    version(
         "1.15.2-levelist",
         sha256="25cebe7610949848671131ee3681e3e7e01d376e7b74e1a269872b9fba15ab54",
     )
