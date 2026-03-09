@@ -13,7 +13,7 @@ packages=(
     "icon4py"
     # "icon-exclaim"
 )
-SPACK_C2SM_TAG="v0.22.2.6"
+SPACK_C2SM_TAG="tmp_wait_for_compilation"
 
 echo "----------------------------------------"
 echo "SPACK C2SM Setup Script"
