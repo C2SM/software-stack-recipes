@@ -100,6 +100,8 @@ class Eccodes(CMakePackage):
         description="List of extra definitions to install",
     )
 
+    variant("geo", default=False, description="Enable eckit::geo")
+
     depends_on("c", type="build")  # generated
     depends_on("cxx", type="build")  # generated
     depends_on("fortran", type="build")  # generated
@@ -126,6 +128,8 @@ class Eccodes(CMakePackage):
     depends_on("ecbuild", type="build", when="@develop")
 
     conflicts("+openmp", when="+pthreads", msg="Cannot enable both POSIX threads and OMP")
+
+    depends_on("eckit", when="+geo")
 
     conflicts(
         "+netcdf",
@@ -326,6 +330,8 @@ class Eccodes(CMakePackage):
             self.define_from_variant("ENABLE_ECCODES_THREADS", "pthreads"),
             self.define_from_variant("ENABLE_ECCODES_OMP_THREADS", "openmp"),
             self.define_from_variant("ENABLE_MEMFS", "memfs"),
+            self.define_from_variant("ENABLE_GEOGRAPHY", "geo"),
+            self.define_from_variant("ENABLE_ECKIT_GEO", "geo"),
             self.define(
                 "ENABLE_PYTHON{0}".format("2" if self.spec.satisfies("@2.20.0:") else ""), False
             ),

@@ -15,6 +15,7 @@ class Eckit(CMakePackage):
     homepage = "https://github.com/ecmwf/eckit"
     git = "https://github.com/ecmwf/eckit.git"
     url = "https://github.com/ecmwf/eckit/archive/refs/tags/1.16.0.tar.gz"
+    list_url = "https://github.com/ecmwf/eckit/tags"
 
     maintainers("skosukhin", "climbfuji", "victoria-cherkas", "dominichofer")
 

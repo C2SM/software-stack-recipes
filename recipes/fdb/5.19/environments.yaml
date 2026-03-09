@@ -6,12 +6,12 @@ fdb:
   mpi: null
   packages: []
   specs:
-  - fdb@=5.19.1 backends=lustre
-  - gribjump@=0.10.2
-  - eckit@=2.0.2 linalg=none
+  - fdb@=5.19.2 backends=lustre
+  - gribjump@=0.10.3
+  - eckit@=2.0.2 linalg=none compression=lz4 +curl +ssl
   - metkit@=1.16.3-levelist
-  - eccodes@=2.46.0 jp2k=none ~fortran +pthreads +aec
-  - ecbuild@=3.12.0
+  - eccodes@=2.46.0 jp2k=none ~fortran +pthreads +aec +geo
+  - ecbuild@=3.13.1
   - python@=3.11.6
   variants:
   - ~mpi
