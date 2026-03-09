@@ -377,7 +377,7 @@ class IconExclaim(Icon):
             description='Build with GT4Py dynamical core',
             multi=True)
 
-    depends_on("icon4py@0.0.15", when="@0.3.0")       
+    depends_on("icon4py@blueline_wait_for_compilation", when="@0.3.0")
     for x in dsl_values:
         depends_on('icon4py', type="build", when=f"dsl={x}")
 
