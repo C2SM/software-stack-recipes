@@ -19,32 +19,20 @@ fdb:
     realtime:
       link: roots
       uenv:
-        env_vars:
-          set:
-          - ECCODES_ECKIT_GEO: "1"
         prefix_paths:
           LD_LIBRARY_PATH: [lib, lib64]
     rea-l-ch1:
       link: roots
       uenv:
-        env_vars:
-          set:
-          - ECCODES_ECKIT_GEO: "1"
         prefix_paths:
           LD_LIBRARY_PATH: [lib, lib64]
     remote-devt:
       link: roots
       uenv:
-        env_vars:
-          set:
-          - ECCODES_ECKIT_GEO: "1"
         prefix_paths:
           LD_LIBRARY_PATH: [lib, lib64]
     remote-depl:
       link: roots
       uenv:
-        env_vars:
-          set:
-          - ECCODES_ECKIT_GEO: "1"
         prefix_paths:
           LD_LIBRARY_PATH: [lib, lib64]
