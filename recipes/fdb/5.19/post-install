@@ -12,10 +12,13 @@ set -e
 rm -rf /user-environment/data/share
 mkdir -p /user-environment/data/share
 pushd /user-environment/data/share
-wget https://opendata.dwd.de/weather/lib/grib/eccodes_definitions.edzw-2.38.3-1.tar.bz2
-bunzip2  eccodes_definitions.edzw-2.38.3-1.tar.bz2
-tar xvf eccodes_definitions.edzw-2.38.3-1.tar
-rm eccodes_definitions.edzw-2.38.3-1.tar
+# eccodes cosmo definitions: since the updated defs are not published by DWD yet,
+# they are instead provided by the corresponding internal python package; see var
+# 'eccodes_cosmo_resources_path' below
+#wget https://opendata.dwd.de/weather/lib/grib/eccodes_definitions.edzw-2.38.3-1.tar.bz2
+#bunzip2  eccodes_definitions.edzw-2.38.3-1.tar.bz2
+#tar xvf eccodes_definitions.edzw-2.38.3-1.tar
+#rm eccodes_definitions.edzw-2.38.3-1.tar
 git clone -b v0.0.4 https://github.com/MeteoSwiss/eccodes-cosmo-mars.git
 popd
 
@@ -33,11 +36,14 @@ source /user-environment/venvs/fdb/bin/activate
 /user-environment/bin/poetry install
 popd
 
+# determine path of eccodes cosmo resources from python package
+eccodes_cosmo_resources_path=$(python -c "import eccodes_cosmo_resources as res; print(res.get_definitions_path())")
+
 # --- Expand metkit tables with ICON parameter, model, and stream definitions --
 metkit_dir=$(dirname $(find $install_root -name language.yaml))
 
-python /user-environment/meta/recipe/meta/private/expand_params.py ${metkit_dir}/paramids.yaml /user-environment/data/share/definitions.edzw-2.38.3-1/grib2/shortName.def,/user-environment/data/share/definitions.edzw-2.38.3-1/grib2/localConcepts/edzw/shortName.def
-python /user-environment/meta/recipe/meta/private/expand_language.py ${metkit_dir}/language.yaml 
+python /user-environment/meta/recipe/meta/private/expand_params.py ${metkit_dir}/paramids.yaml ${eccodes_cosmo_resources_path}/grib2/shortName.def,${eccodes_cosmo_resources_path}/grib2/localConcepts/edzw/shortName.def
+python /user-environment/meta/recipe/meta/private/expand_language.py ${metkit_dir}/language.yaml
 
 # --- Configure FDB views and runtime environment ------------------------------
 fdb_config_dir="/user-environment/meta/recipe/meta/private/fdb_config"
@@ -55,7 +61,7 @@ do
     config_file="${views[$view]}"
     jq --arg view "$view" --arg env "/user-environment/env/$view" '.views[$view].env.values.list.FDB_HOME = [{"op":"prepend","value":[$env]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
     jq --arg view "$view" --arg env "/user-environment/env/$view" '.views[$view].env.values.list.FDB5_HOME = [{"op":"prepend","value":[$env]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
-    jq --arg view "$view" '.views[$view].env.values.list.GRIB_DEFINITION_PATH = [{"op":"prepend","value":["/user-environment/data/share/eccodes-cosmo-mars/definitions", "/user-environment/data/share/definitions.edzw-2.38.3-1","/user-environment/env/fdb/share/eccodes/definitions"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
+    jq --arg view "$view" --arg eccodes_cosmo_resources_path "$eccodes_cosmo_resources_path" '.views[$view].env.values.list.GRIB_DEFINITION_PATH = [{"op":"prepend","value":["/user-environment/data/share/eccodes-cosmo-mars/definitions", "$eccodes_cosmo_resources_path","/user-environment/env/fdb/share/eccodes/definitions"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
     jq --arg view "$view" '.views[$view].env.values.list.PATH[0].value |= ["/user-environment/venvs/fdb/bin/"] + .' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
     jq --arg view "$view" '.views[$view].env.values.list.FDB_ENABLE_GRIBJUMP = [{"op":"set","value":"1"}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
     jq --arg view "$view" '.views[$view].env.values.list.AUTO_LOAD_PLUGINS = [{"op":"set","value":"1"}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
