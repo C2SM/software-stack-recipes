@@ -19,7 +19,7 @@ fdb:
     realtime:
       link: roots
       uenv:
-        env-vars:
+        env_vars:
           set:
           - ECCODES_ECKIT_GEO: "1"
         prefix_paths:
@@ -27,7 +27,7 @@ fdb:
     rea-l-ch1:
       link: roots
       uenv:
-        env-vars:
+        env_vars:
           set:
           - ECCODES_ECKIT_GEO: "1"
         prefix_paths:
@@ -35,7 +35,7 @@ fdb:
     remote-devt:
       link: roots
       uenv:
-        env-vars:
+        env_vars:
           set:
           - ECCODES_ECKIT_GEO: "1"
         prefix_paths:
@@ -43,7 +43,7 @@ fdb:
     remote-depl:
       link: roots
       uenv:
-        env-vars:
+        env_vars:
           set:
           - ECCODES_ECKIT_GEO: "1"
         prefix_paths:
