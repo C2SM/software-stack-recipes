@@ -14,7 +14,7 @@ icon:
   - ghex@async-mpi +python +cuda cuda_arch=90
   - boost +thread
   - py-mpi4py
-  - icon4py@blueline_wait_for_compilation
+  - icon4py@git=e7f2cdae5b435d2db048351dc46dcad126ce9d64=blueline_wait_for_compilation
   - icon-exclaim @0.3.0 %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
     ~emvorado +art +dace gpu=nvidia-90 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
     ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
