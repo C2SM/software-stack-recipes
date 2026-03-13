@@ -365,7 +365,7 @@ class IconExclaim(Icon):
 
     version('develop', branch='icon-dsl', submodules=True)
     version("0.3.0",
-            commit="5c5b742a969af2bd491e26cd0a05a35838f121c4",
+            commit="5f0c6eed726a37ad5e6ca311284b2a43c259c1dc",
             submodules=True)
 
     # EXCLAIM-GT4Py specific features:
