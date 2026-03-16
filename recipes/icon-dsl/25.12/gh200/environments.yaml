@@ -11,7 +11,7 @@ icon:
   # icon4py deps
   - python@3.11
   - py-cupy@13.3 +cuda cuda_arch=90
-  - ghex@async-mpi +python +cuda cuda_arch=90
+  - ghex@philip-async-mpi +python +cuda cuda_arch=90
   - boost +thread
   - py-mpi4py
   - icon4py@git.3108df74ba35e8ca09f49c7bd22cab2093780b25=phimuell__async_mpi_test
