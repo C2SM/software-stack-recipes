@@ -14,7 +14,7 @@ icon:
   - ghex@git.9c09f3c52d2d76816074cdff869e2f90d005137c=philip-async-mpi +python +cuda cuda_arch=90
   - boost +thread
   - py-mpi4py
-  - icon4py@git.3108df74ba35e8ca09f49c7bd22cab2093780b25=phimuell__async_mpi_test
+  - icon4py@git.bef46a7625773659ce81e249758ffe401005a92d=blueline_staging_2026-03-16
   - icon-exclaim@git.5f0c6eed726a37ad5e6ca311284b2a43c259c1dc=0.3.0 %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
     ~emvorado +art +dace gpu=nvidia-90 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
     ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
