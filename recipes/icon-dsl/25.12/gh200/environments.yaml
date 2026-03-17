@@ -11,7 +11,7 @@ icon:
   # icon4py deps
   - python@3.11
   - py-cupy@13.3 +cuda cuda_arch=90
-  - ghex@git.9c09f3c52d2d76816074cdff869e2f90d005137c=philip-async-mpi +python +cuda cuda_arch=90
+  - ghex@git.a1de2a6a16b728ad08df7ec0793e30591e61e4c7=philip-async-mpi +python +cuda cuda_arch=90
   - boost +thread
   - py-mpi4py
   - icon4py@git.bef46a7625773659ce81e249758ffe401005a92d=blueline_staging_2026-03-16
