@@ -16,7 +16,7 @@ icon:
   - hwmalloc
   - boost +thread
   - py-mpi4py
-  - icon4py@git.bef46a7625773659ce81e249758ffe401005a92d=blueline_staging_2026-03-16
+  - icon4py@git.a967314dad2f83a9163ed7bd332f2c389837c6a8=main
   - icon-exclaim@git.5f0c6eed726a37ad5e6ca311284b2a43c259c1dc=0.3.0 %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
     ~emvorado +art +dace gpu=nvidia-90 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
     ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
