@@ -6,6 +6,7 @@ icon:
   specs:
   # - boost ~mpi
   - python@3.10
+  - libtool@2.4.6
   - cuda@12.6
   - eccodes@2.36.4 +aec+fortran~ipo~memfs~netcdf~openmp~png~pthreads+shared~tools jp2k=openjpeg %c,cxx,fortran=nvhpc
   - eccodes-cosmo-resources@2.36.0.3
