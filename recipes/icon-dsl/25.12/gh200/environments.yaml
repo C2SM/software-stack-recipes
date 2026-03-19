@@ -17,7 +17,7 @@ icon:
   - boost +thread
   - py-mpi4py
   - icon4py@git.a967314dad2f83a9163ed7bd332f2c389837c6a8=main
-  - icon-exclaim@git.5f0c6eed726a37ad5e6ca311284b2a43c259c1dc=0.3.0 %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
+  - icon-exclaim@git.16094db329861582d7b19de54fd3e88ad86a3834=0.3.0 %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
     ~emvorado +art +dace gpu=nvidia-90 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
     ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
   # icon deps
