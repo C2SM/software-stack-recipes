@@ -1,0 +1,11 @@
+ecflow:
+  compiler: [gcc]
+  unify: true
+  specs:
+  - ecflow@5.11.4 +ipo ~pic +ssl +static_boost +ui build_type=Release %c,cxx,fortran=gcc
+  views:
+    default:
+      link: roots
+      uenv:
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
