@@ -1,0 +1,38 @@
+fdb:
+  compiler:
+    - toolchain: gcc
+      spec: gcc@13.3
+  unify: when_possible
+  mpi: null
+  packages: []
+  specs:
+  - fdb@=5.18.3 backends=lustre
+  - gribjump@=0.10.2
+  - eckit@=1.32.3 linalg=none
+  - metkit@=1.15.2-levelist
+  - eccodes@=2.39.5 jp2k=none ~fortran +pthreads +aec
+  - ecbuild@=3.12.0
+  - python@=3.11.6
+  variants:
+  - ~mpi
+  views:
+    realtime:
+      link: roots
+      uenv:
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
+    rea-l-ch1:
+      link: roots
+      uenv:
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
+    remote-devt:
+      link: roots
+      uenv:
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
+    remote-depl:
+      link: roots
+      uenv:
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
