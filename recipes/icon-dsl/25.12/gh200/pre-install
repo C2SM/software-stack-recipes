@@ -17,6 +17,7 @@ packages=(
     "cxi-driver"
     "cassini-headers"
     "aws-ofi-nccl"
+    "gdrcopy"
     # "icon-exclaim"
 )
 SPACK_C2SM_TAG="sc-nccl"
