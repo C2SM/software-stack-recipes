@@ -102,4 +102,4 @@ method:     Integer;
 # classes will be index with the default rule for oper
 [ date, time, stream, class, model, expver, type
     [ levtype
-         [ step, param, levelist? ]]]
+         [ step, param, levelist?, timespan? ]]]
