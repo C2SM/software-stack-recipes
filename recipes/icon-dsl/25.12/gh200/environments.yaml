@@ -11,9 +11,11 @@ icon:
   # icon4py deps
   - python@3.11
   - py-cupy@13.3 +cuda cuda_arch=90
-  - ghex
-  - oomph
-  - hwmalloc
+  - ghex@git.f5bbf4922a1d2da99ee059365ed7c6ce7f14a694=0.5.0 backend=nccl # nccl-2
+  - oomph@git.250980020e2414778b8666633629c5cfd3d566df=0.5.0 # nccl-context
+  - hwmalloc@0.4.0
+  - nccl@2.29.2-1
+  - aws-ofi-nccl@1.18.0
   - boost +thread
   - py-mpi4py
   - icon4py@git.a967314dad2f83a9163ed7bd332f2c389837c6a8=main
