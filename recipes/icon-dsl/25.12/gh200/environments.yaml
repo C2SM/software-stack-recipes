@@ -5,7 +5,7 @@ icon:
   - toolchain: llvm
     spec: nvhpc
   mpi:
-    spec: cray-mpich@8.1.32%nvhpc ^libfabric@2.4.0 +cuda +gdrcopy fabrics=cxi,rxm,tcp %gcc
+    spec: cray-mpich@8.1.32%nvhpc
     gpu: cuda
   specs:
   # icon4py deps
