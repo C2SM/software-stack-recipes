@@ -18,6 +18,7 @@ packages=(
     "cassini-headers"
     "aws-ofi-nccl"
     "gdrcopy"
+    "gettext"
     # "icon-exclaim"
 )
 SPACK_C2SM_TAG="sc-nccl"
