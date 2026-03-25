@@ -10,16 +10,16 @@ icon:
   specs:
   # icon4py deps
   - libfabric@2.4.0 +cuda +gdrcopy fabrics=cxi,rxm,tcp
-  - libcxi@13.1.0
-  - cxi-driver@13.1.0
-  - cassini-headers@13.1.0
+  - libcxi@13.0.0
+  - cxi-driver@13.0.0
+  - cassini-headers@13.0.0
   - python@3.11
   - py-cupy@13.3 +cuda cuda_arch=90
   - ghex@git.793c766e54d8d65f46187e33913d7c27c802f549=0.5.0 backend=nccl # nccl-2
   - oomph@git.250980020e2414778b8666633629c5cfd3d566df=0.5.0 # nccl-context
   - hwmalloc@0.4.0
-  - nccl@2.29.2-1
-  - aws-ofi-nccl@1.18.0
+  - nccl@2.28.7-1
+  - aws-ofi-nccl@1.17.3
   - boost +thread
   - py-mpi4py
   - icon4py@git.a967314dad2f83a9163ed7bd332f2c389837c6a8=main
