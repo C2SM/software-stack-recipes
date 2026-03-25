@@ -9,10 +9,10 @@ icon:
     gpu: cuda
   specs:
   # icon4py deps
-  - libfabric@2.4.0 +cuda +gdrcopy fabrics=cxi,rxm,tcp %gcc
-  - libcxi@13.1.0 %gcc
-  - cxi-driver@13.1.0 %gcc
-  - cassini-headers@13.1.0 %gcc
+  - libfabric@2.4.0 +cuda +gdrcopy fabrics=cxi,rxm,tcp
+  - libcxi@13.1.0
+  - cxi-driver@13.1.0
+  - cassini-headers@13.1.0
   - python@3.11
   - py-cupy@13.3 +cuda cuda_arch=90
   - ghex@git.f5bbf4922a1d2da99ee059365ed7c6ce7f14a694=0.5.0 backend=nccl # nccl-2
