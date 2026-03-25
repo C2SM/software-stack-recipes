@@ -19,6 +19,7 @@ packages=(
     "aws-ofi-nccl"
     "gdrcopy"
     "gettext"
+    "libfuse"
     # "icon-exclaim"
 )
 SPACK_C2SM_TAG="sc-nccl"
