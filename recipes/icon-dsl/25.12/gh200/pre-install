@@ -11,6 +11,12 @@ packages=(
     "oomph"
     "uv"
     "icon4py"
+    "libfabric"
+    "nccl"
+    "libcxi"
+    "cxi-driver"
+    "cassini-headers"
+    "aws-ofi-nccl"
     # "icon-exclaim"
 )
 SPACK_C2SM_TAG="sc-nccl"
