@@ -15,7 +15,7 @@ icon:
   - cassini-headers@13.1.0
   - python@3.11
   - py-cupy@13.3 +cuda cuda_arch=90
-  - ghex@git.f5bbf4922a1d2da99ee059365ed7c6ce7f14a694=0.5.0 backend=nccl # nccl-2
+  - ghex@git.793c766e54d8d65f46187e33913d7c27c802f549=0.5.0 backend=nccl # nccl-2
   - oomph@git.250980020e2414778b8666633629c5cfd3d566df=0.5.0 # nccl-context
   - hwmalloc@0.4.0
   - nccl@2.29.2-1
