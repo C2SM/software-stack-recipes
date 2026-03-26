@@ -23,8 +23,8 @@ icon:
   - aws-ofi-nccl@1.17.2
   - boost +thread
   - py-mpi4py
-  - icon4py@git.a967314dad2f83a9163ed7bd332f2c389837c6a8=main
-  - icon-exclaim@git.16094db329861582d7b19de54fd3e88ad86a3834=0.3.0 %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
+  - icon4py@git.699c127007b82546bea1b765dac54f289e94d841=main
+  - icon-exclaim@git.a0be2c3e0448ec2dc92024e3b38ec635435ac0dd=0.3.0 %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
     ~emvorado +art +dace gpu=nvidia-90 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
     ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
   # icon deps
@@ -53,6 +53,66 @@ icon:
   - cuda_arch=90
   views:
     default:
+      link: roots
+      uenv:
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
+# TODO
+icon-verify:
+  compiler:
+  - toolchain: gcc
+    spec: gcc
+  - toolchain: llvm
+    spec: nvhpc
+  mpi:
+    spec: cray-mpich@8.1.32%nvhpc
+    gpu: cuda
+  specs:
+  # icon4py deps
+  - libfabric@2.4.0 +cuda +gdrcopy fabrics=cxi,rxm,tcp
+  - libcxi@13.0.0
+  - cxi-driver@13.0.0
+  - cassini-headers@13.0.0
+  - python@3.11
+  - py-cupy@13.3 +cuda cuda_arch=90
+  - ghex@git.793c766e54d8d65f46187e33913d7c27c802f549=0.5.0 backend=nccl # nccl-2
+  - oomph@git.250980020e2414778b8666633629c5cfd3d566df=0.5.0 # nccl-context
+  - hwmalloc@0.4.0
+  - nccl@2.29.2-1
+  - nccl-tests
+  - aws-ofi-nccl@1.17.2
+  - boost +thread
+  - py-mpi4py
+  - icon4py@git.699c127007b82546bea1b765dac54f289e94d841=main
+  - icon-exclaim@git.a0be2c3e0448ec2dc92024e3b38ec635435ac0dd=0.3.0 %nvhpc dsl=verify +grib2 +eccodes-definitions +ecrad
+    ~emvorado +art +dace gpu=nvidia-90 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
+    ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
+  # icon deps
+  - cuda@12.6:12
+  - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
+  - cosmo-eccodes-definitions@2.36.0.3
+  - hdf5%nvhpc +szip +hl +fortran +mpi
+  - netcdf-c@4.9.2%nvhpc
+  - netcdf-cxx4@4.3.1%nvhpc
+  - netcdf-fortran@4.6.1%nvhpc
+  - osu-micro-benchmarks@5.9%nvhpc
+  - openblas
+  # for validation
+  # - cdo # TODO: Enable? Currently broken.
+  # everything needed for nccl on SS11
+  - nccl
+  - nccl-tests
+  # extras
+  - libfyaml
+  - zlib-ng
+  - cmake
+  unify: true
+  variants:
+  - +mpi
+  - +cuda
+  - cuda_arch=90
+  views:
+    default-verify:
       link: roots
       uenv:
         prefix_paths:
