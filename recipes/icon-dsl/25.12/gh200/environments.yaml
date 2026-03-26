@@ -57,7 +57,9 @@ icon:
       uenv:
         prefix_paths:
           LD_LIBRARY_PATH: [lib, lib64]
-# TODO
+# TODO: What's the cleanest way to do this? We want both dsl=substitute and
+# dsl=verify available in the uenv. dsl=verify does not have to be available
+# easily.
 icon-verify:
   compiler:
   - toolchain: gcc
