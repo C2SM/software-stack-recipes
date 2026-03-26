@@ -50,3 +50,58 @@ icon:
       uenv:
         prefix_paths:
           LD_LIBRARY_PATH: [lib, lib64]
+# TODO: What's the cleanest way to do this? We want both dsl=substitute and
+# dsl=verify available in the uenv. dsl=verify does not have to be available
+# easily.
+icon-verify:
+  compiler:
+  - toolchain: gcc
+    spec: gcc
+  - toolchain: llvm
+    spec: nvhpc
+  mpi:
+    spec: cray-mpich@8.1.30%nvhpc
+    gpu: cuda
+  specs:
+  # icon4py deps
+  - python@3.11
+  - py-cupy@13.3 +cuda cuda_arch=90
+  - ghex
+  - oomph
+  - hwmalloc
+  - boost +thread
+  - py-mpi4py
+  - icon4py@git.699c127007b82546bea1b765dac54f289e94d841=main
+  - icon-exclaim@git.a0be2c3e0448ec2dc92024e3b38ec635435ac0dd=0.3.0 %nvhpc dsl=verify +grib2 +eccodes-definitions +ecrad
+    ~emvorado +art +dace gpu=nvidia-90 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
+    ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
+  # icon deps
+  - cuda@12.6:12
+  - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
+  - cosmo-eccodes-definitions@2.36.0.3
+  - hdf5%nvhpc +szip +hl +fortran +mpi
+  - netcdf-c@4.9.2%nvhpc
+  - netcdf-cxx4@4.3.1%nvhpc
+  - netcdf-fortran@4.6.1%nvhpc
+  - osu-micro-benchmarks@5.9%nvhpc
+  - openblas
+  # for validation
+  # - cdo # TODO: Enable? Currently broken.
+  # everything needed for nccl on SS11
+  - nccl
+  - nccl-tests
+  # extras
+  - libfyaml
+  - zlib-ng
+  - cmake
+  unify: true
+  variants:
+  - +mpi
+  - +cuda
+  - cuda_arch=90
+  views:
+    default-verify:
+      link: roots
+      uenv:
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
