@@ -39,6 +39,11 @@ uenvs:
         zen3: '5.19'
         a100: '5.19'
   icon:
+    "26.2":
+      recipes:
+        gh200: '26.2/gh200'
+      deploy:
+        santis: [gh200]
     "25.2":
       recipes:
         gh200: '25.2/gh200'
