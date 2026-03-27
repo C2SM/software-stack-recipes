@@ -1,4 +1,4 @@
 gcc:
-  version: "13.3.0"
+  version: "12.3.0"
 nvhpc:
   version: "26.1"
