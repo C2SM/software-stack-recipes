@@ -63,7 +63,6 @@ hdate:      Date;
 refdate:    Date;
 latitude:   Double;
 longitude:  Double;
-level:      Double;
 levelist:   Double;
 grid:       Grid;
 expver:     Expver;
@@ -100,8 +99,7 @@ method:     Integer;
 
 ########################################################
 # These rules must be first, otherwise fields of These
-# classes will be index with the default rule for oper #expver?, model?, type?
-
-[ date, time, stream, class, expver, model, type
-    [ levtype, number?
-        [ step, param, levelist? ]]]
+# classes will be index with the default rule for oper
+[ date, time, stream, class, model, expver, type
+    [ levtype
+         [ step, param, levelist?, timespan? ]]]
