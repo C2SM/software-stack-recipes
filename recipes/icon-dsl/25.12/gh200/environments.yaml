@@ -23,7 +23,7 @@ icon:
   - aws-ofi-nccl@1.17.2
   - boost +thread
   - py-mpi4py
-  - icon4py@0.1.0
+  - icon4py@git.ccf91057b03059219c1723c31b858e66d25808b4=0.1.0
   - icon-exclaim@0.3.0 %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
     ~emvorado +art +dace gpu=nvidia-90 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
     ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
@@ -85,7 +85,7 @@ icon-verify:
   - aws-ofi-nccl@1.17.2
   - boost +thread
   - py-mpi4py
-  - icon4py@0.1.0
+  - icon4py@git.ccf91057b03059219c1723c31b858e66d25808b4=0.1.0
   - icon-exclaim@0.3.0 %nvhpc dsl=verify +grib2 +eccodes-definitions +ecrad
     ~emvorado +art +dace gpu=nvidia-90 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
     ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
