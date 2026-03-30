@@ -5,15 +5,22 @@ icon:
   - toolchain: llvm
     spec: nvhpc
   mpi:
-    spec: cray-mpich@8.1.30%nvhpc
+    spec: cray-mpich@8.1.32%nvhpc
     gpu: cuda
   specs:
   # icon4py deps
+  - libfabric@2.4.0 +cuda +gdrcopy fabrics=cxi,rxm,tcp
+  - libcxi@13.0.0
+  - cxi-driver@13.0.0
+  - cassini-headers@13.0.0
   - python@3.11
   - py-cupy@13.3 +cuda cuda_arch=80
-  - ghex
-  - oomph
-  - hwmalloc
+  - ghex@git.ec275a8fe32a7e98eaa8b613643bca507424c718=0.5.0 backend=nccl # nccl-2
+  - oomph@git.250980020e2414778b8666633629c5cfd3d566df=0.5.0 # nccl-context
+  - hwmalloc@0.4.0
+  - nccl@2.29.2-1
+  - nccl-tests
+  - aws-ofi-nccl@1.17.2
   - boost +thread
   - py-mpi4py
   - icon4py@0.1.0
@@ -60,15 +67,22 @@ icon-verify:
   - toolchain: llvm
     spec: nvhpc
   mpi:
-    spec: cray-mpich@8.1.30%nvhpc
+    spec: cray-mpich@8.1.32%nvhpc
     gpu: cuda
   specs:
   # icon4py deps
+  - libfabric@2.4.0 +cuda +gdrcopy fabrics=cxi,rxm,tcp
+  - libcxi@13.0.0
+  - cxi-driver@13.0.0
+  - cassini-headers@13.0.0
   - python@3.11
   - py-cupy@13.3 +cuda cuda_arch=80
-  - ghex
-  - oomph
-  - hwmalloc
+  - ghex@git.ec275a8fe32a7e98eaa8b613643bca507424c718=0.5.0 backend=nccl # nccl-2
+  - oomph@git.250980020e2414778b8666633629c5cfd3d566df=0.5.0 # nccl-context
+  - hwmalloc@0.4.0
+  - nccl@2.29.2-1
+  - nccl-tests
+  - aws-ofi-nccl@1.17.2
   - boost +thread
   - py-mpi4py
   - icon4py@0.1.0
