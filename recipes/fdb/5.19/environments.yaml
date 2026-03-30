@@ -1,9 +1,6 @@
 fdb:
-  compiler:
-    - toolchain: gcc
-      spec: gcc@13.3
+  compiler: [gcc]
   unify: when_possible
-  mpi: null
   packages: []
   specs:
   - fdb@=5.19.2 backends=lustre

@@ -1,7 +1,8 @@
-# Copyright 2013-2024 Lawrence Livermore National Security, LLC and other
-# Spack Project Developers. See the top-level COPYRIGHT file for details.
+# Copyright Spack Project Developers. See COPYRIGHT file for details.
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
+
+from spack_repo.builtin.build_systems.cmake import CMakePackage
 
 from spack.package import *
 
@@ -15,12 +16,15 @@ class Metkit(CMakePackage):
     url = "https://github.com/ecmwf/metkit/archive/refs/tags/1.7.0.tar.gz"
     list_url = "https://github.com/ecmwf/metkit/tags"
 
-    maintainers("skosukhin", "victoria-cherkas", "dominichofer")
+    maintainers("victoria-cherkas")
 
     license("Apache-2.0")
 
     version("1.17.0", sha256="0fb4cae8cf440f6589b426cbddf8fd37434bc59e178b34df6b7633bfdbb47de3")
-    version("1.16.3-levelist", sha256="90bd8ca8be1c954f8d6af44b5a416c7357a37bcc9247fa3cdec8ec5cb7c411d0")
+    version(
+        "1.16.3-levelist",
+        sha256="90bd8ca8be1c954f8d6af44b5a416c7357a37bcc9247fa3cdec8ec5cb7c411d0",
+    )
     version("1.16.3", sha256="b2da2ce50aac68365506c7fb8661889df61a01e53ca7e8f699fe9d3015d44974")
     version("1.16.2", sha256="30a65a2cc14942e7ce64ea5539a1b6b85ecce336811014aba70e1f4f9e651f68")
     version("1.16.1", sha256="0520cba65afeaede6553c8b62941e67c0f88123602e19d0898538a52e2b0f522")
@@ -30,11 +34,6 @@ class Metkit(CMakePackage):
         "1.15.2-levelist",
         sha256="25cebe7610949848671131ee3681e3e7e01d376e7b74e1a269872b9fba15ab54",
     )
-    version(
-        "9999.99",
-        sha256="d63181aecd6e3128609145e381b214b81b79072b414313351e7d3914377eda13",
-        url="https://github.com/ecmwf/metkit/archive/refs/tags/levelist-double.tar.gz",
-    )
     version("1.14.1", sha256="996cc1d4b569c73b20490bfccbd8ee09d78a94dd9c15e643528d7d9a360f3d2e")
     version("1.11.22", sha256="e2a2ea1532f9e187e37b807dbf35cd09325b2aef29bd5117203d57ba2e65a0d6")
     version("1.11.5", sha256="717e0d92499d7a1b49338c3762d829aa83c75f8095dc9e7cdc7f49c209bb847b")
@@ -43,13 +42,12 @@ class Metkit(CMakePackage):
     version("1.9.2", sha256="35d5f67196197cc06e5c2afc6d1354981e7c85a441df79a2fbd774e0c343b0b4")
     version("1.7.0", sha256="8c34f6d8ea5381bd1bcfb22462349d03e1592e67d8137e76b3cecf134a9d338c")
 
-
-    depends_on("c", type="build")
-    depends_on("cxx", type="build")  # generated
-
     variant("tools", default=True, description="Build the command line tools")
     variant("grib", default=True, description="Enable support for GRIB format")
     variant("odb", default=False, description="Enable support for ODB data")
+
+    depends_on("cxx", type="build")  # generated
+    depends_on("c", type="build")
 
     depends_on("cmake@3.12:", type="build")
     depends_on("ecbuild@3.4:", type="build")
