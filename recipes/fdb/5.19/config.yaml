@@ -5,6 +5,6 @@ spack:
   commit: releases/v1.1
   packages:
     repo: https://github.com/spack/spack-packages.git
-    commit: releases/v2025.11.0
+    commit: releases/v2025.11
 description: MCH FDB uenv
 version: 2
