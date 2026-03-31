@@ -4,5 +4,5 @@ packages:
     externals:
     - spec: lustre@2.15
       prefix: /usr
-  autoconf:
-    require: '@2.69'
+  gmp:
+    require: '@6.2.1'
