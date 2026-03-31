@@ -6,3 +6,5 @@ packages:
       prefix: /usr
   gmp:
     require: '@6.2.1'
+  autoconf:
+    require: '@2.69'
