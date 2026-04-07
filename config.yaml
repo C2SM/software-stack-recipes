@@ -32,6 +32,12 @@ uenvs:
         a100: '24.10'
       deploy:
         balfrin: [zen3, a100]
+  ecflow:
+    "26.03":
+      recipes:
+        zen3: '26.03'
+      deploy:
+        balfrin: [zen3]
   fdb:
     "5.19":
       recipes:

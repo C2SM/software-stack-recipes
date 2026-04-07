@@ -1,0 +1,10 @@
+name: ecflow
+store: /user-environment
+spack:
+  repo: https://github.com/spack/spack.git
+  commit: releases/v1.1
+  packages:         # 
+    repo: https://github.com/spack/spack-packages.git
+    commit: 246606b03e5d78923f399ae3c690e501a04766a9
+description: "Provides ecflow"
+version: 2
