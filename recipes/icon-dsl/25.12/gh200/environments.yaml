@@ -29,7 +29,7 @@ icon:
   # cuda mempool
   - icon-exclaim@git.431778e44a9283107d94282a6735cf1fd8e616dd=0.3.0 %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
     ~emvorado +art +dace gpu=nvidia-90 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
-    ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
+    ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback" +cuda-mempool
   # icon deps
   - cuda@12.6:12
   - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
@@ -88,7 +88,7 @@ icon-nccl:
   # cuda mempool
   - icon-exclaim@git.431778e44a9283107d94282a6735cf1fd8e616dd=0.3.0 %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
     ~emvorado +art +dace gpu=nvidia-90 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
-    ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
+    ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback" +cuda-mempool
   # icon deps
   - cuda@12.6:12
   - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
@@ -147,7 +147,7 @@ icon-nccl:
 #   - icon4py@git.ccf91057b03059219c1723c31b858e66d25808b4=0.1.0
 #   - icon-exclaim@0.3.0 %nvhpc dsl=verify +grib2 +eccodes-definitions +ecrad
 #     ~emvorado +art +dace gpu=nvidia-90 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
-#     ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
+#     ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback" +cuda-mempool
 #   # icon deps
 #   - cuda@12.6:12
 #   - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
