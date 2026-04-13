@@ -15,16 +15,19 @@ icon:
   - cassini-headers@13.0.0
   - python@3.11
   - py-cupy@13.3 +cuda cuda_arch=90
-  - ghex@git.ec275a8fe32a7e98eaa8b613643bca507424c718=0.5.0 backend=nccl # nccl-2
+  - ghex@git.ec275a8fe32a7e98eaa8b613643bca507424c718=0.5.0 backend=mpi # nccl-2
   - oomph@git.250980020e2414778b8666633629c5cfd3d566df=0.5.0 # nccl-context
   - hwmalloc@0.4.0
-  - nccl@2.29.2-1
+  - nccl@2.28.7-1
   - nccl-tests
-  - aws-ofi-nccl@1.17.2
+  - aws-ofi-nccl@1.17.3
   - boost +thread
   - py-mpi4py
-  - icon4py@git.ccf91057b03059219c1723c31b858e66d25808b4=0.1.0
-  - icon-exclaim@0.3.0 %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
+  # - icon4py@git.ccf91057b03059219c1723c31b858e66d25808b4=0.1.0 # split exchanges
+  - icon4py@=0.1.0 # vanilla
+  # - icon-exclaim@0.3.0 %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad # vanilla
+  # cuda mempool
+  - icon-exclaim@git.431778e44a9283107d94282a6735cf1fd8e616dd=0.3.0 %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
     ~emvorado +art +dace gpu=nvidia-90 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
     ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
   # icon deps
@@ -39,9 +42,6 @@ icon:
   - openblas
   # for validation
   # - cdo # TODO: Enable? Currently broken.
-  # everything needed for nccl on SS11
-  - nccl
-  - nccl-tests
   # extras
   - libfyaml
   - zlib-ng
@@ -57,10 +57,7 @@ icon:
       uenv:
         prefix_paths:
           LD_LIBRARY_PATH: [lib, lib64]
-# TODO: What's the cleanest way to do this? We want both dsl=substitute and
-# dsl=verify available in the uenv. dsl=verify does not have to be available
-# easily.
-icon-verify:
+icon-nccl:
   compiler:
   - toolchain: gcc
     spec: gcc
@@ -80,13 +77,16 @@ icon-verify:
   - ghex@git.ec275a8fe32a7e98eaa8b613643bca507424c718=0.5.0 backend=nccl # nccl-2
   - oomph@git.250980020e2414778b8666633629c5cfd3d566df=0.5.0 # nccl-context
   - hwmalloc@0.4.0
-  - nccl@2.29.2-1
+  - nccl@2.28.3-1
   - nccl-tests
-  - aws-ofi-nccl@1.17.2
+  - aws-ofi-nccl@1.17.3
   - boost +thread
   - py-mpi4py
-  - icon4py@git.ccf91057b03059219c1723c31b858e66d25808b4=0.1.0
-  - icon-exclaim@0.3.0 %nvhpc dsl=verify +grib2 +eccodes-definitions +ecrad
+  # - icon4py@git.ccf91057b03059219c1723c31b858e66d25808b4=0.1.0 # split exchanges
+  - icon4py@=0.1.0 # vanilla
+  # - icon-exclaim@0.3.0 %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad # vanilla
+  # cuda mempool
+  - icon-exclaim@git.431778e44a9283107d94282a6735cf1fd8e616dd=0.3.0 %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
     ~emvorado +art +dace gpu=nvidia-90 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
     ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
   # icon deps
@@ -101,9 +101,6 @@ icon-verify:
   - openblas
   # for validation
   # - cdo # TODO: Enable? Currently broken.
-  # everything needed for nccl on SS11
-  - nccl
-  - nccl-tests
   # extras
   - libfyaml
   - zlib-ng
@@ -114,8 +111,67 @@ icon-verify:
   - +cuda
   - cuda_arch=90
   views:
-    default-verify:
+    default-nccl:
       link: roots
       uenv:
         prefix_paths:
           LD_LIBRARY_PATH: [lib, lib64]
+# TODO: What's the cleanest way to do this? We want both dsl=substitute and
+# dsl=verify available in the uenv. dsl=verify does not have to be available
+# easily.
+# icon-verify:
+#   compiler:
+#   - toolchain: gcc
+#     spec: gcc
+#   - toolchain: llvm
+#     spec: nvhpc
+#   mpi:
+#     spec: cray-mpich@8.1.32%nvhpc
+#     gpu: cuda
+#   specs:
+#   # icon4py deps
+#   - libfabric@2.4.0 +cuda +gdrcopy fabrics=cxi,rxm,tcp
+#   - libcxi@13.0.0
+#   - cxi-driver@13.0.0
+#   - cassini-headers@13.0.0
+#   - python@3.11
+#   - py-cupy@13.3 +cuda cuda_arch=90
+#   - ghex@git.ec275a8fe32a7e98eaa8b613643bca507424c718=0.5.0 backend=nccl # nccl-2
+#   - oomph@git.250980020e2414778b8666633629c5cfd3d566df=0.5.0 # nccl-context
+#   - hwmalloc@0.4.0
+#   - nccl@2.29.2-1
+#   - nccl-tests
+#   - aws-ofi-nccl@1.17.2
+#   - boost +thread
+#   - py-mpi4py
+#   - icon4py@git.ccf91057b03059219c1723c31b858e66d25808b4=0.1.0
+#   - icon-exclaim@0.3.0 %nvhpc dsl=verify +grib2 +eccodes-definitions +ecrad
+#     ~emvorado +art +dace gpu=nvidia-90 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
+#     ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
+#   # icon deps
+#   - cuda@12.6:12
+#   - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
+#   - cosmo-eccodes-definitions@2.36.0.3
+#   - hdf5%nvhpc +szip +hl +fortran +mpi
+#   - netcdf-c@4.9.2%nvhpc
+#   - netcdf-cxx4@4.3.1%nvhpc
+#   - netcdf-fortran@4.6.1%nvhpc
+#   - osu-micro-benchmarks@5.9%nvhpc
+#   - openblas
+#   # for validation
+#   # - cdo # TODO: Enable? Currently broken.
+#   # extras
+#   - libfyaml
+#   - zlib-ng
+#   - cmake
+#   unify: true
+#   variants:
+#   - +mpi
+#   - +cuda
+#   - cuda_arch=90
+#   views:
+#     default-verify:
+#       link: roots
+#       uenv:
+#         prefix_paths:
+#           LD_LIBRARY_PATH: [lib, lib64]
