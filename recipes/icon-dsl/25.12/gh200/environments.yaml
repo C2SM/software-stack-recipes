@@ -21,9 +21,9 @@ icon:
   - boost +thread
   - py-mpi4py
   - icon4py@0.1.0
-  - icon-exclaim@0.3.0 %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
+  - icon-exclaim@git.431778e44a9283107d94282a6735cf1fd8e616dd=0.3.0 %nvhpc dsl=substitute +grib2 +eccodes-definitions +ecrad
     ~emvorado +art +dace gpu=nvidia-90 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
-    ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
+    ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback" +cuda-mempool
   # icon deps
   - cuda@12.6:12
   - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
@@ -80,9 +80,9 @@ icon-verify:
   - boost +thread
   - py-mpi4py
   - icon4py@0.1.0
-  - icon-exclaim@0.3.0 %nvhpc dsl=verify +grib2 +eccodes-definitions +ecrad
+  - icon-exclaim@git.431778e44a9283107d94282a6735cf1fd8e616dd=0.3.0 %nvhpc dsl=verify +grib2 +eccodes-definitions +ecrad
     ~emvorado +art +dace gpu=nvidia-90 +mpi-gpu +realloc-buf ~aes ~jsbach ~ocean ~coupling
-    ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback"
+    ~rte-rrtmgp ~loop-exchange ~async-io-rma ~cuda-graphs fflags="-traceback" +cuda-mempool
   # icon deps
   - cuda@12.6:12
   - eccodes@2.36.4%nvhpc +tools +fortran +aec +openmp jp2k=jasper
