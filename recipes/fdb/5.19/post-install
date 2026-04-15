@@ -22,12 +22,11 @@ pushd /user-environment/data/share
 git clone -b v0.0.4 https://github.com/MeteoSwiss/eccodes-cosmo-mars.git
 popd
 
-echo "-------- Installed files in /user-environment ----------"
-ls -l /user-environment
-find /user-environment -name "gcc-*"
+echo "-------- Possible binaries for python3.11 ----------"
+find /user-environment -name "python3.11*"
 
 # --- Tooling: locate Python, install Poetry, create venv for FDB tooling ---
-install_root=/user-environment/linux-sles15-zen3/gcc-12/
+install_root=/user-environment/linux-zen3/
 python_exe=$(find $install_root -path "*/bin/python3.11" -type f)
 
 curl -sSL https://install.python-poetry.org | POETRY_HOME=/user-environment $python_exe -
@@ -44,6 +43,8 @@ popd
 eccodes_cosmo_resources_path=$(python -c "import eccodes_cosmo_resources as res; print(res.get_definitions_path())")
 
 # --- Expand metkit tables with ICON parameter, model, and stream definitions --
+echo "-------- Possible locations for language.yaml ----------"
+find /user-environment -name "language.yaml"
 metkit_dir=$(dirname $(find $install_root -name language.yaml))
 
 python /user-environment/meta/recipe/meta/private/expand_params.py ${metkit_dir}/paramids.yaml ${eccodes_cosmo_resources_path}/grib2/shortName.def,${eccodes_cosmo_resources_path}/grib2/localConcepts/edzw/shortName.def
