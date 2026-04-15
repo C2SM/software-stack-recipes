@@ -5,7 +5,7 @@ icon:
   - toolchain: llvm
     spec: nvhpc
   mpi:
-    spec: cray-mpich@8.1.32%nvhpc
+    spec: cray-mpich@9.0.0%nvhpc
     gpu: cuda
   specs:
   # icon4py deps
@@ -64,7 +64,7 @@ icon-verify:
   - toolchain: llvm
     spec: nvhpc
   mpi:
-    spec: cray-mpich@8.1.32%nvhpc
+    spec: cray-mpich@9.0.0%nvhpc
     gpu: cuda
   specs:
   # icon4py deps
