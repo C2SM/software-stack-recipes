@@ -5,10 +5,14 @@ icon:
   - toolchain: llvm
     spec: nvhpc
   mpi:
-    spec: cray-mpich@8.1.30%nvhpc
+    spec: cray-mpich@8.1.32%nvhpc
     gpu: cuda
   specs:
   # icon4py deps
+  - libfabric@2.4.0 +cuda +gdrcopy fabrics=cxi,rxm,tcp
+  - libcxi@13.0.0
+  - cxi-driver@13.0.0
+  - cassini-headers@13.0.0
   - python@3.11
   - py-cupy@13.3 +cuda cuda_arch=90
   - ghex
@@ -60,10 +64,14 @@ icon-verify:
   - toolchain: llvm
     spec: nvhpc
   mpi:
-    spec: cray-mpich@8.1.30%nvhpc
+    spec: cray-mpich@8.1.32%nvhpc
     gpu: cuda
   specs:
   # icon4py deps
+  - libfabric@2.4.0 +cuda +gdrcopy fabrics=cxi,rxm,tcp
+  - libcxi@13.0.0
+  - cxi-driver@13.0.0
+  - cassini-headers@13.0.0
   - python@3.11
   - py-cupy@13.3 +cuda cuda_arch=90
   - ghex
