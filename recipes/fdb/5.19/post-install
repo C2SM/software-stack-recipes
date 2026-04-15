@@ -22,8 +22,9 @@ pushd /user-environment/data/share
 git clone -b v0.0.4 https://github.com/MeteoSwiss/eccodes-cosmo-mars.git
 popd
 
-echo "-------- Installed files in /user-environment/linux-sles15-zen3 ----------"
-ls -l /user-environment/linux-sles15-zen3 
+echo "-------- Installed files in /user-environment ----------"
+ls -l /user-environment
+find /user-environment -name "gcc-*"
 
 # --- Tooling: locate Python, install Poetry, create venv for FDB tooling ---
 install_root=/user-environment/linux-sles15-zen3/gcc-12/
