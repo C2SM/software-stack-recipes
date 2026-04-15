@@ -9,7 +9,7 @@ fdb:
   - metkit@=1.16.3-levelist
   - eccodes@=2.46.0 jp2k=none ~fortran +pthreads +aec +geo
   - ecbuild@=3.13.1
-  - python@=3.11.15
+  - python@=3.11.14
   variants:
   - ~mpi
   views:
