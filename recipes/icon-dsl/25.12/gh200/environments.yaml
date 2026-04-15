@@ -16,7 +16,7 @@ icon:
   - python@3.11
   - py-cupy@13.3 +cuda cuda_arch=90
   - ghex@git.ec275a8fe32a7e98eaa8b613643bca507424c718=0.5.0 backend=mpi # nccl-2
-  - oomph@git.250980020e2414778b8666633629c5cfd3d566df=0.5.0 # nccl-context
+  - oomph@git.062e78d78a1691ed30fa40cea54dd61908cdbcac=0.5.0 # nccl-context + debugging logs
   - hwmalloc@0.4.0
   - boost +thread
   - py-mpi4py
@@ -72,7 +72,7 @@ icon-nccl:
   - python@3.11
   - py-cupy@13.3 +cuda cuda_arch=90
   - ghex@git.ec275a8fe32a7e98eaa8b613643bca507424c718=0.5.0 backend=nccl # nccl-2
-  - oomph@git.250980020e2414778b8666633629c5cfd3d566df=0.5.0 # nccl-context
+  - oomph@git.062e78d78a1691ed30fa40cea54dd61908cdbcac=0.5.0 # nccl-context + debugging logs
   - hwmalloc@0.4.0
   - nccl@2.29.2-1
   - nccl-tests
@@ -134,7 +134,7 @@ icon-nccl:
 #   - python@3.11
 #   - py-cupy@13.3 +cuda cuda_arch=90
 #   - ghex@git.ec275a8fe32a7e98eaa8b613643bca507424c718=0.5.0 backend=nccl # nccl-2
-#   - oomph@git.250980020e2414778b8666633629c5cfd3d566df=0.5.0 # nccl-context
+#   - oomph@git.062e78d78a1691ed30fa40cea54dd61908cdbcac=0.5.0 # nccl-context + debugging logs
 #   - hwmalloc@0.4.0
 #   - nccl@2.29.2-1
 #   - nccl-tests
