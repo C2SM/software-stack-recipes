@@ -1,7 +1,7 @@
 icon:
   compiler: [gcc, nvhpc]
   network:
-    mpi: cray-mpich@8.1.32 +cuda
+    mpi: cray-mpich +cuda
   unify: true
   specs:
   # - boost ~mpi
