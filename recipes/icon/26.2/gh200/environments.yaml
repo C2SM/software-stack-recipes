@@ -1,13 +1,13 @@
 icon:
   compiler: [gcc, nvhpc]
   network:
-    mpi: cray-mpich@8.1.30 +cuda
+    mpi: cray-mpich@8.1.32 +cuda
   unify: true
   specs:
   # - boost ~mpi
   - python@3.12
   - libtool@2.4.6
-  - cuda@12.8.0
+  - cuda@13.1.1
   - eccodes@2.36.4 +aec+fortran~ipo~memfs~netcdf~openmp~png~pthreads+shared~tools jp2k=openjpeg %c,cxx,fortran=nvhpc
   - eccodes-cosmo-resources@2.36.0.3
   - hdf5@1.14.6 ~cxx+fortran+hl~ipo~java~map+mpi+shared~subfiling+szip~threadsafe+tools api=default %c,fortran=nvhpc
