@@ -12,7 +12,7 @@ icon:
   - eccodes-cosmo-resources@2.36.0.3
   - hdf5@1.14.6 ~cxx+fortran+hl~ipo~java~map+mpi+shared~subfiling+szip~threadsafe+tools api=default %c,cxx,fortran=nvhpc
   - netcdf-c@4.9.3 +blosc~byterange~dap~fsync~hdf4~jna~logging+mpi~nczarr_zip+optimize~parallel-netcdf+pic+shared+szip+zstd %c,cxx=nvhpc
-  - netcdf-fortran@4.6.2 ~doc+pic+shared %c,cxx,fortran=nvhpc
+  - netcdf-fortran@4.6.2 ~doc+pic+shared %c,fortran=nvhpc
   - openblas %c,cxx,fortran=nvhpc
   - findutils 
   # # for validation
