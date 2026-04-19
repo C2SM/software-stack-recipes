@@ -47,9 +47,12 @@ def main():
         }
     )
 
-    metkit_lang["_field"]["stream"]["values"].append(
-        ["reanl", "icon reanalysis light CH1"]
-    )
+    metkit_lang["_field"]["stream"]["values"].extend([
+        ["reanl", "icon reanalysis light CH1"],
+        ["enfo_agg03h", "3h aggregation enfo"],
+        ["enfo_agg06h", "6h aggregation enfo"],
+        ["enfo_agg12h", "12h aggregation enfo"],
+    ])
 
     yaml.add_representer(tuple, tuple_representer, Dumper=NoAliasDumper)
     # convert list to tuples so that the yaml dump generates [] (original formatting of the yaml) instead of rows of "-"
