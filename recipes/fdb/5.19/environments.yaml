@@ -51,9 +51,9 @@ fdb:
             - FDB_ENABLE_GRIBJUMP: "1"
             - AUTO_LOAD_PLUGINS:   "1"
             - ECCODES_ECKIT_GEO:   "1"
+            - PYTHONPATH: "$@view_path@/share/python"
           prepend_path:
             - PATH: "$@mount@/venvs/fdb/bin/"
-            - PYTHONPATH: "$@view_path@/share/python"
     remote-devt:
       link: roots
       uenv:
