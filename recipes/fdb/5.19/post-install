@@ -53,3 +53,13 @@ helper_src="/user-environment/meta/recipe/meta/private/uenv_param_map.py"
 helper_dir="/user-environment/env/rea-l-ch1/share/python"
 mkdir -p "$helper_dir"
 cp -f "$helper_src" "$helper_dir/"
+
+jq --arg view "rea-l-ch1" \
+  '.views[$view].env.values.list.PYTHONPATH //= []' \
+  store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
+
+echo "----- values of jinja variables -----"
+echo "env.mount: {{ env.mount }}"
+echo "env.config: {{ env.config }}"
+echo "env.build: {{ env.build }}"
+echo "env.spack: {{ env.spack }}"
