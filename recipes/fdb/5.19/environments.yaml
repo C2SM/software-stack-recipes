@@ -53,6 +53,7 @@ fdb:
             - ECCODES_ECKIT_GEO:   "1"
           prepend_path:
             - PATH: "$@mount@/venvs/fdb/bin/"
+            - PYTHONPATH: "$@view_path@/share/python"
     remote-devt:
       link: roots
       uenv:
