@@ -1,0 +1,36 @@
+icon:
+  compiler: [gcc, nvhpc]
+  network:
+    mpi: cray-mpich@9.1.0 +cuda %c,cxx,fortran=nvhpc
+  unify: when_possible
+  specs:
+  # - boost ~mpi
+  - python@3.12 %c,cxx=gcc ^libffi %c,cxx=gcc ^expat %c=gcc ^libmd %c=gcc ^libxcrypt %c=gcc ^gettext %c,cxx=gcc
+  - libtool@2.4.6
+  - cuda@13.1.1
+  - eccodes@2.36.4 +aec+fortran~ipo~memfs~netcdf~openmp~png~pthreads+shared~tools jp2k=openjpeg %c,cxx,fortran=nvhpc
+  - eccodes-cosmo-resources@2.36.0.3
+  - hdf5@1.14.6 ~cxx+fortran+hl~ipo~java~map+mpi+shared~subfiling+szip~threadsafe+tools api=default %c,fortran=nvhpc
+  - netcdf-c@4.9.3 +blosc~byterange~dap~fsync~hdf4~jna~logging+mpi~nczarr_zip+optimize~parallel-netcdf+pic+shared+szip+zstd %c,cxx=nvhpc
+  - netcdf-fortran@4.6.2 ~doc+pic+shared %c,fortran=nvhpc
+  - openblas %c,cxx,fortran=nvhpc
+  - findutils
+  # # for validation
+  # - cdo
+  # # everything needed for nccl on SS11
+  # - nccl
+  # - nccl-tests
+  # # extras
+  # - libfyaml
+  # - zlib-ng
+  # - cmake
+  variants:
+  - +mpi
+  - +cuda
+  - cuda_arch=90
+  views:
+    default:
+      link: roots
+      uenv:
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
