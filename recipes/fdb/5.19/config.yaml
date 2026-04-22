@@ -1,6 +1,10 @@
 name: fdb
 store: /user-environment
 spack:
-  commit: releases/v0.23
   repo: https://github.com/spack/spack.git
-description: MCH FDB uenv 
+  commit: releases/v1.1
+  packages:
+    repo: https://github.com/spack/spack-packages.git
+    commit: v2026.03.0
+description: MCH FDB uenv
+version: 2

@@ -1,7 +1,8 @@
-# Copyright 2013-2024 Lawrence Livermore National Security, LLC and other
-# Spack Project Developers. See the top-level COPYRIGHT file for details.
+# Copyright Spack Project Developers. See COPYRIGHT file for details.
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
+
+from spack_repo.builtin.build_systems.cmake import CMakePackage
 
 from spack.package import *
 
@@ -36,6 +37,15 @@ class Libaec(CMakePackage):
     depends_on("c", type="build")  # generated
     depends_on("cxx", type="build")  # generated
 
+    # CMake v3 is meant to be backwards compatible.
+    # CMake v4 removes compatibility with versions older than v3.5.
+    # CMakeLists.txt: cmake_minimum_required(VERSION 3.1)
+    depends_on("cmake@3.1:3", type="build", when="@:1.0.3")
+    # CMakeLists.txt: cmake_minimum_required(VERSION 3.13...3.19)
+    depends_on("cmake@3.13:", type="build", when="@1.0.4:1.1.3")
+    # CMakeLists.txt: cmake_minimum_required(VERSION 3.26...3.31)
+    depends_on("cmake@3.26:", type="build", when="@1.1.4:")
+
     variant("shared", default=True, description="Builds a shared version of the library")
 
     @property
@@ -52,7 +62,7 @@ class Libaec(CMakePackage):
 
         if not libs:
             msg = "Unable to recursively locate {0} {1} libraries in {2}"
-            raise spack.error.NoLibrariesError(
+            raise NoLibrariesError(
                 msg.format("shared" if shared else "static", self.spec.name, self.spec.prefix)
             )
         return libs

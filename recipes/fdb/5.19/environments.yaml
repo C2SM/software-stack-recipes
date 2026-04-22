@@ -1,9 +1,6 @@
 fdb:
-  compiler:
-    - toolchain: gcc
-      spec: gcc@13.3
+  compiler: [gcc]
   unify: when_possible
-  mpi: null
   packages: []
   specs:
   - fdb@=5.19.2 backends=lustre
@@ -12,7 +9,7 @@ fdb:
   - metkit@=1.16.3-levelist
   - eccodes@=2.46.0 jp2k=none ~fortran +pthreads +aec +geo
   - ecbuild@=3.13.1
-  - python@=3.11.6
+  - python@=3.11.15
   variants:
   - ~mpi
   views:
@@ -21,18 +18,79 @@ fdb:
       uenv:
         prefix_paths:
           LD_LIBRARY_PATH: [lib, lib64]
+        env_vars:
+          set:
+            - FDB_HOME:          "$@view_path@"
+            - FDB5_HOME:         "$@view_path@"
+            - ECKIT_HOME:        "$@view_path@"
+            - GRIB_DEFINITION_PATH: "$@mount@/data/share/eccodes-cosmo-mars/definitions:\
+                                     $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
+                                     $@mount@/env/fdb/share/eccodes/definitions"
+            # NOTE: this assumes that the fdb config names match the view names
+            - FDB5_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
+            - FDB_ENABLE_GRIBJUMP: "1"
+            - AUTO_LOAD_PLUGINS:   "1"
+            - ECCODES_ECKIT_GEO:   "1"
+          prepend_path:
+            - PATH: "$@mount@/venvs/fdb/bin/"
     rea-l-ch1:
       link: roots
       uenv:
         prefix_paths:
           LD_LIBRARY_PATH: [lib, lib64]
+        env_vars:
+          set:
+            - FDB_HOME:          "$@view_path@"
+            - FDB5_HOME:         "$@view_path@"
+            - ECKIT_HOME:        "$@view_path@"
+            - GRIB_DEFINITION_PATH: "$@mount@/data/share/eccodes-cosmo-mars/definitions:\
+                                     $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
+                                     $@mount@/env/fdb/share/eccodes/definitions"
+            # NOTE: this assumes that the fdb config names match the view names
+            - FDB5_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
+            - FDB_ENABLE_GRIBJUMP: "1"
+            - AUTO_LOAD_PLUGINS:   "1"
+            - ECCODES_ECKIT_GEO:   "1"
+          prepend_path:
+            - PATH: "$@mount@/venvs/fdb/bin/"
+            - PYTHONPATH: "$@view_path@/share/python"
     remote-devt:
       link: roots
       uenv:
         prefix_paths:
           LD_LIBRARY_PATH: [lib, lib64]
+        env_vars:
+          set:
+            - FDB_HOME:          "$@view_path@"
+            - FDB5_HOME:         "$@view_path@"
+            - ECKIT_HOME:        "$@view_path@"
+            - GRIB_DEFINITION_PATH: "$@mount@/data/share/eccodes-cosmo-mars/definitions:\
+                                     $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
+                                     $@mount@/env/fdb/share/eccodes/definitions"
+            # NOTE: this assumes that the fdb config names match the view names
+            - FDB5_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
+            - FDB_ENABLE_GRIBJUMP: "1"
+            - AUTO_LOAD_PLUGINS:   "1"
+            - ECCODES_ECKIT_GEO:   "1"
+          prepend_path:
+            - PATH: "$@mount@/venvs/fdb/bin/"
     remote-depl:
       link: roots
       uenv:
         prefix_paths:
           LD_LIBRARY_PATH: [lib, lib64]
+        env_vars:
+          set:
+            - FDB_HOME:          "$@view_path@"
+            - FDB5_HOME:         "$@view_path@"
+            - ECKIT_HOME:        "$@view_path@"
+            - GRIB_DEFINITION_PATH: "$@mount@/data/share/eccodes-cosmo-mars/definitions:\
+                                     $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
+                                     $@mount@/env/fdb/share/eccodes/definitions"
+            # NOTE: this assumes that the fdb config names match the view names
+            - FDB5_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
+            - FDB_ENABLE_GRIBJUMP: "1"
+            - AUTO_LOAD_PLUGINS:   "1"
+            - ECCODES_ECKIT_GEO:   "1"
+          prepend_path:
+            - PATH: "$@mount@/venvs/fdb/bin/"

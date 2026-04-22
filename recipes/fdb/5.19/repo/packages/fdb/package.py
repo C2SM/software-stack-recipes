@@ -1,7 +1,8 @@
-# Copyright 2013-2024 Lawrence Livermore National Security, LLC and other
-# Spack Project Developers. See the top-level COPYRIGHT file for details.
+# Copyright Spack Project Developers. See COPYRIGHT file for details.
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
+
+from spack_repo.builtin.build_systems.cmake import CMakePackage
 
 from spack.package import *
 
@@ -15,7 +16,7 @@ class Fdb(CMakePackage):
     git = "https://github.com/ecmwf/fdb.git"
     list_url = "https://github.com/ecmwf/fdb/tags"
 
-    maintainers("skosukhin", "victoria-cherkas", "dominichofer")
+    maintainers("victoria-cherkas")
 
     license("Apache-2.0")
 
@@ -34,9 +35,6 @@ class Fdb(CMakePackage):
     version("5.10.8", sha256="6a0db8f98e13c035098dd6ea2d7559f883664cbf9cba8143749539122ac46099")
     version("5.7.8", sha256="6adac23c0d1de54aafb3c663d077b85d0f804724596623b381ff15ea4a835f60")
 
-    depends_on("c", type="build")  # generated
-    depends_on("cxx", type="build")  # generated
-
     variant("tools", default=True, description="Build the command line tools")
     variant(
         "backends",
@@ -52,6 +50,9 @@ class Fdb(CMakePackage):
         ),
         description="List of supported backends",
     )
+
+    depends_on("c", type="build")  # generated
+    depends_on("cxx", type="build")  # generated
 
     depends_on("cmake@3.12:", type="build")
     depends_on("ecbuild@3.4:", type="build")
