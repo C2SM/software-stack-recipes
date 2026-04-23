@@ -9,9 +9,9 @@
 set -e
 
 # --- Fetch GRIB/eccodes resources  ----------------------------------------
-rm -rf /user-environment/data/share
-mkdir -p /user-environment/data/share
-pushd /user-environment/data/share
+rm -rf {{ env.mount }}/data/share
+mkdir -p {{ env.mount }}/data/share
+pushd {{ env.mount }}/data/share
 # eccodes cosmo definitions: since the updated defs are not published by DWD yet,
 # they are instead provided by the corresponding internal python package; see var
 # 'eccodes_cosmo_resources_path' below
@@ -22,70 +22,34 @@ pushd /user-environment/data/share
 git clone -b v0.0.4 https://github.com/MeteoSwiss/eccodes-cosmo-mars.git
 popd
 
-echo "-------- Possible binaries for python3.11 ----------"
-find /user-environment -name "python3.11*"
-
 # --- Tooling: locate Python, install Poetry, create venv for FDB tooling ---
-install_root=/user-environment/linux-zen3/
+install_root={{ env.mount }}/linux-zen3/
 python_exe=$(find $install_root -path "*/bin/python3.11" -type f)
 
-curl -sSL https://install.python-poetry.org | POETRY_HOME=/user-environment $python_exe -
+curl -sSL https://install.python-poetry.org | POETRY_HOME={{ env.mount }} $python_exe -
 
-pushd /user-environment/meta/recipe/meta/private/
-rm -rf  /user-environment/venvs/
-mkdir -p /user-environment/venvs/
-$python_exe -m venv /user-environment/venvs/fdb
-source /user-environment/venvs/fdb/bin/activate
-/user-environment/bin/poetry install
+# NOTE: in environments.yaml, the specs of the env variables GRIB_DEFINITION_PATH and PATH assume that fdb is installed under /user-environment/venvs/fdb
+pushd {{ env.mount }}/meta/recipe/meta/private/
+rm -rf  {{ env.mount }}/venvs/
+mkdir -p {{ env.mount }}/venvs/
+$python_exe -m venv {{ env.mount }}/venvs/fdb
+source {{ env.mount }}/venvs/fdb/bin/activate
+{{ env.mount }}/bin/poetry install
 popd
 
 # determine path of eccodes cosmo resources from python package
 eccodes_cosmo_resources_path=$(python -c "import eccodes_cosmo_resources as res; print(res.get_definitions_path())")
 
 # --- Expand metkit tables with ICON parameter, model, and stream definitions --
-echo "-------- Possible locations for language.yaml ----------"
-find /user-environment -name "language.yaml"
 metkit_dir=$(dirname $(find $install_root -name language.yaml))
 
-python /user-environment/meta/recipe/meta/private/expand_params.py ${metkit_dir}/paramids.yaml ${eccodes_cosmo_resources_path}/grib2/shortName.def,${eccodes_cosmo_resources_path}/grib2/localConcepts/edzw/shortName.def
-python /user-environment/meta/recipe/meta/private/expand_language.py ${metkit_dir}/language.yaml
+python {{ env.mount }}/meta/recipe/meta/private/expand_params.py ${metkit_dir}/paramids.yaml ${eccodes_cosmo_resources_path}/grib2/shortName.def,${eccodes_cosmo_resources_path}/grib2/localConcepts/edzw/shortName.def
+python {{ env.mount }}/meta/recipe/meta/private/expand_language.py ${metkit_dir}/language.yaml
 
-# --- Configure FDB views and runtime environment ------------------------------
-fdb_config_dir="/user-environment/meta/recipe/meta/private/fdb_config"
-
-declare -A views
-views=(
-  ["rea-l-ch1"]="${fdb_config_dir}/rea-l-ch1.yaml"
-  ["realtime"]="${fdb_config_dir}/realtime.yaml"
-  ["remote-depl"]="${fdb_config_dir}/remote-depl.yaml"
-  ["remote-devt"]="${fdb_config_dir}/remote-devt.yaml"
-)
-
-for view in "${!views[@]}"
-do
-    config_file="${views[$view]}"
-    jq --arg view "$view" --arg env "/user-environment/env/$view" '.views[$view].env.values.list.FDB_HOME = [{"op":"prepend","value":[$env]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
-    jq --arg view "$view" --arg env "/user-environment/env/$view" '.views[$view].env.values.list.FDB5_HOME = [{"op":"prepend","value":[$env]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
-    jq --arg view "$view" --arg eccodes_cosmo_resources_path "$eccodes_cosmo_resources_path" '.views[$view].env.values.list.GRIB_DEFINITION_PATH = [{"op":"prepend","value":["/user-environment/data/share/eccodes-cosmo-mars/definitions",$eccodes_cosmo_resources_path,"/user-environment/env/fdb/share/eccodes/definitions"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
-    jq --arg view "$view" '.views[$view].env.values.list.PATH[0].value |= ["/user-environment/venvs/fdb/bin/"] + .' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
-    jq --arg view "$view" '.views[$view].env.values.list.FDB_ENABLE_GRIBJUMP = [{"op":"set","value":["1"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
-    jq --arg view "$view" '.views[$view].env.values.list.AUTO_LOAD_PLUGINS = [{"op":"set","value":["1"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
-    jq --arg view "$view" '.views[$view].env.values.list.ECCODES_ECKIT_GEO = [{"op":"set","value":["1"]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
-    jq --arg view "$view" --arg env "/user-environment/env/$view" '.views[$view].env.values.list.ECKIT_HOME = [{"op":"set","value":[$env]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
-    jq --arg view "$view" --arg config_file "$config_file" '.views[$view].env.values.list.FDB5_CONFIG_FILE = [{"op":"prepend","value":[$config_file]}]' store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
-
-    # --- rea-l-ch1 only: install Python helper for shortName → paramId mapping ---
-    # Makes it importable via: from uenv_param_map import shortname_to_paramid
-    if [[ "$view" == "rea-l-ch1" ]]; then
-        helper_src="/user-environment/meta/recipe/meta/private/uenv_param_map.py"
-        helper_dir="/user-environment/env/$view/share/python"
-        mkdir -p "$helper_dir"
-        cp -f "$helper_src" "$helper_dir/"
-
-        # Add helper path to PYTHONPATH for this view
-        jq --arg view "$view" --arg pydir "$helper_dir" \
-          '.views[$view].env.values.list.PYTHONPATH = [{"op":"prepend","value":[$pydir]}]' \
-          store/meta/env.json > tmp.json && mv tmp.json store/meta/env.json
-    fi
-
-done
+# --- rea-l-ch1 only: install Python helper for shortName → paramId mapping ---
+# Makes it importable via: from uenv_param_map import shortname_to_paramid
+helper_src="{{ env.mount }}/meta/recipe/meta/private/uenv_param_map.py"
+# NOTE: this path is used in the PYTHONPATH env var in environments.yaml
+helper_dir="{{ env.mount }}/env/rea-l-ch1/share/python"
+mkdir -p "$helper_dir"
+cp -f "$helper_src" "$helper_dir/"
