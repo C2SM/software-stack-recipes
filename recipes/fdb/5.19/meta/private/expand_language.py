@@ -57,6 +57,11 @@ def main():
             ["10m"],
         ]
     )
+    metkit_lang["_field"]["levtype"]["values"].extend(
+        [
+            ["hmsl", "height above mean sea level"],
+        ]
+    )
 
     yaml.add_representer(tuple, tuple_representer, Dumper=NoAliasDumper)
     # convert list to tuples so that the yaml dump generates [] (original formatting of the yaml) instead of rows of "-"
