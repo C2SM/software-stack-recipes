@@ -19,7 +19,9 @@ pushd {{ env.mount }}/data/share
 #bunzip2  eccodes_definitions.edzw-2.38.3-1.tar.bz2
 #tar xvf eccodes_definitions.edzw-2.38.3-1.tar
 #rm eccodes_definitions.edzw-2.38.3-1.tar
-git clone -b v0.0.4 https://github.com/MeteoSwiss/eccodes-cosmo-mars.git
+#git clone -b v0.0.4 https://github.com/MeteoSwiss/eccodes-cosmo-mars.git
+git clone https://github.com/MeteoSwiss/eccodes-cosmo-mars.git
+git -C eccodes-cosmo-mars checkout 0f3b7a02d0399c091efb129bbcddfaa25d307355
 popd
 
 # --- Tooling: locate Python, install Poetry, create venv for FDB tooling ---
