@@ -47,8 +47,20 @@ def main():
         }
     )
 
-    metkit_lang["_field"]["stream"]["values"].append(
-        ["reanl", "icon reanalysis light CH1"]
+    metkit_lang["_field"]["stream"]["values"].extend(
+        [
+            ["reanl", "icon reanalysis light CH1"],
+        ]
+    )
+    metkit_lang["_field"]["timespan"]["values"].extend(
+        [
+            ["10m"],
+        ]
+    )
+    metkit_lang["_field"]["levtype"]["values"].extend(
+        [
+            ["hmsl", "height above mean sea level"],
+        ]
     )
 
     yaml.add_representer(tuple, tuple_representer, Dumper=NoAliasDumper)
