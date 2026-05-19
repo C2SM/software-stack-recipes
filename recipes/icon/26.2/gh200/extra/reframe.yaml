@@ -1,5 +1,13 @@
 default:
-  features: [osu-micro-benchmarks, mpi, serial, openmp]
+  features:
+  - cuda
+  - mpi
+  - cray-mpich
+  - nccl
+  - nccl-tests
+  - openmp
+  - osu-micro-benchmarks
+  - serial  
   cc: mpicc
   cxx: mpic++
   ftn: mpifort
