@@ -2,7 +2,9 @@ icon:
   compiler: [gcc, nvhpc]
   network:
     mpi: cray-mpich@9.1.0 +cuda %c,cxx,fortran=nvhpc ^libfabric@2 %c=nvhpc
-  unify: true
+  unify: when_possible
+  duplicates:
+    strategy: full
   specs:
   - python@3.12 %c,cxx=gcc ^libffi %c,cxx=gcc ^expat %c=gcc ^libmd %c=gcc ^libxcrypt %c=gcc ^gettext %c,cxx=gcc
   - cuda@13.1
