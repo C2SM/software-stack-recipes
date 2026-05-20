@@ -1,5 +1,5 @@
 icon:
-  compiler: [nvhpc, gcc]
+  compiler: [gcc, nvhpc]
   network:
     mpi: cray-mpich@9.1.0 +cuda %c,cxx,fortran=nvhpc ^libfabric@2 +gdrcopy %c=nvhpc
     specs: []
@@ -12,19 +12,19 @@ icon:
   - hdf5@1.14.6 ~cxx+fortran+hl~ipo~java~map+mpi+shared~subfiling+szip~threadsafe+tools api=default %c,fortran=nvhpc
   - netcdf-c@4.9.3 +blosc~byterange~dap~fsync~hdf4~jna~logging+mpi~nczarr_zip+optimize~parallel-netcdf+pic+shared+szip+zstd %c,cxx=nvhpc
   - netcdf-fortran@4.6.2 ~doc+pic+shared %c,fortran=nvhpc
-  - boost ~mpi +thread %c,cxx=gcc
+  - boost ~mpi
   - openblas %c,cxx,fortran=nvhpc
   # for validation
-  - cdo %c,cxx,fortran=gcc
+  - cdo
   # everything needed for nccl on SS11
-  - nccl@2.29.2 %c,cxx=gcc
-  - nccl-tests %cxx=gcc
-  - aws-ofi-nccl@1.17.2 %c,cxx=gcc
+  - nccl@2.29.2
+  - nccl-tests
+  - aws-ofi-nccl@1.17.2
   # extras
-  - libfyaml %c=gcc
-  - zlib-ng %c,cxx=gcc
-  - cmake %c,cxx=gcc
-  - findutils %c=gcc
+  - libfyaml
+  - zlib-ng
+  - cmake
+  - findutils
   variants:
   - +mpi
   - +cuda
