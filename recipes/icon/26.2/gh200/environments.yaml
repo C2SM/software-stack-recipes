@@ -1,11 +1,8 @@
 icon:
   compiler: [gcc, nvhpc]
   network:
-    mpi: cray-mpich@9.1.0 +cuda %c,cxx,fortran=nvhpc
-    specs:
-    - libfabric@2 +gdrcopy %c=gcc
-    - gdrcopy %c,cxx=gcc
-    - libcxi %c=gcc
+    mpi: cray-mpich@9.1.0 +cuda %c,cxx,fortran=nvhpc ^libfabric@2 +gdrcopy %c=nvhpc
+    specs: []
   unify: when_possible
   specs:
   - python@3.12 %c,cxx=gcc ^libffi %c,cxx=gcc ^expat %c=gcc ^libmd %c=gcc ^libxcrypt %c=gcc ^gettext %c,cxx=gcc
@@ -20,8 +17,9 @@ icon:
   # for validation
   - cdo
   # everything needed for nccl on SS11
-  - nccl
+  - nccl@2.29.2
   - nccl-tests
+  - aws-ofi-nccl@1.17.2
   # extras
   - libfyaml
   - zlib-ng
