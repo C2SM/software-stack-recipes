@@ -12,19 +12,19 @@ icon:
   - hdf5@1.14.6 ~cxx+fortran+hl~ipo~java~map+mpi+shared~subfiling+szip~threadsafe+tools api=default %c,fortran=nvhpc
   - netcdf-c@4.9.3 +blosc~byterange~dap~fsync~hdf4~jna~logging+mpi~nczarr_zip+optimize~parallel-netcdf+pic+shared+szip+zstd %c,cxx=nvhpc
   - netcdf-fortran@4.6.2 ~doc+pic+shared %c,fortran=nvhpc
-  - boost ~mpi
+  - boost ~mpi +thread %c,cxx=gcc
   - openblas %c,cxx,fortran=nvhpc
   # for validation
-  - cdo
+  - cdo %c,cxx,fortran=gcc
   # everything needed for nccl on SS11
-  - nccl@2.29.2
-  - nccl-tests
-  - aws-ofi-nccl@1.17.2
+  - nccl@2.29.2 %c,cxx=gcc
+  - nccl-tests %cxx=gcc
+  - aws-ofi-nccl@1.17.2 %c,cxx=gcc
   # extras
-  - libfyaml
-  - zlib-ng
-  - cmake
-  - findutils
+  - libfyaml %c=gcc
+  - zlib-ng %c,cxx=gcc
+  - cmake %c,cxx=gcc
+  - findutils %c=gcc
   variants:
   - +mpi
   - +cuda
