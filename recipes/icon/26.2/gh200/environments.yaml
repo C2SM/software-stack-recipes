@@ -1,5 +1,5 @@
 icon:
-  compiler: [gcc, nvhpc]
+  compiler: [nvhpc, gcc]
   network:
     mpi: cray-mpich@9.1.0 +cuda %c,cxx,fortran=nvhpc ^libfabric@2 +gdrcopy %c=nvhpc
     specs: []
