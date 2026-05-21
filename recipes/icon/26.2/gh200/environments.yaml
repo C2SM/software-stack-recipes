@@ -19,7 +19,7 @@ icon:
   # everything needed for nccl on SS11
   - nccl@2.29.2
   - nccl-tests
-  - aws-ofi-nccl@1.17.2 %c,cxx=nvhpc
+  - aws-ofi-nccl@1.17.2
   # extras
   - libfyaml
   - zlib-ng
