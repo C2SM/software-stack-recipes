@@ -1,6 +1,0 @@
-name: Sirocco
-spack:
-  commit: v1.1.0
-  repo: https://github.com/spack/spack.git
-store: /user-tools
-description: minimal environment for Sirocco

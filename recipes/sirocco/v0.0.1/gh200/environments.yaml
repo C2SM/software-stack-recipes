@@ -1,0 +1,15 @@
+sirocco:
+  compiler: [gcc]
+  network:
+    mpi: cray-mpich@8.1.30 ~cuda
+  specs:
+  - python@3.12
+  - graphviz@13.1.2
+  unify: true
+  views:
+    sirocco:
+      link: roots
+      uenv:
+        add_compilers: true
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
