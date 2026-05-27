@@ -24,6 +24,11 @@ class Icon4py(Package):
     depends_on("ghex +python +cuda")
 
     version(
+        "0.1.0",
+        sha256="0d48d34234af32243fe899a9e86edd90bbd57890cb89bfda8de906589a70e273",
+        extension="zip",
+    )
+    version(
         "icon_20250328",
         sha256="8573ef031d207438f549511e859f522c60163ea660aafea93ef4991b9010739a",
         extension="zip",
