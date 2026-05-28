@@ -5,7 +5,7 @@ set -euo pipefail
 # Configuration
 # --------------------------
 packages=(
-    "icon-nwp"
+    "icon_nwp"
     "icon4py"
     "uv"
 )
