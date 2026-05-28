@@ -1,6 +1,6 @@
 #!/bin/bash
 
-packages=("icon" "icon4py")
+packages=("icon-nwp" "icon4py")
 SPACK_C2SM_TAG="v1.1_dev"
 
 git clone --depth 1 -b ${SPACK_C2SM_TAG} https://github.com/C2SM/spack-c2sm.git
