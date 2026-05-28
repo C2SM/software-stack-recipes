@@ -9,7 +9,7 @@ icon:
   - icon-nwp@git.527d72ad5524ed48bfa62fc5713ec64f5b4faf07 %c,cxx,fortran=nvhpc
       ~aes +ecrad +jsbach +ocean +coupling ~rte-rrtmgp
       +icon4py +cuda-mempool gpu=nvidia-90 ~mpi-gpu +realloc-buf +cuda-graphs +pgi-inlib
-      fflags="-traceback -cuda"
+      fflags="-traceback"
   - python@3.12 %c,cxx=gcc ^libffi %c,cxx=gcc ^expat %c=gcc ^libmd %c=gcc ^libxcrypt %c=gcc ^gettext %c,cxx=gcc
   - cuda@13.1
   - eccodes@2.36.4 +aec+fortran~ipo~memfs~netcdf~openmp~png~pthreads+shared~tools jp2k=openjpeg %c,cxx,fortran=nvhpc
