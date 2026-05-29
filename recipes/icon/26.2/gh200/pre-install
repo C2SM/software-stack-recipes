@@ -28,7 +28,7 @@ echo "Clone complete."
 # Copy packages into store/repo/packages
 # --------------------------
 for package in "${packages[@]}"; do
-    SRC="spack-c2sm/repos/c2sm/packages/${package}"
+    SRC="spack-c2sm/repos/spack_repo/c2sm/packages/${package}"
     DEST="store/repo/packages/${package}"
     
     echo "Copying package '${package}'..."
