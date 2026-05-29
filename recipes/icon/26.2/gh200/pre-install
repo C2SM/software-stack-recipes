@@ -29,7 +29,7 @@ echo "Clone complete."
 # --------------------------
 for package in "${packages[@]}"; do
     SRC="spack-c2sm/repos/spack_repo/c2sm/packages/${package}"
-    DEST="store/repo/packages/${package}"
+    DEST="store/repos/spack_repo/alps/packages/${package}"
     
     echo "Copying package '${package}'..."
     
