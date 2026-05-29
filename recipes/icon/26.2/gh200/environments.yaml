@@ -6,7 +6,7 @@ icon:
   unify: when_possible
   specs:
   - icon4py@0.2.0rc2
-  - icon_nwp@git.527d72ad5524ed48bfa62fc5713ec64f5b4faf07 %c,cxx,fortran=nvhpc
+  - icon-nwp@git.527d72ad5524ed48bfa62fc5713ec64f5b4faf07 %c,cxx,fortran=nvhpc
       ~aes +ecrad +jsbach +ocean +coupling ~rte-rrtmgp
       +icon4py +cuda-mempool gpu=nvidia-90 ~mpi-gpu +realloc-buf +cuda-graphs +pgi-inlib
       fflags="-traceback"
