@@ -7,9 +7,9 @@ icon:
   specs:
   - icon4py@0.2.0rc2
   - icon-nwp@git.03238a74e31348ea1723169b2ac8d7e750266e85 %c,cxx,fortran=nvhpc
-      ~aes +ecrad +jsbach +ocean +coupling ~rte-rrtmgp
-      +icon4py +cuda-mempool gpu=nvidia-90 ~mpi-gpu +realloc-buf +cuda-graphs +pgi-inlib
-      fflags="-traceback"
+    ~aes +ecrad +jsbach +ocean +coupling ~rte-rrtmgp
+    +icon4py +cuda-mempool gpu=nvidia-90 ~mpi-gpu +realloc-buf +cuda-graphs +pgi-inlib
+    fflags="-traceback"
   - python@3.12 %c,cxx=gcc ^libffi %c,cxx=gcc ^expat %c=gcc ^libmd %c=gcc ^libxcrypt %c=gcc ^gettext %c,cxx=gcc
   - cuda@13.1
   - eccodes@2.36.4 +aec+fortran~ipo~memfs~netcdf~openmp~png~pthreads+shared~tools jp2k=openjpeg %c,cxx,fortran=nvhpc
