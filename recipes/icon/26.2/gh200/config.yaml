@@ -4,8 +4,8 @@ spack:
   repo: https://github.com/spack/spack.git
   commit: releases/v1.1
   packages:
-    repo: https://github.com/msimberg/spack-packages.git
-    commit: f91b0aa48685447b54f1e27681ec4b6bb23c228c
+    repo: https://github.com/spack/spack-packages.git
+    commit: f003b0fb96ea91706254976f78e87c667ef70672
 modules: true
 description: "Compilers and libraries required to build ICON"
 version: 2
