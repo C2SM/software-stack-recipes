@@ -3,28 +3,33 @@ icon:
   network:
     mpi: cray-mpich@9.1.0 +cuda %c,cxx,fortran=nvhpc ^libfabric@2 +gdrcopy %c=nvhpc
     specs: [ xpmem ]
-  unify: when_possible
+  # unify: when_possible
+  unify: true
   specs:
-  - icon4py@0.2.0rc2
-  - icon-nwp@git.03238a74e31348ea1723169b2ac8d7e750266e85
-    ~aes +ecrad +jsbach +ocean +coupling ~rte-rrtmgp
-    +icon4py +cuda-mempool gpu=nvidia-90 ~mpi-gpu +realloc-buf +cuda-graphs +pgi-inlib
-    fflags="-traceback" %c,cxx,fortran=nvhpc
+  # - icon4py@0.2.0rc2
+  # - icon-nwp@git.03238a74e31348ea1723169b2ac8d7e750266e85
+  #   ~aes +ecrad +jsbach +ocean +coupling ~rte-rrtmgp
+  #   +icon4py +cuda-mempool gpu=nvidia-90 ~mpi-gpu +realloc-buf +cuda-graphs +pgi-inlib
+  #   fflags="-traceback" %c,cxx,fortran=nvhpc
   - python@3.12 %c,cxx=gcc ^libffi %c,cxx=gcc ^expat %c=gcc ^libmd %c=gcc ^libxcrypt %c=gcc ^gettext %c,cxx=gcc
   - cuda@13.1
   - eccodes@2.36.4 +aec+fortran~ipo~memfs~netcdf~openmp~png~pthreads+shared~tools jp2k=openjpeg %c,cxx,fortran=nvhpc
   - eccodes-cosmo-resources@2.36.0.3
-  - hdf5@1.14.6 ~cxx+fortran+hl~ipo~java~map+mpi+shared~subfiling+szip~threadsafe+tools api=default %c,fortran=nvhpc
-  - netcdf-c@4.9.3 +blosc~byterange~dap~fsync~hdf4~jna~logging+mpi~nczarr_zip+optimize~parallel-netcdf+pic+shared+szip+zstd %c,cxx=nvhpc
-  - netcdf-fortran@4.6.2 ~doc+pic+shared %c,fortran=nvhpc
+  # - hdf5@1.14.6 ~cxx+fortran+hl~ipo~java~map+mpi+shared~subfiling+szip~threadsafe+tools api=default %c,fortran=nvhpc
+  # - netcdf-c@4.9.3 +blosc~byterange~dap~fsync~hdf4~jna~logging+mpi~nczarr_zip+optimize~parallel-netcdf+pic+shared+szip+zstd %c,cxx=nvhpc
+  # - netcdf-fortran@4.6.2 ~doc+pic+shared %c,fortran=nvhpc
+  - hdf5 %c,fortran=nvhpc
+  - netcdf-c %c,cxx=nvhpc
+  - netcdf-fortran %c,fortran=nvhpc
   - boost ~mpi
   - openblas %c,cxx,fortran=nvhpc
   # for validation
   - cdo
   # everything needed for nccl on SS11
-  - nccl@2.29.2
+  # - nccl@2.29.2
+  - nccl
   - nccl-tests
-  - aws-ofi-nccl@1.17.2
+  # - aws-ofi-nccl@1.17.2
   # extras
   - libfyaml
   - zlib-ng
