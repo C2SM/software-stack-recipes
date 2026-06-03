@@ -16,7 +16,7 @@ icon:
   - boost ~mpi
   - openblas %c,cxx,fortran=nvhpc
   # for validation
-  - cdo@2.6.0
+  - cdo
   # everything needed for nccl on SS11
   - nccl@2.29.2
   - nccl-tests
