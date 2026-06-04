@@ -1,0 +1,8 @@
+---
+type: local
+engine: toc
+schema: /user-environment/meta/recipe/meta/private/fdb_config/archive.schema
+spaces:
+- handler: Default
+  roots:
+  - path: /scratch/mch/sbolt/icon-archive-data-test/
