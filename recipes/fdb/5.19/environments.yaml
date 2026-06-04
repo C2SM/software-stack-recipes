@@ -94,3 +94,23 @@ fdb:
             - ECCODES_ECKIT_GEO:   "1"
           prepend_path:
             - PATH: "$@mount@/venvs/fdb/bin/"
+    archive:
+      link: roots
+      uenv:
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
+        env_vars:
+          set:
+            - FDB_HOME:          "$@view_path@"
+            - FDB5_HOME:         "$@view_path@"
+            - ECKIT_HOME:        "$@view_path@"
+            - GRIB_DEFINITION_PATH: "$@mount@/data/share/eccodes-cosmo-mars/definitions:\
+                                     $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
+                                     $@mount@/env/fdb/share/eccodes/definitions"
+            # NOTE: this assumes that the fdb config names match the view names
+            - FDB5_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
+            - FDB_ENABLE_GRIBJUMP: "1"
+            - AUTO_LOAD_PLUGINS:   "1"
+            - ECCODES_ECKIT_GEO:   "1"
+          prepend_path:
+            - PATH: "$@mount@/venvs/fdb/bin/"
