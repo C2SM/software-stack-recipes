@@ -10,9 +10,9 @@ icon:
   specs:
   # icon4py deps
   - libfabric@2.4.0 +cuda +gdrcopy fabrics=cxi,rxm,tcp
-  - libcxi@12.0.2
-  - cxi-driver@12.0.2
-  - cassini-headers@12.0.2
+  - libcxi@13.1.0
+  - cxi-driver@13.1.0
+  - cassini-headers@13.1.0
   - python@3.11
   - py-cupy@13.3 +cuda cuda_arch=90
   - ghex
@@ -69,9 +69,9 @@ icon-verify:
   specs:
   # icon4py deps
   - libfabric@2.4.0 +cuda +gdrcopy fabrics=cxi,rxm,tcp
-  - libcxi@12.0.2
-  - cxi-driver@12.0.2
-  - cassini-headers@12.0.2
+  - libcxi@13.1.0
+  - cxi-driver@13.1.0
+  - cassini-headers@13.1.0
   - python@3.11
   - py-cupy@13.3 +cuda cuda_arch=90
   - ghex
