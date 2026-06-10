@@ -15,6 +15,7 @@ icon:
     - netcdf-fortran@4.6.2 ~doc+pic+shared %c,fortran=nvhpc
     - boost ~mpi
     - openblas %c,cxx,fortran=nvhpc
+    - serialbox +fortran +python +netcdf %c,cxx,fortran=nvhpc
     # for validation
     - cdo
     # everything needed for nccl on SS11
