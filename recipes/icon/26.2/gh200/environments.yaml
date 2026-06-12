@@ -8,7 +8,7 @@ icon:
     - python@3.12 %c,cxx=gcc ^libffi %c,cxx=gcc ^expat %c=gcc ^libmd %c=gcc ^libxcrypt %c=gcc ^gettext %c,cxx=gcc
     - python-venv
     - cuda@13.1
-    - eccodes@2.36.4 +fortran jp2k=jasper %c,cxx,fortran=nvhpc
+    - eccodes@2.36.4 +fortran jp2k=openjpeg %c,cxx,fortran=nvhpc
     - eccodes-cosmo-resources@2.36.0.3 ^eccodes %c,cxx,fortran=nvhpc
     - hdf5@1.14.6 +fortran+hl+szip+threadsafe %c,fortran=nvhpc
     - netcdf-c@4.9.3 %c,cxx=nvhpc
