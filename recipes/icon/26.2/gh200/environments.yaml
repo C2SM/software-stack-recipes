@@ -5,7 +5,7 @@ icon:
     specs: [ xpmem ]
   unify: when_possible
   specs:
-    - python@3.13 %c,cxx=gcc ^libffi %c,cxx=gcc ^expat %c=gcc ^libmd %c=gcc ^libxcrypt %c=gcc ^gettext %c,cxx=gcc
+    - python@3.13 %c,cxx=gcc ^libffi %c,cxx=gcc ^expat %c=gcc ^libmd %c=gcc ^gettext %c,cxx=gcc
     - python-venv
     - cuda@13.1
     - eccodes@2.36.4 +fortran jp2k=jasper %c,cxx,fortran=nvhpc
