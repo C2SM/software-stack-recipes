@@ -1,4 +1,6 @@
 gcc:
   version: "14"
 nvhpc:
-  version: "26.3"
+  # version: "26.3"
+  # - ML - downgrade try
+  version: "26.1"
