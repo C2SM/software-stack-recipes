@@ -51,7 +51,7 @@ class Eccodes(CMakePackage):
 
     version("develop", branch="develop")
 
-    version("gridSpec", commit="e0e952ec746dd8b60c95261394359b959c29871a")
+    version("2.46.0-gridspec", commit="e0e952ec746dd8b60c95261394359b959c29871a")
     version("2.46.0", sha256="7d959253d5e34aeb16caa14d4889ac06486d19821216743142733a32ee7b4935")
     version("2.45.0", sha256="6c84b39d7cc5e3b8330eeabe880f3e337f9b2ee1ebce20ea03eecd785f6c39a1")
     version("2.42.0", sha256="60371b357cb011dee546db2eabace5b7e27f0f87d3ea4a5adde7891371b3c128")
@@ -162,7 +162,7 @@ class Eccodes(CMakePackage):
 
     # Enforce linking against the specified JPEG2000 backend, see also
     # https://github.com/ecmwf/eccodes/commit/2c10828495900ff3d80d1e570fe96c1df16d97fb
-    patch("openjpeg_jasper.patch", when="@2.16")
+    patch("openjpeg_jasper.patch", when="@:2.16")
 
     # CMAKE_INSTALL_RPATH must be a semicolon-separated list.
     patch("cmake_install_rpath.patch", when="@:2.10")

@@ -7,7 +7,7 @@ fdb:
   - gribjump@=0.10.3
   - eckit@feature-eckit-geo linalg=none compression=lz4 +curl +ssl
   - metkit@=1.16.3-levelist
-  - eccodes@gridSpec jp2k=none ~fortran +pthreads +aec +geo
+  - eccodes@=2.46.0-gridspec jp2k=none ~fortran +pthreads +aec +geo
   - ecbuild@=3.13.1
   - python@=3.11.15
   variants:
