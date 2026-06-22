@@ -22,6 +22,7 @@ class Eckit(CMakePackage):
 
     license("Apache-2.0")
 
+    version("feature-eckit-geo", commit="624b9c4eaca0dbe9528bc4cc8bb02dc3cbb4571f")
     version("2.0.2", sha256="46b9c1f90e0b565698c5c79c54676401d33738ec82995c025d5d5aabeb13ad2b")
     version("1.33.0", sha256="a15f89df0cdaa2d8a74843a1e72a7b3b304958a4fe119b51eec5efadbf113d4f")
     version("1.32.3", sha256="33e0fac2656cdd2f2d877dbfe7a4751ee657ab732c00dd90bd48a406298a100f")
