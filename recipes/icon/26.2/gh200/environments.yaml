@@ -7,7 +7,7 @@ icon:
   specs:
     - python@3.13 %c,cxx=gcc ^libffi %c,cxx=gcc ^expat %c=gcc ^libmd %c=gcc ^gettext %c,cxx=gcc
     - python-venv
-    - cuda@13.1
+    - cuda@12.6
     - eccodes@2.36.4 +fortran jp2k=jasper %c,cxx,fortran=nvhpc
     - eccodes-cosmo-resources@2.36.0.3 ^eccodes %c,cxx,fortran=nvhpc
     - hdf5@1.14.6 +fortran+hl+szip+threadsafe %c,fortran=nvhpc
