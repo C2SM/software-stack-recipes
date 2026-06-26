@@ -3,6 +3,9 @@ ecflow:
   unify: true
   specs:
   - ecflow@5.11.4 +ipo ~pic +ssl +static_boost +ui build_type=Release %c,cxx,fortran=gcc
+  - python@3.14
+  concretizer:
+    reuse: true
   views:
     default:
       link: roots
