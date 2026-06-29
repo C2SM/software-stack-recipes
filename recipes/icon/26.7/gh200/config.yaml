@@ -9,7 +9,7 @@ spack:
       commit: v1.1_dev # TODO: pin this to a tag
     builtin:
       repo: https://github.com/spack/spack-packages.git
-      tag: v2026.06.0
+      commit: v2026.06.0
 modules: true
 description: "Compilers and libraries required to build ICON"
 version: 2
