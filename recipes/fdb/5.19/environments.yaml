@@ -5,9 +5,9 @@ fdb:
   specs:
   - fdb@=5.19.2 backends=lustre
   - gribjump@=0.10.3
-  - eckit@=2.0.2 linalg=none compression=lz4 +curl +ssl
+  - eckit@2.1.0 linalg=none compression=lz4 +curl +ssl
   - metkit@=1.16.3-levelist
-  - eccodes@=2.46.0 jp2k=none ~fortran +pthreads +aec +geo
+  - eccodes@=2.47.3 jp2k=none ~fortran +pthreads +aec +geo
   - ecbuild@=3.13.1
   - python@=3.11.15
   variants:
