@@ -28,10 +28,10 @@ covjsonkit = "^0.2.21"
 
 # Earthkit 1.0
 earthkit-utils = "~1.0.2"
-earthkit-data = {version = "~1.0.0", extras = ["all"]}
+earthkit-data = {version = "~1.0.2", extras = ["all"]}
 earthkit-geo = {version = "~1.0.0", extras = ["all"]}
 earthkit-meteo = {version = "~1.0.0", extras = ["all"]}
-earthkit-plots = "~1.0.1"
+earthkit-plots = "~1.0.2"
 
 # MCH internal pypi (until officially published by DWD)
 eccodes-cosmo-resources-python-internal = {version = "^2.47.0.1", source = "pypi-mch"}
