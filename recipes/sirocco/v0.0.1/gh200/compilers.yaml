@@ -1,2 +1,8 @@
+# Using gcc 14 triggers this signature graphviz API breaking: https://github.com/pygraphviz/pygraphviz/pull/566
+# https://github.com/pygraphviz/pygraphviz/pull/583 is fixing the issue but it's not yet part of a realease => It is now!
+# Once released, we should even be able to get rid of the depdendency on the graphviz package itself => Hum, really?
+# Isn't is just the fact that we don't need to build the graphviz interface at pip install time?
 gcc:
-  version: "13"
+  # version: "13"
+  # Try 14 again since pygrapviz-2.0 should solve the issue
+  version: "14"
