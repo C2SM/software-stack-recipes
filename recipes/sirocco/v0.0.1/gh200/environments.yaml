@@ -1,15 +1,32 @@
 sirocco:
   compiler: [gcc]
-  network:
-    mpi: cray-mpich@8.1.30 ~cuda
+  # network:
+  #   mpi: cray-mpich@9.1 +cuda
   specs:
-  - python@3.12
-  - graphviz@13.1.2
+    - python@3.14
+    - graphviz@14.0.1
+  # variants:
+  #   - +mpi
+  #   - +cuda
+  #   - cuda_arch=90a
   unify: true
   views:
+    default:
+      link: roots
+      uenv:
+        add_compilers: true
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
     sirocco:
       link: roots
       uenv:
         add_compilers: true
         prefix_paths:
           LD_LIBRARY_PATH: [lib, lib64]
+        env_vars:
+          set:
+            - VIRTUAL_ENV: "/user-tools/sirocco_venv"
+            - VIRTUAL_ENV_PROMPT: "༄ sirocco ༄"
+            - VIRTUAL_ENV_DISABLE_PROMPT: "true"
+          prepend_path:
+            - PATH: "/user-tools/sirocco_venv/bin"
