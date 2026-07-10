@@ -30,10 +30,10 @@ source ${SIROCCO_VENV}/bin/activate
 
 # Install Sirocco
 pushd "${SIROCCO_INSTALL_DIR}"
-# Try removing graphviz and gcc pointers. As of version 2.0, pygraphviz should ship with wheels for graphviz
-# CC="{{ env.mount }}/env/${SIROCCO_VIEW}/bin/gcc" \
-# CFLAGS="-I{{ env.mount }}/env/${SIROCCO_VIEW}/include -I{{ env.mount }}/env/${SIROCCO_VIEW}/include/graphviz" \
-# LDFLAGS="-L{{ env.mount }}/env/${SIROCCO_VIEW}/lib -L{{ env.mount }}/env/${SIROCCO_VIEW}/lib/graphviz" \
+# Try removing graphviz and gcc pointers. As of version 2.0, pygraphviz should ship with wheels for graphviz => dot layout failing
+CC="{{ env.mount }}/env/${SIROCCO_VIEW}/bin/gcc" \
+CFLAGS="-I{{ env.mount }}/env/${SIROCCO_VIEW}/include -I{{ env.mount }}/env/${SIROCCO_VIEW}/include/graphviz" \
+LDFLAGS="-L{{ env.mount }}/env/${SIROCCO_VIEW}/lib -L{{ env.mount }}/env/${SIROCCO_VIEW}/lib/graphviz" \
 ${UV} sync --no-cache --link-mode=copy --compile-bytecode --active --no-editable --inexact
 popd
 
