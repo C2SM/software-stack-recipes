@@ -80,3 +80,4 @@ uenvs:
         gh200: 'v0.0.1/gh200'
       deploy:
         santis: [gh200]
+      mount: "/user-tools"
