@@ -11,22 +11,18 @@ curl -LsSf https://astral.sh/uv/install.sh > uv-installer.sh
 UV_INSTALL_DIR="${UV_INSTALL_DIR}" sh uv-installer.sh
 rm uv-installer.sh
 
-# Link to "${SIROCCO_VIEW}" view
-ln -s "${UV_INSTALL_DIR}/uv" "{{ env.mount }}/env/${SIROCCO_VIEW}/bin/uv"
-ln -s "${UV_INSTALL_DIR}/uvx" "{{ env.mount }}/env/${SIROCCO_VIEW}/bin/uvx"
-
 # -----------------------------------------------
 # Install Sirocco
 UV="${UV_INSTALL_DIR}/uv"
 SIROCCO_VENV="{{ env.mount }}/sirocco_venv"
 SIROCCO_INSTALL_DIR="{{ env.mount }}/sirocco"
-SIROCCO_BRANCH="standalone"
+SIROCCO_BRANCH="multi-model"
 
 # Get Sirocco
-# git clone -b "${SIROCCO_BRANCH}" "https://github.com/C2SM/Sirocco.git" "${SIROCCO_INSTALL_DIR}"
+git clone -b "${SIROCCO_BRANCH}" "https://github.com/C2SM/Sirocco.git" "${SIROCCO_INSTALL_DIR}"
 # tmp testing recipe, doesn't require pushing to the repo
-SIROCCO_ROOT="/capstor/store/cscs/userlab/cwd01/leclairm/Sirocco_standalone"
-rsync -av --exclude "**__pycache__*" --exclude ".mypy_cache" --exclude ".pytest_cache" --exclude ".ruff_cache" ${SIROCCO_ROOT}/ ${SIROCCO_INSTALL_DIR}/
+# SIROCCO_ROOT="/capstor/store/cscs/userlab/cwd01/leclairm/Sirocco_standalone"
+# rsync -av --exclude "**__pycache__*" --exclude ".mypy_cache" --exclude ".pytest_cache" --exclude ".ruff_cache" ${SIROCCO_ROOT}/ ${SIROCCO_INSTALL_DIR}/
 
 # Create venv
 ${UV} venv --relocatable --python="{{ env.mount }}/env/${SIROCCO_VIEW}/bin/python" --prompt="༄ sirocco ༄" ${SIROCCO_VENV}
@@ -34,14 +30,16 @@ source ${SIROCCO_VENV}/bin/activate
 
 # Install Sirocco
 pushd "${SIROCCO_INSTALL_DIR}"
-CC="{{ env.mount }}/env/${SIROCCO_VIEW}/bin/gcc" \
-CFLAGS="-I{{ env.mount }}/env/${SIROCCO_VIEW}/include -I{{ env.mount }}/env/${SIROCCO_VIEW}/include/graphviz" \
-LDFLAGS="-L{{ env.mount }}/env/${SIROCCO_VIEW}/lib -L{{ env.mount }}/env/${SIROCCO_VIEW}/lib/graphviz" \
+# Try removing graphviz and gcc pointers. As of version 2.0, pygraphviz should ship with wheels for graphviz
+# CC="{{ env.mount }}/env/${SIROCCO_VIEW}/bin/gcc" \
+# CFLAGS="-I{{ env.mount }}/env/${SIROCCO_VIEW}/include -I{{ env.mount }}/env/${SIROCCO_VIEW}/include/graphviz" \
+# LDFLAGS="-L{{ env.mount }}/env/${SIROCCO_VIEW}/lib -L{{ env.mount }}/env/${SIROCCO_VIEW}/lib/graphviz" \
 ${UV} sync --no-cache --link-mode=copy --compile-bytecode --active --no-editable --inexact
 popd
 
 # Cleanup
 rm -rf ${SIROCCO_INSTALL_DIR}
+rm -rf ${UV_INSTALL_DIR}
 
 # Install in "sirocco" view
 echo "source ${SIROCCO_VENV}/bin/activate" >> {{ env.mount }}/env/${SIROCCO_VIEW}/activate.sh
