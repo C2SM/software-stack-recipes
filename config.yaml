@@ -74,3 +74,9 @@ uenvs:
         gh200: '25.2/gh200'
       deploy:
         santis: [gh200]
+  sirocco:
+    "v0.0.1":
+      recipes:
+        gh200: 'v0.0.1/gh200'
+      deploy:
+        santis: [gh200]
