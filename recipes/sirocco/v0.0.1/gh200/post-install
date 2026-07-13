@@ -20,6 +20,7 @@ SIROCCO_BRANCH="multi-model"
 
 # Get Sirocco
 git clone -b "${SIROCCO_BRANCH}" "https://github.com/C2SM/Sirocco.git" "${SIROCCO_INSTALL_DIR}"
+# TODO: leanup comments
 # tmp testing recipe, doesn't require pushing to the repo
 # SIROCCO_ROOT="/capstor/store/cscs/userlab/cwd01/leclairm/Sirocco_standalone"
 # rsync -av --exclude "**__pycache__*" --exclude ".mypy_cache" --exclude ".pytest_cache" --exclude ".ruff_cache" ${SIROCCO_ROOT}/ ${SIROCCO_INSTALL_DIR}/
@@ -30,10 +31,11 @@ source ${SIROCCO_VENV}/bin/activate
 
 # Install Sirocco
 pushd "${SIROCCO_INSTALL_DIR}"
-# Try removing graphviz and gcc pointers. As of version 2.0, pygraphviz should ship with wheels for graphviz => dot layout failing
-CC="{{ env.mount }}/env/${SIROCCO_VIEW}/bin/gcc" \
-CFLAGS="-I{{ env.mount }}/env/${SIROCCO_VIEW}/include -I{{ env.mount }}/env/${SIROCCO_VIEW}/include/graphviz" \
-LDFLAGS="-L{{ env.mount }}/env/${SIROCCO_VIEW}/lib -L{{ env.mount }}/env/${SIROCCO_VIEW}/lib/graphviz" \
+# TODO: cleanup comments
+# Try removing graphviz and gcc pointers. As of version 2.0, pygraphviz should ship with wheels for graphviz => dot layout failing => solved
+# CC="{{ env.mount }}/env/${SIROCCO_VIEW}/bin/gcc" \
+# CFLAGS="-I{{ env.mount }}/env/${SIROCCO_VIEW}/include -I{{ env.mount }}/env/${SIROCCO_VIEW}/include/graphviz" \
+# LDFLAGS="-L{{ env.mount }}/env/${SIROCCO_VIEW}/lib -L{{ env.mount }}/env/${SIROCCO_VIEW}/lib/graphviz" \
 ${UV} sync --no-cache --link-mode=copy --compile-bytecode --active --no-editable --inexact
 popd
 
