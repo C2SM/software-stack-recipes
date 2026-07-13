@@ -4,7 +4,8 @@ sirocco:
   #   mpi: cray-mpich@9.1 +cuda
   specs:
     - python@3.14
-    - graphviz@14.0.1
+    # No need anymore with pygraphviz2.0 => necessary libs distributed by wheels
+    # - graphviz@14.0.1
   # variants:
   #   - +mpi
   #   - +cuda
