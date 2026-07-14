@@ -12,13 +12,13 @@ sirocco:
   #   - cuda_arch=90a
   unify: true
   views:
-    default:
+    bare:
       link: roots
       uenv:
         add_compilers: true
         prefix_paths:
           LD_LIBRARY_PATH: [lib, lib64]
-    sirocco:
+    app:
       link: roots
       uenv:
         add_compilers: true
