@@ -41,7 +41,7 @@ eckitlib = "~2.1.0.21"
 mir-python = "~1.29.0.21"
 mirlib = "~1.29.0.21"
 eccodes = "~2.47.0"
-eccodeslib =  "2.47.3.21"
+eccodeslib =  "~2.47.3.21"
 
 
 [tool.pytest.ini_options]
