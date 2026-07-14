@@ -29,6 +29,7 @@ fdb:
             - FDB_ENABLE_GRIBJUMP: "1"
             - AUTO_LOAD_PLUGINS:   "1"
             - ECCODES_ECKIT_GEO:   "1"
+            - ECCODES_VERSION_CHECK_OFF: "1"
           prepend_path:
             - PATH: "$@mount@/venvs/fdb/bin/"
     realtime:
