@@ -3,10 +3,10 @@ fdb:
   unify: when_possible
   packages: []
   specs:
-  - fdb@=5.19.2 backends=lustre
-  - gribjump@=0.10.3
-  - eckit@2.1.0 linalg=none compression=lz4 +curl +ssl
-  - metkit@=1.16.3-levelist
+  - fdb@=5.21.4 backends=lustre
+  - gribjump@=0.12.0
+  - eckit@=2.1.0 linalg=none compression=lz4 +curl +ssl
+  - metkit@=1.18.3-levelist
   - eccodes@=2.47.3 jp2k=none ~fortran +pthreads +aec +geo
   - ecbuild@=3.13.1
   - python@=3.11.15
@@ -49,6 +49,7 @@ fdb:
             - FDB_ENABLE_GRIBJUMP: "1"
             - AUTO_LOAD_PLUGINS:   "1"
             - ECCODES_ECKIT_GEO:   "1"
+            - ECCODES_VERSION_CHECK_OFF: "1"
           prepend_path:
             - PATH: "$@mount@/venvs/fdb/bin/"
     rea-l-ch1:
@@ -69,6 +70,7 @@ fdb:
             - FDB_ENABLE_GRIBJUMP: "1"
             - AUTO_LOAD_PLUGINS:   "1"
             - ECCODES_ECKIT_GEO:   "1"
+            - ECCODES_VERSION_CHECK_OFF: "1"
           prepend_path:
             - PATH: "$@mount@/venvs/fdb/bin/"
             - PYTHONPATH: "$@view_path@/share/python"
@@ -90,6 +92,7 @@ fdb:
             - FDB_ENABLE_GRIBJUMP: "1"
             - AUTO_LOAD_PLUGINS:   "1"
             - ECCODES_ECKIT_GEO:   "1"
+            - ECCODES_VERSION_CHECK_OFF: "1"
           prepend_path:
             - PATH: "$@mount@/venvs/fdb/bin/"
     remote-depl:
@@ -110,5 +113,6 @@ fdb:
             - FDB_ENABLE_GRIBJUMP: "1"
             - AUTO_LOAD_PLUGINS:   "1"
             - ECCODES_ECKIT_GEO:   "1"
+            - ECCODES_VERSION_CHECK_OFF: "1"
           prepend_path:
             - PATH: "$@mount@/venvs/fdb/bin/"

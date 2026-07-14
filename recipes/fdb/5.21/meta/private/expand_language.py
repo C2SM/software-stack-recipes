@@ -52,11 +52,6 @@ def main():
             ["reanl", "icon reanalysis light CH1"],
         ]
     )
-    metkit_lang["_field"]["timespan"]["values"].extend(
-        [
-            ["10m"],
-        ]
-    )
     metkit_lang["_field"]["levtype"]["values"].extend(
         [
             ["hmsl", "height above mean sea level"],
