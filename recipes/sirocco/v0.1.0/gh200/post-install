@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SIROCCO_VIEW="sirocco"
+SIROCCO_VIEW="app"
 
 # -----------------------------------------------
 # Install uv
