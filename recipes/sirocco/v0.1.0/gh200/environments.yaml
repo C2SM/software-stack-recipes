@@ -1,15 +1,7 @@
 sirocco:
   compiler: [gcc]
-  # network:
-  #   mpi: cray-mpich@9.1 +cuda
   specs:
     - python@3.14
-    # No need anymore with pygraphviz2.0 => necessary libs distributed by wheels
-    # - graphviz@14.0.1
-  # variants:
-  #   - +mpi
-  #   - +cuda
-  #   - cuda_arch=90a
   unify: true
   views:
     bare:
@@ -19,10 +11,7 @@ sirocco:
         prefix_paths:
           LD_LIBRARY_PATH: [lib, lib64]
     app:
-      link: roots
       uenv:
-        prefix_paths:
-          LD_LIBRARY_PATH: [lib, lib64]
         env_vars:
           set:
             - VIRTUAL_ENV: "/user-tools/sirocco_venv"
