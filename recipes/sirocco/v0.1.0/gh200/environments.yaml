@@ -21,13 +21,11 @@ sirocco:
     app:
       link: roots
       uenv:
-        add_compilers: true
         prefix_paths:
           LD_LIBRARY_PATH: [lib, lib64]
         env_vars:
           set:
             - VIRTUAL_ENV: "/user-tools/sirocco_venv"
             - VIRTUAL_ENV_PROMPT: "༄ sirocco ༄"
-            - VIRTUAL_ENV_DISABLE_PROMPT: "true"
           prepend_path:
             - PATH: "/user-tools/sirocco_venv/bin"
