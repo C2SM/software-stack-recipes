@@ -4,13 +4,8 @@ sirocco:
     - python@3.14
   unify: true
   views:
-    bare:
-      link: roots
-      uenv:
-        add_compilers: true
-        prefix_paths:
-          LD_LIBRARY_PATH: [lib, lib64]
     app:
+      # TODO: Remove  CC, CXX &co. from the view
       uenv:
         env_vars:
           set:
