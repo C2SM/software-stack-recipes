@@ -74,3 +74,10 @@ uenvs:
         gh200: '25.2/gh200'
       deploy:
         santis: [gh200]
+  sirocco:
+    "v0.1.0":
+      recipes:
+        gh200: 'v0.1.0/gh200'
+      deploy:
+        santis: [gh200]
+      mount: "/user-tools"

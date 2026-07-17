@@ -1,0 +1,15 @@
+sirocco:
+  compiler: [gcc]
+  specs:
+    - python@3.14
+  unify: true
+  views:
+    app:
+      # TODO: Remove  CC, CXX &co. from the view
+      uenv:
+        env_vars:
+          set:
+            - VIRTUAL_ENV: "/user-tools/sirocco_venv"
+            - VIRTUAL_ENV_PROMPT: "༄ sirocco ༄"
+          prepend_path:
+            - PATH: "/user-tools/sirocco_venv/bin"
