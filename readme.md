@@ -28,4 +28,3 @@ The `NAME` is specific to the git provider:
 | GitHub   | `x-access-token` |
 | GitLab   | `oauth2`         |
 
-<!-- fake change -->
