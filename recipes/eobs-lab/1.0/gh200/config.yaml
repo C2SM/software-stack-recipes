@@ -1,0 +1,7 @@
+name: eobs-lab
+spack:
+  commit: v0.22.3
+  repo: https://github.com/spack/spack.git
+store: /user-environment
+description: Jupyter/Python data-analysis lab (pandas, geopandas, gdal, pillow, seaborn, netcdf)
+modules: False

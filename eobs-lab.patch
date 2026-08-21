@@ -1,0 +1,67 @@
+diff -ruN orig/software-stack-recipes-main/config.yaml software-stack-recipes-main/config.yaml
+--- orig/software-stack-recipes-main/config.yaml	2026-08-20 10:20:26.000000000 +0000
++++ software-stack-recipes-main/config.yaml	2026-08-21 13:05:30.000290784 +0000
+@@ -74,3 +74,9 @@
+         gh200: '25.2/gh200'
+       deploy:
+         santis: [gh200]
++  eobs-lab:
++    "1.0":
++      recipes:
++        gh200: '1.0/gh200'
++      deploy:
++        santis: [gh200]
+diff -ruN orig/software-stack-recipes-main/recipes/eobs-lab/1.0/gh200/compilers.yaml software-stack-recipes-main/recipes/eobs-lab/1.0/gh200/compilers.yaml
+--- orig/software-stack-recipes-main/recipes/eobs-lab/1.0/gh200/compilers.yaml	1970-01-01 00:00:00.000000000 +0000
++++ software-stack-recipes-main/recipes/eobs-lab/1.0/gh200/compilers.yaml	2026-08-21 13:05:22.130437609 +0000
+@@ -0,0 +1,5 @@
++bootstrap:
++  spec: gcc@12.3
++gcc:
++  specs:
++  - gcc@13
+diff -ruN orig/software-stack-recipes-main/recipes/eobs-lab/1.0/gh200/config.yaml software-stack-recipes-main/recipes/eobs-lab/1.0/gh200/config.yaml
+--- orig/software-stack-recipes-main/recipes/eobs-lab/1.0/gh200/config.yaml	1970-01-01 00:00:00.000000000 +0000
++++ software-stack-recipes-main/recipes/eobs-lab/1.0/gh200/config.yaml	2026-08-21 13:05:19.838437473 +0000
+@@ -0,0 +1,7 @@
++name: eobs-lab
++spack:
++  commit: v0.22.3
++  repo: https://github.com/spack/spack.git
++store: /user-environment
++description: Jupyter/Python data-analysis lab (pandas, geopandas, gdal, pillow, seaborn, netcdf)
++modules: False
+diff -ruN orig/software-stack-recipes-main/recipes/eobs-lab/1.0/gh200/environments.yaml software-stack-recipes-main/recipes/eobs-lab/1.0/gh200/environments.yaml
+--- orig/software-stack-recipes-main/recipes/eobs-lab/1.0/gh200/environments.yaml	1970-01-01 00:00:00.000000000 +0000
++++ software-stack-recipes-main/recipes/eobs-lab/1.0/gh200/environments.yaml	2026-08-21 13:05:26.838437889 +0000
+@@ -0,0 +1,30 @@
++eobs-lab:
++  compiler:
++      - toolchain: gcc
++        spec: gcc
++  mpi:
++      spec: cray-mpich@8.1.30
++      gpu: false
++  unify: true
++  specs:
++  # core scientific python stack
++  - python@3.12
++  - py-jupyterlab
++  - py-pandas
++  - py-geopandas
++  - py-pillow
++  - py-seaborn
++  - py-netcdf4
++  # gdal built with python bindings (osgeo)
++  - gdal +python
++  # netcdf C/Fortran libs, in case native tools/other code need them too
++  - hdf5 +szip +hl
++  - netcdf-c@4.9.2
++  - netcdf-fortran@4.6.1
++  views:
++    eobs-lab:
++      link: roots
++      uenv:
++        add_compilers: true
++        prefix_paths:
++          LD_LIBRARY_PATH: [lib, lib64]
