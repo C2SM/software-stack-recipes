@@ -1,7 +1,11 @@
 name: eobs-lab
-spack:
-  commit: v0.22.3
-  repo: https://github.com/spack/spack.git
 store: /user-environment
-description: Jupyter/Python data-analysis lab (pandas, geopandas, gdal, pillow, seaborn, netcdf)
-modules: False
+spack:
+  repo: https://github.com/spack/spack.git
+  commit: v1.2.1
+  packages:
+    repo: https://github.com/spack/spack-packages.git
+    commit: v2026.06.0
+description: "Earth Observations Lab JupyterHub uenv"
+default-view: eobs-lab
+version: 3

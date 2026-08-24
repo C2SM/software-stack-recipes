@@ -1,30 +1,14 @@
 eobs-lab:
-  compiler:
-      - toolchain: gcc
-        spec: gcc
-  mpi:
-      spec: cray-mpich@8.1.30
-      gpu: false
-  unify: true
+  compiler: [gcc]
   specs:
-  # core scientific python stack
   - python@3.12
-  - py-jupyterlab
-  - py-pandas
-  - py-geopandas
-  - py-pillow
-  - py-seaborn
-  - py-netcdf4
-  # gdal built with python bindings (osgeo)
-  - gdal +python
-  # netcdf C/Fortran libs, in case native tools/other code need them too
-  - hdf5 +szip +hl
-  - netcdf-c@4.9.2
-  - netcdf-fortran@4.6.1
+  unify: true
   views:
     eobs-lab:
-      link: roots
       uenv:
-        add_compilers: true
-        prefix_paths:
-          LD_LIBRARY_PATH: [lib, lib64]
+        add_compilers: false
+        env_vars:
+          set:
+            - VIRTUAL_ENV: "/user-environment/eobs-lab_venv"
+          prepend_path:
+            - PATH: "/user-environment/eobs-lab_venv/bin"
