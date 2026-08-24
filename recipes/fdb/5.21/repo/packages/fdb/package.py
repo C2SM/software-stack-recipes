@@ -63,6 +63,7 @@ class Fdb(CMakePackage):
     depends_on("eckit@1.16:")
     depends_on("eckit@1.24.4:", when="@5.11.22:")
     depends_on("eckit@1.32.5:", when="@5.20.1:")
+    depends_on("eckit@2.2.0:", when="@5.22.2:") # FamFieldLocation.cc always needs eckit/io/fam/FamTypes.h
     depends_on("eckit+admin", when="+tools")
 
     depends_on("eccodes@2.10:")
