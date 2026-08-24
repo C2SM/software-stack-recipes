@@ -9,8 +9,8 @@ eobs-lab:
     eobs-lab:
       uenv:
         add_compilers: false
-        env_vars:
-          set:
-            - VIRTUAL_ENV: "/user-environment/eobs-lab_venv"
-          prepend_path:
-            - PATH: "/user-environment/eobs-lab_venv/bin"
+      environment:
+        set:
+          VIRTUAL_ENV: "/user-environment/eobs-lab_venv"
+        prepend_path:
+          PATH: "/user-environment/eobs-lab_venv/bin"
