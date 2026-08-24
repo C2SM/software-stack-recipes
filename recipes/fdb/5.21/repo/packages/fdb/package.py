@@ -21,8 +21,8 @@ class Fdb(CMakePackage):
     license("Apache-2.0")
 
     version("master", branch="master")
-    version("meteoswiss", branch="meteoswiss")
 
+    version("5.22.2-meteoswiss", branch="meteoswiss")
     version("5.21.4", sha256="9751a5a9a3e1b29a8237fc1ae716b11e7e12f70fe73a8e343587e54247caf251")
     version("5.19.2", sha256="7dfffd7279a53431fe11a82b5c6dcc94f42bc5100a0ff925fe0b54de94d1cfe2")
     version("5.19.1", sha256="de5edddd4c17cb4ddfe61bfed60a6b37408d5ed92a2d19a493592e1abfe65a8d")
@@ -62,6 +62,7 @@ class Fdb(CMakePackage):
 
     depends_on("eckit@1.16:")
     depends_on("eckit@1.24.4:", when="@5.11.22:")
+    depends_on("eckit@1.32.5:", when="@5.20.1:")
     depends_on("eckit+admin", when="+tools")
 
     depends_on("eccodes@2.10:")

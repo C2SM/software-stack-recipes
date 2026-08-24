@@ -3,7 +3,7 @@ fdb:
   unify: when_possible
   packages: []
   specs:
-  - fdb@=meteoswiss backends=lustre
+  - fdb@=5.22.2-meteoswiss backends=lustre
   - gribjump@=0.12.0
   - eckit@=2.1.0 linalg=none compression=lz4 +curl +ssl
   - metkit@=1.18.3-levelist
