@@ -1,2 +1,5 @@
+bootstrap:
+  spec: gcc@12
 gcc:
-  version: "system"
+  specs:
+    - gcc@12
