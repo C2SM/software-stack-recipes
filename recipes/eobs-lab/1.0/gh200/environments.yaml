@@ -1,7 +1,9 @@
 eobs-lab:
-  compiler: [gcc]
+  compiler:
+    - toolchain: gcc
+      spec: gcc@12
   specs:
-  - python@3.12
+    - python@3.12
   unify: true
   views:
     eobs-lab:
