@@ -8,4 +8,4 @@ spack:
     commit: v2026.06.0
 description: "Earth Observations Lab JupyterHub uenv"
 default-view: eobs-lab
-version: 3
+version: 1
