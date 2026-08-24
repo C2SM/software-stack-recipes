@@ -7,5 +7,4 @@ spack:
     repo: https://github.com/spack/spack-packages.git
     commit: v2026.06.0
 description: "Earth Observations Lab JupyterHub uenv"
-default-view: eobs-lab
 version: 1
