@@ -21,6 +21,7 @@ class Fdb(CMakePackage):
     license("Apache-2.0")
 
     version("master", branch="master")
+    version("meteoswiss", branch="meteoswiss")
 
     version("5.21.4", sha256="9751a5a9a3e1b29a8237fc1ae716b11e7e12f70fe73a8e343587e54247caf251")
     version("5.19.2", sha256="7dfffd7279a53431fe11a82b5c6dcc94f42bc5100a0ff925fe0b54de94d1cfe2")
