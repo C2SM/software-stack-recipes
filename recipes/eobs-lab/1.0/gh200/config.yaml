@@ -3,8 +3,5 @@ store: /user-environment
 spack:
   repo: https://github.com/spack/spack.git
   commit: v1.2.1
-  packages:
-    repo: https://github.com/spack/spack-packages.git
-    commit: v2026.06.0
 description: "Earth Observations Lab JupyterHub uenv"
 version: 1
