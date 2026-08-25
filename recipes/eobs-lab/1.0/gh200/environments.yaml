@@ -1,12 +1,15 @@
 eobs-lab:
-  compiler:
-    - toolchain: gcc
-      spec: gcc@12
+  compiler: [gcc]
   specs:
     - python@3.12
   unify: true
   views:
-    eobs-lab:
+    lab:
+      link: roots
       uenv:
         add_compilers: false
-    
+        env_vars:
+          set:
+            - VIRTUAL_ENV: "$@mount@/venv"
+          prepend_path:
+            - PATH: "$@mount@/venv/bin"

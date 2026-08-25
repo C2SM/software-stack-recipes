@@ -1,7 +1,5 @@
 #!/bin/bash
 
-EOBS_LAB_VIEW="eobs-lab"
-
 # -----------------------------------------------
 # Install uv
 
@@ -16,15 +14,16 @@ rm uv-installer.sh
 # Install the analysis / notebook packages
 
 UV="${UV_INSTALL_DIR}/uv"
-EOBS_LAB_VENV="{{ env.mount }}/eobs-lab_venv"
+EOBS_LAB_VIEW_NAME="lab"
+EOBS_LAB_VIEW={{ env.mount }}/env/${EOBS_LAB_VIEW_NAME}
+EOBS_LAB_VENV="{{ env.mount }}/venv"
 
 # Create venv
-${UV} venv --relocatable --python="{{ env.mount }}/env/${EOBS_LAB_VIEW}/bin/python" ${EOBS_LAB_VENV}
+${UV} venv --relocatable --python="$EOBS_LAB_VIEW/bin/python" ${EOBS_LAB_VENV}
 source ${EOBS_LAB_VENV}/bin/activate
 
 # Install packages
 ${UV} pip install --no-cache \
-    jupyterlab \
     pandas \
     geopandas \
     pillow \
@@ -35,4 +34,4 @@ ${UV} pip install --no-cache \
 rm -rf ${UV_INSTALL_DIR}
 
 # Install in "eobs-lab" view
-echo "source ${EOBS_LAB_VENV}/bin/activate" >> {{ env.mount }}/env/${EOBS_LAB_VIEW}/activate.sh
+echo "source ${EOBS_LAB_VENV}/bin/activate" >> ${EOBS_LAB_VIEW}/activate.sh
