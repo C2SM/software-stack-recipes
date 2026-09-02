@@ -1,2 +1,2 @@
 gcc:
-  version: "system"
+  version: "16"
