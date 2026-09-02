@@ -15,6 +15,22 @@ clusters:
           SLURM_NODES: '1'
           SLURM_CPU_BIND: 'none'
     runner: f7t
+  linard:
+    targets:
+      -
+        uarch: 'a100'
+        partition: 'normal'
+        variables:
+          F7T_URL: 'https://api.cscs.ch/mch/firecrest/v2'
+      -
+        uarch: 'zen3'
+        partition: 'postproc'
+        variables:
+          F7T_URL: 'https://api.cscs.ch/mch/firecrest/v2'
+          SLURM_EXCLUSIVE: ''
+          SLURM_NODES: '1'
+          SLURM_CPU_BIND: 'none'
+    runner: f7t
   santis:
     targets:
       -
@@ -48,8 +64,10 @@ uenvs:
     "26.7":
       recipes:
         gh200: '26.7/gh200'
+        a100: '26.7/a100'
       deploy:
         santis: [gh200]
+        linard: [a100]
     "25.2":
       recipes:
         gh200: '25.2/gh200'
