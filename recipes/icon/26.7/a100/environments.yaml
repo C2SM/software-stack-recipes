@@ -1,8 +1,9 @@
 icon:
   compiler: [gcc, nvhpc]
   network:
-    mpi: cray-mpich@9.1.0 +cuda %c,cxx,fortran=nvhpc ^libfabric@2 +gdrcopy %c=nvhpc
-    specs: [ xpmem ]
+    #mpi: cray-mpich@9.1.0 +cuda %c,cxx,fortran=nvhpc ^libfabric@2 +gdrcopy %c=gcc
+    mpi: cray-mpich@9.1.0 +cuda %c,cxx=gcc %fortran=nvhpc ^libfabric@2 +gdrcopy %c=gcc
+    specs: [xpmem]
   unify: when_possible
   specs:
     - python@3.13 %c,cxx=gcc ^libffi %c,cxx=gcc ^expat %c=gcc ^libmd %c=gcc ^gettext %c,cxx=gcc
@@ -16,12 +17,11 @@ icon:
     - boost
     - openblas %c,cxx,fortran=nvhpc
     - serialbox +fortran +netcdf %c,cxx,fortran=nvhpc
-    # for validation
-    - cdo
-    # everything needed for nccl on SS11
-    - nccl@2.29.2
-    - nccl-tests
-    - aws-ofi-nccl@1.17.2
+    # remove: not part of MCH production ICON stack
+    #- cdo
+    #- nccl@2.29.2
+    #- nccl-tests
+    #- aws-ofi-nccl@1.17.2
     # extras
     - libfyaml
     - zlib-ng
@@ -32,7 +32,7 @@ icon:
     - +cuda
     - cuda_arch=80
   views:
-    default:
+    icon:
       link: roots
       uenv:
         prefix_paths:

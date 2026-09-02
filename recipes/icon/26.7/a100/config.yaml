@@ -3,13 +3,14 @@ store: /user-environment
 spack:
   repo: https://github.com/spack/spack.git
   commit: releases/v1.1
+  #commit: releases/v1.2
   packages:
     c2sm:
       repo: https://github.com/C2SM/spack-c2sm.git
       commit: v1.1.1.0
     builtin:
       repo: https://github.com/spack/spack-packages.git
-      commit: v2026.06.0
-modules: true
+      commit: releases/v2026.06
 description: "Compilers and libraries required to build ICON"
+default-view: icon
 version: 2
