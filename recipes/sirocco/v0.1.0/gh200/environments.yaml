@@ -6,7 +6,7 @@ sirocco:
   views:
     app:
       uenv:
-        add_compilers: false
+        add_compilers: true
         env_vars:
           set:
             - VIRTUAL_ENV: "/user-tools/sirocco_venv"
