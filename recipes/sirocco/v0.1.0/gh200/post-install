@@ -25,7 +25,7 @@ SIROCCO_BRANCH="multi-model"
 git clone -b "${SIROCCO_BRANCH}" "https://github.com/C2SM/Sirocco.git" "${SIROCCO_INSTALL_DIR}"
 
 # Create venv
-CC="/{{ env.mount }}/env/${SIROCCO_VIEW}/bin/gcc"" \
+CC="/{{ env.mount }}/env/${SIROCCO_VIEW}/bin/gcc" \
 CFLAGS="-I/{{ env.mount }}/env/${SIROCCO_VIEW}/include" \
 LDFLAGS="-L/{{ env.mount }}/env/${SIROCCO_VIEW}/lib" \
 ${UV} venv --relocatable --python="{{ env.mount }}/env/${SIROCCO_VIEW}/bin/python" ${SIROCCO_VENV}
