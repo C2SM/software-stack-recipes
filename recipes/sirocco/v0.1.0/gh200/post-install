@@ -22,6 +22,7 @@ SIROCCO_INSTALL_DIR="{{ env.mount }}/sirocco"
 SIROCCO_BRANCH="multi-model"
 
 # Get Sirocco
+rm -rf "${SIROCCO_INSTALL_DIR}"
 git clone -b "${SIROCCO_BRANCH}" "https://github.com/C2SM/Sirocco.git" "${SIROCCO_INSTALL_DIR}"
 
 # Create venv
