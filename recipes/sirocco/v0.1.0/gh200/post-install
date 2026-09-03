@@ -26,7 +26,6 @@ rm -rf "${SIROCCO_INSTALL_DIR}"
 git clone -b "${SIROCCO_BRANCH}" "https://github.com/C2SM/Sirocco.git" "${SIROCCO_INSTALL_DIR}"
 
 # Create venv
-[]
 CC="{{ env.mount }}/env/${SIROCCO_VIEW}/bin/gcc" \
 CFLAGS="-I{{ env.mount }}/env/${SIROCCO_VIEW}/include" \
 LDFLAGS="-L{{ env.mount }}/env/${SIROCCO_VIEW}/lib" \
