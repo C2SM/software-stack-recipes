@@ -1,0 +1,14 @@
+sirocco:
+  compiler: [gcc]
+  specs:
+    - python@3.14
+  unify: true
+  views:
+    app:
+      uenv:
+        add_compilers: true
+        env_vars:
+          set:
+            - VIRTUAL_ENV: "/user-tools/sirocco_venv"
+          prepend_path:
+            - PATH: "/user-tools/sirocco_venv/bin"

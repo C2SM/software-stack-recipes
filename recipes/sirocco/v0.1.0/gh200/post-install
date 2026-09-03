@@ -1,0 +1,47 @@
+#!/bin/bash
+
+set -e
+
+sirocco_view="app"
+
+# -----------------------------------------------
+# Install uv
+
+uv_install_dir="{{ env.mount }}/uv"
+mkdir -p "${uv_install_dir}"
+
+curl -LsSf https://astral.sh/uv/install.sh > uv-installer.sh
+UV_INSTALL_DIR="${uv_install_dir}" sh uv-installer.sh
+rm uv-installer.sh
+
+# -----------------------------------------------
+# Install Sirocco
+uv="${uv_install_dir}/uv"
+sirocco_venv="{{ env.mount }}/sirocco_venv"
+sirocco_install_dir="{{ env.mount }}/sirocco"
+sirocco_branch="multi-model"
+
+# Get Sirocco
+rm -rf "${sirocco_install_dir}"
+git clone -b "${sirocco_branch}" "https://github.com/C2SM/Sirocco.git" "${sirocco_install_dir}"
+
+# Create venv
+rm -rf "${sirocco_venv}"
+${uv} venv --relocatable --python="{{ env.mount }}/env/${sirocco_view}/bin/python" ${sirocco_venv}
+source ${sirocco_venv}/bin/activate
+
+# Install Sirocco
+pushd "${sirocco_install_dir}"
+CC="{{ env.mount }}/env/${sirocco_view}/bin/gcc" \
+CFLAGS="-I{{ env.mount }}/env/${sirocco_view}/include" \
+LDFLAGS="-L{{ env.mount }}/env/${sirocco_view}/lib" \
+${uv} sync --no-cache --link-mode=copy --compile-bytecode --active --no-editable --inexact
+popd
+
+# Cleanup
+rm -rf ${sirocco_install_dir}
+rm -rf ${uv_install_dir}
+
+# Install in "sirocco" view
+echo "source ${sirocco_venv}/bin/activate" >> {{ env.mount }}/env/${sirocco_view}/activate.sh
+
