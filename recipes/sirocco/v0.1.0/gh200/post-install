@@ -11,7 +11,7 @@ uv_install_dir="{{ env.mount }}/uv"
 mkdir -p "${uv_install_dir}"
 
 curl -LsSf https://astral.sh/uv/install.sh > uv-installer.sh
-uv_install_dir="${uv_install_dir}" sh uv-installer.sh
+UV_INSTALL_DIR="${uv_install_dir}" sh uv-installer.sh
 rm uv-installer.sh
 
 # -----------------------------------------------
