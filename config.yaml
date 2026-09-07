@@ -80,3 +80,9 @@ uenvs:
         gh200: '1.0/gh200'
       deploy:
         santis: [gh200]
+  pytorch:
+    "26.8":
+      recipes:
+        a100: '26.8/a100'
+      deploy:
+        balfrin: [a100]
