@@ -5,40 +5,6 @@ import sys
 import yaml
 
 
-# Priority for shortNames that map to more than one paramId.
-SHORTNAME_PRIORITY = {
-    "asob_s": 500078,     # alt 500421
-    "athb_s": 500080,     # alt 500422
-    "cdct": 502775,       # alt 502771
-    "clch": 502341,       # alt 500050 (REA-L-CH1)
-    "clcl": 502343,       # alt 500048 (REA-L-CH1)
-    "clcm": 502342,       # alt 500049 (REA-L-CH1)
-    "edp": 503675,        # alt 500585
-    "runoff_g": 502349,   # alt 500066 (REA-L-CH1)
-    "runoff_s": 502348,   # alt 500068 (REA-L-CH1)
-    # More shortNames with two cosmo paramIds, currently not in ingested data
-    #   "asob_t":          500082 / 500419
-    #   "athb_t":          500084 / 500420
-    #   "denc":            503126 / 503322
-    #   "deng":            503125 / 503321
-    #   "denh":            503128 / 503324
-    #   "deni":            503127 / 503323
-    #   "denr":            503123 / 503319
-    #   "dens":            503124 / 503320
-    #   "ncgraupel":       503118 / 503314
-    #   "nchail":          503119 / 503315
-    #   "ncrain":          503115 / 503311
-    #   "ncsnow":          503117 / 503313
-    #   "ndgraupel":       503121 / 503317
-    #   "ndhail":          503122 / 503318
-    #   "ndrain":          503116 / 503312
-    #   "ndsnow":          503120 / 503316
-    #   "radionuc_ac_vi":  503282 / 503326
-    #   "sm":              500548 / 500549
-    #   "tsec":            502864 / 502942
-}
-
-
 def parse_file(filepath):
     entries = {}
 
@@ -62,7 +28,7 @@ def preferred_order(params, cosmo_shortname, priority):
     """Order paramIds so the preferred paramId wins a shortName clash.
 
     metkit keeps the first paramId it reads for a shortName. Set the first entry based on:
-      1. the paramId in SHORTNAME_PRIORITY, if the shortName is listed;
+      1. the paramId in the priority file, if the shortName is listed;
       2. else the single cosmo paramId that owns the shortName;
       3. else undefined (metkit keeps the smaller paramId).
     """
@@ -83,10 +49,10 @@ def preferred_order(params, cosmo_shortname, priority):
     for name, chosen in priority.items():
         pids = by_shortname.get(name)
         if not pids:
-            print(f"WARNING: SHORTNAME_PRIORITY['{name}'] = {chosen}: "
+            print(f"WARNING: priority '{name}' = {chosen}: "
                   f"unknown shortName; ignored.", file=sys.stderr)
         elif chosen not in pids:
-            print(f"WARNING: SHORTNAME_PRIORITY['{name}'] = {chosen} "
+            print(f"WARNING: priority '{name}' = {chosen} "
                   f"is not a paramId of '{name}' {sorted(set(pids))}; ignored.",
                   file=sys.stderr)
 
@@ -111,6 +77,9 @@ def main():
     parser = argparse.ArgumentParser(description="Process two filenames.")
     parser.add_argument("paramids", type=str, help="Path to the first file")
     parser.add_argument("paramdefs", type=str, help="Path to the second file")
+    parser.add_argument("--priority", type=str, default=None,
+                        help="YAML file with 'shortName: paramId' entries. Sets "
+                             "which paramId wins when a shortName has several.")
 
     args = parser.parse_args()
 
@@ -133,7 +102,11 @@ def main():
             if pid not in metkit_params:
                 metkit_params[int(key)] = list(s.lower() for s in icon_params[key])
 
-    priority = {k.lower(): v for k, v in SHORTNAME_PRIORITY.items()}
+    # per-view priorities; empty means cosmo-preference only
+    priority = {}
+    if args.priority:
+        with open(args.priority, 'r') as file:
+            priority = {k.lower(): v for k, v in (yaml.safe_load(file) or {}).items()}
 
     # Reorder so the preferred paramId wins a shortName clash
     order = preferred_order(metkit_params, cosmo_shortname, priority)
