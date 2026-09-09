@@ -11,5 +11,10 @@ eobs-lab:
         env_vars:
           set:
             - VIRTUAL_ENV: "$@mount@/venv"
+            # Read by narthex_launcher when it stamps a launched notebook.
+            # Baked in at build time, so a new backend URL means a rebuild.
+            - NARTHEX_API_URL: "https://narthex-prometheus-dev.c2sm-tds.c2sm.cscs.ch/api"
           prepend_path:
             - PATH: "$@mount@/venv/bin"
+            # narthex's create-venv.sh needs uv on PATH
+            - PATH: "$@mount@/uv"

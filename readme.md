@@ -28,3 +28,17 @@ The `NAME` is specific to the git provider:
 | GitHub   | `x-access-token` |
 | GitLab   | `oauth2`         |
 
+### `eobs-lab`: `C2SM/narthex` (private)
+
+`recipes/eobs-lab/1.0/gh200/post-install` pulls the `narthex_launcher`
+extension and the `narthex-client` wheel from the release assets of the
+private `github.com/C2SM/narthex` repo. Those are plain HTTPS downloads, not
+git operations, so the credential rewriting above does not apply. Set instead
+
+```bash
+# a PAT with `contents: read` on C2SM/narthex
+UENV_CIBUILDV_EOBS_GH_TOKEN=${TOKEN}
+```
+
+The `UENV_CIBUILDV_` prefix is what propagates a variable into stackinator's
+chroot; it is stripped there, so the recipe reads it as `EOBS_GH_TOKEN`.
