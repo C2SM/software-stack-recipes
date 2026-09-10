@@ -28,6 +28,7 @@ EOBS_LAB_VENV="{{ env.mount }}/venv"
 # Create venv. --system-site-packages and --seed match what create-venv.sh
 # would have created below: the uenv's own packages stay visible, and the
 # kernel gets a pip for `%pip install` in a notebook.
+rm -rf ${EOBS_LAB_VENV}
 ${UV} venv --relocatable --system-site-packages --seed \
     --python="$EOBS_LAB_VIEW/bin/python" ${EOBS_LAB_VENV}
 source ${EOBS_LAB_VENV}/bin/activate
