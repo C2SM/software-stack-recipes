@@ -27,7 +27,7 @@ covjsonkit = "^0.2.23"
 
 # We need kaleido <1.x to avoid google chrome for chart.show("png")
 # plotly 7.x requires kaleido >= 1.x
-kaleido = "^0.2.1"
+kaleido = "0.2.1"
 plotly = "^6.9.0"
 
 # Earthkit 1.0
