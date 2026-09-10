@@ -1,0 +1,11 @@
+# Preferred paramId per shortName. Default matches realtime.
+# Used for shortNames that map to more than one cosmo paramId.
+asob_s: 500078     # alt 500421
+athb_s: 500080     # alt 500422
+cdct: 502775       # alt 502771
+clch: 502341       # alt 500050
+clcl: 502343       # alt 500048
+clcm: 502342       # alt 500049
+edp: 503675        # alt 500585
+runoff_g: 502349   # alt 500066
+runoff_s: 502348   # alt 500068
