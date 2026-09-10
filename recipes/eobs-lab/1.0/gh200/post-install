@@ -1,12 +1,7 @@
 #!/bin/bash
 
-set -e
-
 # -----------------------------------------------
 # Install uv
-#
-# Kept in the image and put on the view's PATH (environments.yaml): narthex's
-# create-venv.sh needs it, and is re-run per uenv from inside a started uenv.
 
 UV_INSTALL_DIR="{{ env.mount }}/uv"
 mkdir -p "${UV_INSTALL_DIR}"
@@ -15,78 +10,28 @@ curl -LsSf https://astral.sh/uv/install.sh > uv-installer.sh
 UV_INSTALL_DIR="${UV_INSTALL_DIR}" sh uv-installer.sh
 rm uv-installer.sh
 
-UV="${UV_INSTALL_DIR}/uv"
-export PATH="${UV_INSTALL_DIR}:${PATH}"
-
 # -----------------------------------------------
 # Install the analysis / notebook packages
 
+UV="${UV_INSTALL_DIR}/uv"
 EOBS_LAB_VIEW_NAME="lab"
 EOBS_LAB_VIEW={{ env.mount }}/env/${EOBS_LAB_VIEW_NAME}
 EOBS_LAB_VENV="{{ env.mount }}/venv"
 
-# Create venv. --system-site-packages and --seed match what create-venv.sh
-# would have created below: the uenv's own packages stay visible, and the
-# kernel gets a pip for `%pip install` in a notebook.
-rm -rf ${EOBS_LAB_VENV}
-${UV} venv --relocatable --system-site-packages --seed \
-    --python="$EOBS_LAB_VIEW/bin/python" ${EOBS_LAB_VENV}
+# Create venv
+${UV} venv --relocatable --python="$EOBS_LAB_VIEW/bin/python" ${EOBS_LAB_VENV}
 source ${EOBS_LAB_VENV}/bin/activate
 
-# ipykernel/ipywidgets come from narthex's launcher/requirements.txt, below.
+# Install packages
 ${UV} pip install --no-cache \
     pandas \
     geopandas \
     pillow \
     seaborn \
-    netcdf4 \
-    jupyterlab
+    netcdf4
 
-# -----------------------------------------------
-# narthex launcher
-#
-# C2SM/narthex is private, and both the launcher and the client come from its
-# release assets over plain HTTPS -- not a git operation, so the pipeline's
-# git credential rewriting does not cover them. The token comes from the
-# pipeline variable UENV_CIBUILDV_EOBS_GH_TOKEN, whose prefix is stripped on
-# the way into the chroot -- see readme.md.
+# Cleanup
+rm -rf ${UV_INSTALL_DIR}
 
-NARTHEX_TAG="v1.0.0-alpha"
-
-if [ -z "${EOBS_GH_TOKEN:-}" ]; then
-    echo "post-install: EOBS_GH_TOKEN is not set; see readme.md" >&2
-    exit 1
-fi
-
-# stackinator copies the recipe directory here
-source {{ env.mount }}/meta/recipe/helper.sh
-
-NARTHEX_TMP=$(mktemp -d)
-NARTHEX_RELEASE_JSON="${NARTHEX_TMP}/release.json"
-
-curl -LsSf \
-    -H "Authorization: token ${EOBS_GH_TOKEN}" \
-    "https://api.github.com/repos/C2SM/narthex/releases/tags/${NARTHEX_TAG}" \
-    > "${NARTHEX_RELEASE_JSON}"
-
-narthex_fetch narthex-launcher.tar.bz2 "${NARTHEX_TMP}/launcher.tar.bz2"
-narthex_fetch .whl "${NARTHEX_TMP}/narthex_client.whl"
-
-tar xjf "${NARTHEX_TMP}/launcher.tar.bz2" -C "${NARTHEX_TMP}"
-NARTHEX_LAUNCHER_SRC="${NARTHEX_TMP}/narthex-launcher"
-
-# Top up the venv a launch link's `?venv=` points at: ipykernel, ipywidgets,
-# narthex-client. --uenv is omitted because it checks `uenv status`, which
-# reports nothing mid-build; --client takes the release wheel, so there is
-# nothing to clone or build here.
-"${NARTHEX_LAUNCHER_SRC}/create-venv.sh" \
-    --client "${NARTHEX_TMP}/narthex_client.whl" \
-    "${EOBS_LAB_VENV}"
-
-# Install the extension into the venv and enable it for every server started
-# from it. --prefix rather than install.sh's default $HOME install: this is a
-# shared environment, so nobody should have to run it per account.
-# NARTHEX_API_URL comes from the view's env_vars (environments.yaml).
-"${NARTHEX_LAUNCHER_SRC}/install.sh" --prefix "${EOBS_LAB_VENV}"
-
-rm -rf "${NARTHEX_TMP}"
+# Install in "eobs-lab" view
+echo "source ${EOBS_LAB_VENV}/bin/activate" >> ${EOBS_LAB_VIEW}/activate.sh
