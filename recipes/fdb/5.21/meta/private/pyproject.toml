@@ -23,7 +23,7 @@ polytope-client = "^0.7.10"
 nbconvert = "*"
 nbformat = "*"
 pyyaml = "*"
-kaleido = "0.2.1"
+kaleido = "~1.4.0"
 covjsonkit = "^0.2.23"
 
 # Earthkit 1.0
