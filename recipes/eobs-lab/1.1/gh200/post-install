@@ -52,6 +52,11 @@ ${UV} pip install --no-cache \
 # the way into the chroot -- see readme.md.
 
 NARTHEX_TAG="v1.0.0-alpha"
+# Pinned in full, and kept as the downloaded file's name: uv reads the package
+# name and version out of a wheel's filename, so it cannot be renamed. Pinning
+# it also means a client version that moves under the tag fails the asset
+# lookup loudly instead of being installed unnoticed.
+NARTHEX_CLIENT_WHEEL="narthex_client-1.0.0a0-py3-none-any.whl"
 
 if [ -z "${EOBS_GH_TOKEN:-}" ]; then
     echo "post-install: EOBS_GH_TOKEN is not set; see readme.md" >&2
@@ -70,7 +75,7 @@ curl -LsSf \
     > "${NARTHEX_RELEASE_JSON}"
 
 narthex_fetch narthex-launcher.tar.bz2 "${NARTHEX_TMP}/launcher.tar.bz2"
-narthex_fetch .whl "${NARTHEX_TMP}/narthex_client.whl"
+narthex_fetch "${NARTHEX_CLIENT_WHEEL}" "${NARTHEX_TMP}/${NARTHEX_CLIENT_WHEEL}"
 
 tar xjf "${NARTHEX_TMP}/launcher.tar.bz2" -C "${NARTHEX_TMP}"
 NARTHEX_LAUNCHER_SRC="${NARTHEX_TMP}/narthex-launcher"
@@ -80,7 +85,7 @@ NARTHEX_LAUNCHER_SRC="${NARTHEX_TMP}/narthex-launcher"
 # reports nothing mid-build; --client takes the release wheel, so there is
 # nothing to clone or build here.
 "${NARTHEX_LAUNCHER_SRC}/create-venv.sh" \
-    --client "${NARTHEX_TMP}/narthex_client.whl" \
+    --client "${NARTHEX_TMP}/${NARTHEX_CLIENT_WHEEL}" \
     "${EOBS_LAB_VENV}"
 
 # Install the extension into the venv and enable it for every server started
