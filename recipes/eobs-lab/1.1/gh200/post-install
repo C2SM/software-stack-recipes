@@ -63,8 +63,10 @@ if [ -z "${EOBS_GH_TOKEN:-}" ]; then
     exit 1
 fi
 
-# stackinator copies the recipe directory here
-source {{ env.mount }}/meta/recipe/helper.sh
+# stackinator copies the recipe directory here, this file's own directory
+# included -- see the jupyter config copied out of it further down.
+EOBS_LAB_RECIPE="{{ env.mount }}/meta/recipe"
+source "${EOBS_LAB_RECIPE}/helper.sh"
 
 NARTHEX_TMP=$(mktemp -d)
 NARTHEX_RELEASE_JSON="${NARTHEX_TMP}/release.json"
@@ -106,8 +108,7 @@ NARTHEX_LAUNCHER_SRC="${NARTHEX_TMP}/narthex-launcher"
 # beyond tornado and jupyter_server, which that server already has.
 
 EOBS_LAB_JUPYTER="{{ env.mount }}/jupyter"
-mkdir -p "${EOBS_LAB_JUPYTER}/py" \
-         "${EOBS_LAB_JUPYTER}/etc/jupyter/jupyter_server_config.d"
+mkdir -p "${EOBS_LAB_JUPYTER}/py" "${EOBS_LAB_JUPYTER}/etc"
 
 # The notebook template is resolved relative to the module's own directory,
 # so it has to sit beside it.
@@ -115,50 +116,14 @@ cp "${NARTHEX_LAUNCHER_SRC}/narthex_launcher.py" \
    "${NARTHEX_LAUNCHER_SRC}/narthex_named_list_viewer.ipynb" \
    "${EOBS_LAB_JUPYTER}/py/"
 
-# The same self-registration file install.sh --prefix would have written, and
-# the same one jupyterlab and friends ship. NARTHEX_API_URL is not baked in
-# here: the extension reads it from the environment, i.e. the view.
-cat > "${EOBS_LAB_JUPYTER}/etc/jupyter/jupyter_server_config.d/narthex_launcher.json" <<'JSON'
-{
-  "ServerApp": {
-    "jpserver_extensions": {
-      "narthex_launcher": true
-    }
-  }
-}
-JSON
-
-# The same problem one layer up, for the widgets a launched notebook draws
-# with. ipywidgets 8 pulls in jupyterlab_widgets, its JupyterLab frontend, as
-# a prebuilt labextension under the venv's share/jupyter/labextensions -- so
-# it is already in this image, nothing needs installing. But that frontend is
-# served by the Hub's jupyterlab uenv, not by the venv the kernel runs in, and
-# a server only scans the labextension directories on its *own* data path,
-# which never includes this venv. Without the config below every widget
-# degrades to its text repr -- a Dropdown prints
-# `Dropdown(description=..., options=...)` instead of rendering -- and nothing
-# anywhere reports an error.
-#
-# extra_labextensions_path and not a JUPYTER_PATH entry: it is scoped to
-# labextensions, where widening the server's whole data path would also hand
-# that server this venv's kernelspecs.
-#
-# A .py and not another file in jupyter_server_config.d/, which takes JSON
-# only and so could not read VIRTUAL_ENV at startup.
-cat > "${EOBS_LAB_JUPYTER}/etc/jupyter/jupyter_server_config.py" <<'PYCFG'
-import os
-
-# `c` is injected by jupyter's config loader; get_config() returns that same
-# object -- the official idiom for a file the server exec's, never runs.
-c = get_config()  # noqa: F821
-
-# VIRTUAL_ENV comes from the view (environments.yaml), so this follows the
-# uenv wherever it is mounted; the literal is that same path baked in at
-# build time, for a server that somehow starts without the view.
-_venv = os.environ.get("VIRTUAL_ENV", "{{ env.mount }}/venv")
-c.LabApp.extra_labextensions_path = [
-    os.path.join(_venv, "share", "jupyter", "labextensions")
-]
-PYCFG
+# jupyter-config/ next to this script holds what that server reads: the JSON
+# enabling the extension (the same self-registration file install.sh --prefix
+# would have written, and the one jupyterlab and friends ship), and a .py
+# pointing it at the venv's labextensions so ipywidgets renders. Neither is
+# templated, so both are plain files in the recipe rather than heredocs here
+# -- the paths they need they work out at server start, from VIRTUAL_ENV and
+# from their own location. NARTHEX_API_URL is likewise not baked in: the
+# extension reads it from the environment, i.e. the view.
+cp -r "${EOBS_LAB_RECIPE}/jupyter-config" "${EOBS_LAB_JUPYTER}/etc/jupyter"
 
 rm -rf "${NARTHEX_TMP}"
