@@ -14,6 +14,14 @@ eobs-lab:
             # Read by narthex_launcher when it stamps a launched notebook.
             # Baked in at build time, so a new backend URL means a rebuild.
             - NARTHEX_API_URL: "https://narthex-prometheus-dev.c2sm-tds.c2sm.cscs.ch/api"
+            # Where that server finds the JSON enabling the extension. Set,
+            # not prepended: stackinator only appends to a fixed list of
+            # prefix variables (PATH, PYTHONPATH, ... -- see list_variables
+            # in stackinator/etc/envvars.py) and this is not one of them, so
+            # it is handled as a plain scalar. Nothing on Alps sets it, so
+            # there is nothing to lose by overwriting -- jupyter still reads
+            # ~/.jupyter and the server's own etc/jupyter besides it.
+            - JUPYTER_CONFIG_PATH: "$@mount@/jupyter/etc/jupyter"
           prepend_path:
             - PATH: "$@mount@/venv/bin"
             # narthex's create-venv.sh needs uv on PATH
@@ -21,12 +29,12 @@ eobs-lab:
             # How the narthex-launch endpoint gets into the notebook server.
             # On jupyter-santis that server is the Hub's own jupyterlab uenv
             # (/user-tools), not this venv, so the extension cannot be
-            # enabled through a prefix install -- these two paths are what
-            # that server does read. uenv has no load-time hook to run
-            # anything instead; a view only sets environment variables.
+            # enabled through a prefix install -- this path and
+            # JUPYTER_CONFIG_PATH above are what that server does read. uenv
+            # has no load-time hook to run anything instead; a view only sets
+            # environment variables.
             #
             # $@mount@/jupyter/py holds narthex_launcher.py and its notebook
             # template (see post-install), kept apart from the venv's
             # site-packages because the Hub's server runs a different Python.
             - PYTHONPATH: "$@mount@/jupyter/py"
-            - JUPYTER_CONFIG_PATH: "$@mount@/jupyter/etc/jupyter"
