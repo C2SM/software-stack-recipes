@@ -4,11 +4,11 @@ eobs-lab:
     - python@3.12
   unify: true
   views:
-    # Named `default` rather than something descriptive because the
-    # JupyterHub spawn form insists on a view name being typed and expects
-    # that one; config.yaml's `default-view` then loads it for `uenv start`
-    # too, when no --view is given.
-    default:
+    # Deliberately not named `default`: config.yaml's `default-view` is what
+    # makes a view the default one, and giving a view that name as well is
+    # advised against. The JupyterHub spawn form wants a view typed into it
+    # either way, so type `lab` there.
+    lab:
       link: roots
       uenv:
         add_compilers: false
