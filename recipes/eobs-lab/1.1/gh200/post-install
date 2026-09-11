@@ -108,6 +108,13 @@ NARTHEX_LAUNCHER_SRC="${NARTHEX_TMP}/narthex-launcher"
 # beyond tornado and jupyter_server, which that server already has.
 
 EOBS_LAB_JUPYTER="{{ env.mount }}/jupyter"
+
+# Rebuilt from scratch, like the venv above, because post-install can run
+# again over a build tree that already has this: `cp -r src dst` copies src
+# *into* dst when dst exists, so a second run would bury the config at
+# etc/jupyter/jupyter-config/ -- where no jupyter server looks -- while
+# leaving the stale first copy in place, and report nothing.
+rm -rf "${EOBS_LAB_JUPYTER}"
 mkdir -p "${EOBS_LAB_JUPYTER}/py" "${EOBS_LAB_JUPYTER}/etc"
 
 # The notebook template is resolved relative to the module's own directory,
