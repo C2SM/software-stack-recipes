@@ -18,8 +18,12 @@ eobs-lab:
             # Read by narthex_launcher when it stamps a launched notebook.
             # Baked in at build time, so a new backend URL means a rebuild.
             - NARTHEX_API_URL: "https://narthex-prometheus-dev.c2sm-tds.c2sm.cscs.ch/api"
-            # Where that server finds the JSON enabling the extension. Set,
-            # not prepended: stackinator only appends to a fixed list of
+            # Where that server finds the two config files post-install
+            # writes: the JSON that enables the narthex-launch extension, and
+            # the .py that points it at the venv's labextensions so
+            # ipywidgets renders rather than printing its repr.
+            #
+            # Set, not prepended: stackinator only appends to a fixed list of
             # prefix variables (PATH, PYTHONPATH, ... -- see list_variables
             # in stackinator/etc/envvars.py) and this is not one of them, so
             # it is handled as a plain scalar. Nothing on Alps sets it, so
