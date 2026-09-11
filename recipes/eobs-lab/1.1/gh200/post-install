@@ -88,10 +88,44 @@ NARTHEX_LAUNCHER_SRC="${NARTHEX_TMP}/narthex-launcher"
     --client "${NARTHEX_TMP}/${NARTHEX_CLIENT_WHEEL}" \
     "${EOBS_LAB_VENV}"
 
-# Install the extension into the venv and enable it for every server started
-# from it. --prefix rather than install.sh's default $HOME install: this is a
-# shared environment, so nobody should have to run it per account.
-# NARTHEX_API_URL comes from the view's env_vars (environments.yaml).
-"${NARTHEX_LAUNCHER_SRC}/install.sh" --prefix "${EOBS_LAB_VENV}"
+# Install the extension into a plain directory of its own, rather than with
+# install.sh (neither its $HOME form -- this is a shared image, nobody should
+# run it per account -- nor its --prefix form, which would never be seen: on
+# jupyter-santis the notebook server is the Hub's own jupyterlab uenv mounted
+# at /user-tools, so its sys.prefix is not this venv and
+# {{ env.mount }}/venv/etc/jupyter is not on its config path).
+#
+# The view (environments.yaml) instead puts these two directories on
+# PYTHONPATH and JUPYTER_CONFIG_PATH, which every jupyter server honours
+# wherever it was started from. That is also the whole mechanism available:
+# uenv has no load-time hook, a view only sets environment variables.
+#
+# A directory of its own and not the venv's site-packages, because the Hub's
+# server runs a different Python than this venv's 3.12: only
+# narthex_launcher.py goes on its import path, and that imports nothing
+# beyond tornado and jupyter_server, which that server already has.
+
+EOBS_LAB_JUPYTER="{{ env.mount }}/jupyter"
+mkdir -p "${EOBS_LAB_JUPYTER}/py" \
+         "${EOBS_LAB_JUPYTER}/etc/jupyter/jupyter_server_config.d"
+
+# The notebook template is resolved relative to the module's own directory,
+# so it has to sit beside it.
+cp "${NARTHEX_LAUNCHER_SRC}/narthex_launcher.py" \
+   "${NARTHEX_LAUNCHER_SRC}/narthex_named_list_viewer.ipynb" \
+   "${EOBS_LAB_JUPYTER}/py/"
+
+# The same self-registration file install.sh --prefix would have written, and
+# the same one jupyterlab and friends ship. NARTHEX_API_URL is not baked in
+# here: the extension reads it from the environment, i.e. the view.
+cat > "${EOBS_LAB_JUPYTER}/etc/jupyter/jupyter_server_config.d/narthex_launcher.json" <<'JSON'
+{
+  "ServerApp": {
+    "jpserver_extensions": {
+      "narthex_launcher": true
+    }
+  }
+}
+JSON
 
 rm -rf "${NARTHEX_TMP}"

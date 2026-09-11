@@ -18,3 +18,15 @@ eobs-lab:
             - PATH: "$@mount@/venv/bin"
             # narthex's create-venv.sh needs uv on PATH
             - PATH: "$@mount@/uv"
+            # How the narthex-launch endpoint gets into the notebook server.
+            # On jupyter-santis that server is the Hub's own jupyterlab uenv
+            # (/user-tools), not this venv, so the extension cannot be
+            # enabled through a prefix install -- these two paths are what
+            # that server does read. uenv has no load-time hook to run
+            # anything instead; a view only sets environment variables.
+            #
+            # $@mount@/jupyter/py holds narthex_launcher.py and its notebook
+            # template (see post-install), kept apart from the venv's
+            # site-packages because the Hub's server runs a different Python.
+            - PYTHONPATH: "$@mount@/jupyter/py"
+            - JUPYTER_CONFIG_PATH: "$@mount@/jupyter/etc/jupyter"
