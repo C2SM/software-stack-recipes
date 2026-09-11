@@ -21,7 +21,7 @@ export PATH="${UV_INSTALL_DIR}:${PATH}"
 # -----------------------------------------------
 # Install the analysis / notebook packages
 
-EOBS_LAB_VIEW_NAME="lab"
+EOBS_LAB_VIEW_NAME="default"
 EOBS_LAB_VIEW={{ env.mount }}/env/${EOBS_LAB_VIEW_NAME}
 EOBS_LAB_VENV="{{ env.mount }}/venv"
 
