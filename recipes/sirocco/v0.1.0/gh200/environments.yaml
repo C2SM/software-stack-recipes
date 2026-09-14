@@ -9,6 +9,6 @@ sirocco:
         add_compilers: true
         env_vars:
           set:
-            - VIRTUAL_ENV: "/user-tools/sirocco_venv"
+            - VIRTUAL_ENV: "${@mount@}/sirocco_venv"
           prepend_path:
-            - PATH: "/user-tools/sirocco_venv/bin"
+            - PATH: "${@mount@}/sirocco_venv/bin"
