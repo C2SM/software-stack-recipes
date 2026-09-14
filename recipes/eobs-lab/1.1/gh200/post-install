@@ -1,0 +1,136 @@
+#!/bin/bash
+
+set -e
+
+# -----------------------------------------------
+# Install uv
+#
+# Kept in the image and put on the view's PATH (environments.yaml): narthex's
+# create-venv.sh needs it, and is re-run per uenv from inside a started uenv.
+
+UV_INSTALL_DIR="{{ env.mount }}/uv"
+mkdir -p "${UV_INSTALL_DIR}"
+
+curl -LsSf https://astral.sh/uv/install.sh > uv-installer.sh
+UV_INSTALL_DIR="${UV_INSTALL_DIR}" sh uv-installer.sh
+rm uv-installer.sh
+
+UV="${UV_INSTALL_DIR}/uv"
+export PATH="${UV_INSTALL_DIR}:${PATH}"
+
+# -----------------------------------------------
+# Install the analysis / notebook packages
+
+EOBS_LAB_VIEW_NAME="lab"
+EOBS_LAB_VIEW={{ env.mount }}/env/${EOBS_LAB_VIEW_NAME}
+EOBS_LAB_VENV="{{ env.mount }}/venv"
+
+# Create venv. --system-site-packages and --seed match what create-venv.sh
+# would have created below: the uenv's own packages stay visible, and the
+# kernel gets a pip for `%pip install` in a notebook.
+rm -rf ${EOBS_LAB_VENV}
+${UV} venv --relocatable --system-site-packages --seed \
+    --python="$EOBS_LAB_VIEW/bin/python" ${EOBS_LAB_VENV}
+source ${EOBS_LAB_VENV}/bin/activate
+
+# ipykernel/ipywidgets come from narthex's launcher/requirements.txt, below.
+${UV} pip install --no-cache \
+    pandas \
+    geopandas \
+    pillow \
+    seaborn \
+    netcdf4 \
+    jupyterlab
+
+# -----------------------------------------------
+# narthex launcher
+#
+# C2SM/narthex is private, and both the launcher and the client come from its
+# release assets over plain HTTPS -- not a git operation, so the pipeline's
+# git credential rewriting does not cover them. The token comes from the
+# pipeline variable UENV_CIBUILDV_EOBS_GH_TOKEN, whose prefix is stripped on
+# the way into the chroot -- see readme.md.
+
+NARTHEX_TAG="v1.0.0-alpha"
+# Pinned in full, and kept as the downloaded file's name: uv reads the package
+# name and version out of a wheel's filename, so it cannot be renamed. Pinning
+# it also means a client version that moves under the tag fails the asset
+# lookup loudly instead of being installed unnoticed.
+NARTHEX_CLIENT_WHEEL="narthex_client-1.0.0a0-py3-none-any.whl"
+
+if [ -z "${EOBS_GH_TOKEN:-}" ]; then
+    echo "post-install: EOBS_GH_TOKEN is not set; see readme.md" >&2
+    exit 1
+fi
+
+# stackinator copies the recipe directory here, this file's own directory
+# included -- see the jupyter config copied out of it further down.
+EOBS_LAB_RECIPE="{{ env.mount }}/meta/recipe"
+source "${EOBS_LAB_RECIPE}/helper.sh"
+
+NARTHEX_TMP=$(mktemp -d)
+NARTHEX_RELEASE_JSON="${NARTHEX_TMP}/release.json"
+
+curl -LsSf \
+    -H "Authorization: token ${EOBS_GH_TOKEN}" \
+    "https://api.github.com/repos/C2SM/narthex/releases/tags/${NARTHEX_TAG}" \
+    > "${NARTHEX_RELEASE_JSON}"
+
+narthex_fetch narthex-launcher.tar.bz2 "${NARTHEX_TMP}/launcher.tar.bz2"
+narthex_fetch "${NARTHEX_CLIENT_WHEEL}" "${NARTHEX_TMP}/${NARTHEX_CLIENT_WHEEL}"
+
+tar xjf "${NARTHEX_TMP}/launcher.tar.bz2" -C "${NARTHEX_TMP}"
+NARTHEX_LAUNCHER_SRC="${NARTHEX_TMP}/narthex-launcher"
+
+# Top up the venv a launch link's `?venv=` points at: ipykernel, ipywidgets,
+# narthex-client. --uenv is omitted because it checks `uenv status`, which
+# reports nothing mid-build; --client takes the release wheel, so there is
+# nothing to clone or build here.
+"${NARTHEX_LAUNCHER_SRC}/create-venv.sh" \
+    --client "${NARTHEX_TMP}/${NARTHEX_CLIENT_WHEEL}" \
+    "${EOBS_LAB_VENV}"
+
+# Install the extension into a plain directory of its own, rather than with
+# install.sh (neither its $HOME form -- this is a shared image, nobody should
+# run it per account -- nor its --prefix form, which would never be seen: on
+# jupyter-santis the notebook server is the Hub's own jupyterlab uenv mounted
+# at /user-tools, so its sys.prefix is not this venv and
+# {{ env.mount }}/venv/etc/jupyter is not on its config path).
+#
+# The view (environments.yaml) instead puts these two directories on
+# PYTHONPATH and JUPYTER_CONFIG_PATH, which every jupyter server honours
+# wherever it was started from. That is also the whole mechanism available:
+# uenv has no load-time hook, a view only sets environment variables.
+#
+# A directory of its own and not the venv's site-packages, because the Hub's
+# server runs a different Python than this venv's 3.12: only
+# narthex_launcher.py goes on its import path, and that imports nothing
+# beyond tornado and jupyter_server, which that server already has.
+
+EOBS_LAB_JUPYTER="{{ env.mount }}/jupyter"
+
+# Rebuilt from scratch, like the venv above, because post-install can run
+# again over a build tree that already has this: `cp -r src dst` copies src
+# *into* dst when dst exists, so a second run would bury the config at
+# etc/jupyter/jupyter-config/ -- where no jupyter server looks -- while
+# leaving the stale first copy in place, and report nothing.
+rm -rf "${EOBS_LAB_JUPYTER}"
+mkdir -p "${EOBS_LAB_JUPYTER}/py" "${EOBS_LAB_JUPYTER}/etc"
+
+# The notebook template is resolved relative to the module's own directory,
+# so it has to sit beside it.
+cp "${NARTHEX_LAUNCHER_SRC}/narthex_launcher.py" \
+   "${NARTHEX_LAUNCHER_SRC}/narthex_named_list_viewer.ipynb" \
+   "${EOBS_LAB_JUPYTER}/py/"
+
+# jupyter-config/ next to this script holds what that server reads: the JSON
+# enabling the extension (the same self-registration file install.sh --prefix
+# would have written, and the one jupyterlab and friends ship), and a .py
+# pointing it at the venv's labextensions so ipywidgets renders. Neither is
+# templated, so both are plain files in the recipe rather than heredocs here
+# -- the paths they need they work out at server start, from VIRTUAL_ENV and
+# from their own location. NARTHEX_API_URL is likewise not baked in: the
+# extension reads it from the environment, i.e. the view.
+cp -r "${EOBS_LAB_RECIPE}/jupyter-config" "${EOBS_LAB_JUPYTER}/etc/jupyter"
+
+rm -rf "${NARTHEX_TMP}"

@@ -1,0 +1,10 @@
+name: eobs-lab
+spack:
+  repo: https://github.com/spack/spack.git
+  commit: releases/v1.2
+  packages:
+    repo: https://github.com/spack/spack-packages.git
+    commit: releases/v2026.06
+description: "Earth Observations Lab JupyterHub uenv"
+default-view: lab
+version: 3
