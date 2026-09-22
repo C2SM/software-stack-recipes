@@ -1,0 +1,11 @@
+# Preferred paramId per shortName for the REA-L-CH1 dataset.
+# Used for shortNames that map to more than one cosmo paramId.
+asob_s: 500078
+athb_s: 500080
+clch: 500050
+clcl: 500048
+clcm: 500049
+dursun: 500584
+edp: 503675
+runoff_g: 500066
+runoff_s: 500068

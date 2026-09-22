@@ -42,9 +42,27 @@ eccodes_cosmo_resources_path=$(python -c "import eccodes_cosmo_resources as res;
 
 # --- Expand metkit tables with ICON parameter, model, and stream definitions --
 metkit_dir=$(dirname $(find $install_root -name language.yaml))
+private={{ env.mount }}/meta/recipe/meta/private
+defs=${eccodes_cosmo_resources_path}/grib2/shortName.def,${eccodes_cosmo_resources_path}/grib2/localConcepts/edzw/shortName.def
 
-python {{ env.mount }}/meta/recipe/meta/private/expand_params.py ${metkit_dir}/paramids.yaml ${eccodes_cosmo_resources_path}/grib2/shortName.def,${eccodes_cosmo_resources_path}/grib2/localConcepts/edzw/shortName.def
-python {{ env.mount }}/meta/recipe/meta/private/expand_language.py ${metkit_dir}/language.yaml
+# Shared table with the default priorities (realtime).
+python ${private}/expand_params.py ${metkit_dir}/paramids.yaml ${defs} --priority ${private}/param_priority/default.yaml
+python ${private}/expand_language.py ${metkit_dir}/language.yaml
+
+# Per-view tables: a view with param_priority/<view>.yaml gets its own paramids.yaml.
+# Replace the view's share/metkit symlink with a real dir, symlink the shared files again,
+# then write the view-specific paramids.yaml.
+for pf in ${private}/param_priority/*.yaml; do
+    view=$(basename "$pf" .yaml)
+    [ "$view" = default ] && continue
+    vshare={{ env.mount }}/env/$view/share/metkit
+    rm -rf "$vshare"
+    mkdir -p "$vshare"
+    ln -sf ${metkit_dir}/* "$vshare"/
+    rm -f "$vshare/paramids.yaml"
+    cp ${metkit_dir}/paramids.yaml "$vshare/paramids.yaml"
+    python ${private}/expand_params.py "$vshare/paramids.yaml" ${defs} --priority "$pf"
+done
 
 # --- rea-l-ch1 only: install Python helper for shortName → paramId mapping ---
 # Makes it importable via: from uenv_param_map import shortname_to_paramid

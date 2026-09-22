@@ -30,6 +30,7 @@ _OVERRIDES = {
     "runoff_s": 500068,
     "clcm": 500049,
     "dursun": 500584,
+    "edp": 503675,
 }
 
 # Absolute path to the paramId table used by this environment.
