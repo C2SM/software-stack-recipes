@@ -23,6 +23,7 @@ polytope-client = "^0.7.10"
 nbconvert = "*"
 nbformat = "*"
 pyyaml = "*"
+pytest = "*"
 covjsonkit = "^0.2.23"
 
 # We need kaleido <1.x to avoid google chrome for chart.show("png")
