@@ -19,7 +19,7 @@ rm uv-installer.sh
 uv="${uv_install_dir}/uv"
 sirocco_venv="{{ env.mount }}/sirocco_venv"
 sirocco_install_dir="{{ env.mount }}/sirocco"
-sirocco_branch="multi-model"
+sirocco_branch="main"
 
 # Get Sirocco
 rm -rf "${sirocco_install_dir}"
