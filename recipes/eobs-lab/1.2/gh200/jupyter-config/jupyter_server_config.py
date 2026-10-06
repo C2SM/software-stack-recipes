@@ -3,8 +3,7 @@
 # puts on JUPYTER_CONFIG_PATH -- the only way into that server, since on
 # jupyter-santis it is the Hub's own jupyterlab uenv at /user-tools and not
 # anything this image starts.
-import glob
-import os
+from pathlib import Path
 
 # `c` is injected by jupyter's config loader; get_config() returns that same
 # object -- the official idiom for a file the server exec's, never runs.
@@ -32,10 +31,10 @@ c = get_config()  # noqa: F821
 # The venvs are found from this file's own location rather than a hardcoded
 # mount point: traitlets sets __file__ to the full path of the config file it
 # is exec'ing, and this file is installed three directories below the mount
-# ({mount}/jupyter/etc/jupyter/), beside {mount}/venvs.
-_venvs = os.path.normpath(
-    os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "venvs")
-)
+# ({mount}/jupyter/etc/jupyter/), so parents[3] is the mount, beside
+# {mount}/venvs. The trait is a List(Unicode()), so each Path goes in as str --
+# a Path there is a TraitError when the server loads this config.
+_venvs = Path(__file__).resolve().parents[3] / "venvs"
 c.LabApp.extra_labextensions_path = sorted(
-    glob.glob(os.path.join(_venvs, "*", "share", "jupyter", "labextensions"))
+    str(p) for p in _venvs.glob("*/share/jupyter/labextensions")
 )
