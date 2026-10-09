@@ -81,6 +81,7 @@ uenvs:
       deploy:
         santis: [gh200]
       mount: "/user-tools"
+  eobs-lab:
     "1.1":
       recipes:
         gh200: '1.1/gh200'
