@@ -5,7 +5,7 @@ fdb:
   specs:
   - fdb@=5.21.4 backends=lustre
   - gribjump@=0.12.0
-  - eckit@=2.1.0 linalg=none compression=lz4 +curl +ssl
+  - eckit@=2.1.1 linalg=none compression=lz4 +curl +ssl
   - metkit@=1.18.3-levelist
   - eccodes@=2.47.3 jp2k=none ~fortran +pthreads +aec +geo
   - ecbuild@=3.13.1
