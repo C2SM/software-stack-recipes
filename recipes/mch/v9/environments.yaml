@@ -1,0 +1,50 @@
+prgenv-mch:
+  compiler: [gcc]
+  unify: when_possible
+  network:
+      # todo: pin the version of cray-mpich
+      mpi: cray-mpich
+      # use the system libfabric
+      specs: ['libfabric@2.3']
+  specs:
+  - python@3.12
+  - ruby@3.3.5
+  - osu-micro-benchmarks@5.9
+  - cmake@3.31
+  #- openblas@0.3.26
+  - openblas
+  #- libfyaml@0.7.12
+  - libfyaml
+  #- hdf5@1.12.2
+  - hdf5 +fortran +threadsafe ~mpi
+  - hdf5 +fortran +threadsafe +mpi
+  - libaec@1.1.7
+  - eccodes@2.47.0 +tools +fortran +aec +openmp jp2k=jasper
+  - cosmo-eccodes-definitions@2.47.0.2
+  #- netcdf-c@4.8.1+mpi
+  - netcdf-c +mpi ^hdf5+mpi api=v18
+  - netcdf-c ~mpi ^hdf5~mpi api=v18
+  #- netcdf-fortran@4.5.4
+  - netcdf-fortran ^netcdf-c+mpi
+  - netcdf-fortran ^netcdf-c~mpi
+  #- netlib-scalapack@2.2.0
+  - netlib-scalapack
+  # v8: cdo@2.0.5 and nco@5.0.1
+  - nco
+  - cdo
+  variants:
+  - +mpi
+  - ~cuda
+  views:
+    mch-serial:
+      exclude:
+      - hdf5+mpi
+      - netcdf-c+mpi
+      - netcdf-fortran ^netcdf-c+mpi
+      link: roots
+    mch:
+      exclude:
+      - hdf5~mpi
+      - netcdf-c~mpi
+      - netcdf-fortran ^netcdf-c~mpi
+      link: roots
