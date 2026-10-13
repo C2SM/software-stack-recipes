@@ -30,6 +30,7 @@ fdb:
             - AUTO_LOAD_PLUGINS:   "1"
             - ECCODES_ECKIT_GEO:   "1"
             - ECCODES_VERSION_CHECK_OFF: "1"
+            - PYTHONUSERBASE: "$@mount@/venvs/fdb"
           prepend_path:
             - PATH: "$@mount@/venvs/fdb/bin/"
     realtime:
@@ -51,6 +52,7 @@ fdb:
             - AUTO_LOAD_PLUGINS:   "1"
             - ECCODES_ECKIT_GEO:   "1"
             - ECCODES_VERSION_CHECK_OFF: "1"
+            - PYTHONUSERBASE: "$@mount@/venvs/fdb"
           prepend_path:
             - PATH: "$@mount@/venvs/fdb/bin/"
     rea-l-ch1:
@@ -72,6 +74,7 @@ fdb:
             - AUTO_LOAD_PLUGINS:   "1"
             - ECCODES_ECKIT_GEO:   "1"
             - ECCODES_VERSION_CHECK_OFF: "1"
+            - PYTHONUSERBASE: "$@mount@/venvs/fdb"
           prepend_path:
             - PATH: "$@mount@/venvs/fdb/bin/"
             - PYTHONPATH: "$@view_path@/share/python"
@@ -94,6 +97,7 @@ fdb:
             - AUTO_LOAD_PLUGINS:   "1"
             - ECCODES_ECKIT_GEO:   "1"
             - ECCODES_VERSION_CHECK_OFF: "1"
+            - PYTHONUSERBASE: "$@mount@/venvs/fdb"
           prepend_path:
             - PATH: "$@mount@/venvs/fdb/bin/"
     remote-depl:
@@ -115,5 +119,6 @@ fdb:
             - AUTO_LOAD_PLUGINS:   "1"
             - ECCODES_ECKIT_GEO:   "1"
             - ECCODES_VERSION_CHECK_OFF: "1"
+            - PYTHONUSERBASE: "$@mount@/venvs/fdb"
           prepend_path:
             - PATH: "$@mount@/venvs/fdb/bin/"
