@@ -22,6 +22,7 @@ class Eckit(CMakePackage):
 
     license("Apache-2.0")
 
+    version("2.5.0", sha256="7403a175ba3e91d4a7a1a06957b7d490a44d76eb2fc5a51c0e7f1a147bb9cf7e")
     version("2.1.0", sha256="bb7e888498b39925d724019f02c14b981761e7c94de899b5322cffe025d1e3d6")
     version("2.0.8", sha256="b85120d4d9f8440d763f5ed34ccb92b24663a5c72988f7ef9a107ba7a5439cc5")
     version("2.0.2", sha256="46b9c1f90e0b565698c5c79c54676401d33738ec82995c025d5d5aabeb13ad2b")
@@ -185,6 +186,10 @@ class Eckit(CMakePackage):
             self.define("ENABLE_RSYNC", False),
             # Disable "prototyping code that may never see the light of day":
             self.define("ENABLE_SANDBOX", False),
+            # OpenFAM defaults to ON when libuuid is available, and falls back to a mock implementation.
+            # The mock also forces eckit_HAVE_OPENFAM on, so disable too:
+            self.define("ENABLE_OPENFAM_MOCK", False),
+            self.define("ENABLE_OPENFAM", False),
         ]
 
         # Static build of eckit not working, many places in eckit's build
