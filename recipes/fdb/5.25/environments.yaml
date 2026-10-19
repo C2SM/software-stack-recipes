@@ -21,7 +21,6 @@ fdb:
         env_vars:
           set:
             - FDB_HOME:          "$@view_path@"
-            - FDB5_HOME:         "$@view_path@"
             - ECKIT_HOME:        "$@view_path@"
             - GRIB_DEFINITION_PATH: "$@mount@/data/share/eccodes-cosmo-mars/definitions:\
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
@@ -41,7 +40,6 @@ fdb:
         env_vars:
           set:
             - FDB_HOME:          "$@view_path@"
-            - FDB5_HOME:         "$@view_path@"
             - ECKIT_HOME:        "$@view_path@"
             - GRIB_DEFINITION_PATH: "$@mount@/data/share/eccodes-cosmo-mars/definitions:\
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
@@ -63,7 +61,6 @@ fdb:
         env_vars:
           set:
             - FDB_HOME:          "$@view_path@"
-            - FDB5_HOME:         "$@view_path@"
             - ECKIT_HOME:        "$@view_path@"
             - GRIB_DEFINITION_PATH: "$@mount@/data/share/eccodes-cosmo-mars/definitions:\
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
@@ -86,7 +83,6 @@ fdb:
         env_vars:
           set:
             - FDB_HOME:          "$@view_path@"
-            - FDB5_HOME:         "$@view_path@"
             - ECKIT_HOME:        "$@view_path@"
             - GRIB_DEFINITION_PATH: "$@mount@/data/share/eccodes-cosmo-mars/definitions:\
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
@@ -108,7 +104,6 @@ fdb:
         env_vars:
           set:
             - FDB_HOME:          "$@view_path@"
-            - FDB5_HOME:         "$@view_path@"
             - ECKIT_HOME:        "$@view_path@"
             - GRIB_DEFINITION_PATH: "$@mount@/data/share/eccodes-cosmo-mars/definitions:\
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
