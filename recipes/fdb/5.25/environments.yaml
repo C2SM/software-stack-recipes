@@ -7,7 +7,7 @@ fdb:
   - gribjump@=0.13.1
   - eckit@=2.5.0 linalg=none compression=lz4 +curl +ssl
   - metkit@=1.22.0
-  - eccodes@=2.47.3 jp2k=none ~fortran +pthreads +aec +geo
+  - eccodes@=2.50.0 jp2k=none ~fortran +pthreads +aec +geo
   - ecbuild@=3.13.1
   - python@=3.11.15
   variants:
