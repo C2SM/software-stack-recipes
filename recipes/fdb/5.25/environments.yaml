@@ -22,11 +22,13 @@ fdb:
           set:
             - FDB_HOME:          "$@view_path@"
             - ECKIT_HOME:        "$@view_path@"
+            - FINDLIBS_DISABLE_PACKAGE: "yes"
             - GRIB_DEFINITION_PATH: "$@mount@/data/share/eccodes-cosmo-mars/definitions:\
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
                                      $@mount@/env/fdb/share/eccodes/definitions"
             - FDB_ENABLE_GRIBJUMP: "1"
             - AUTO_LOAD_PLUGINS:   "1"
+            - FILEHANDLE_IO_BUFFERSIZE: "1"
             - ECCODES_ECKIT_GEO:   "1"
             - ECCODES_VERSION_CHECK_OFF: "1"
             - PYTHONUSERBASE: "$@mount@/venvs/fdb"
@@ -41,6 +43,7 @@ fdb:
           set:
             - FDB_HOME:          "$@view_path@"
             - ECKIT_HOME:        "$@view_path@"
+            - FINDLIBS_DISABLE_PACKAGE: "yes"
             - GRIB_DEFINITION_PATH: "$@mount@/data/share/eccodes-cosmo-mars/definitions:\
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
                                      $@mount@/env/fdb/share/eccodes/definitions"
@@ -48,6 +51,7 @@ fdb:
             - FDB_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
             - FDB_ENABLE_GRIBJUMP: "1"
             - AUTO_LOAD_PLUGINS:   "1"
+            - FILEHANDLE_IO_BUFFERSIZE: "1"
             - ECCODES_ECKIT_GEO:   "1"
             - ECCODES_VERSION_CHECK_OFF: "1"
             - PYTHONUSERBASE: "$@mount@/venvs/fdb"
@@ -62,6 +66,7 @@ fdb:
           set:
             - FDB_HOME:          "$@view_path@"
             - ECKIT_HOME:        "$@view_path@"
+            - FINDLIBS_DISABLE_PACKAGE: "yes"
             - GRIB_DEFINITION_PATH: "$@mount@/data/share/eccodes-cosmo-mars/definitions:\
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
                                      $@mount@/env/fdb/share/eccodes/definitions"
@@ -69,6 +74,7 @@ fdb:
             - FDB_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
             - FDB_ENABLE_GRIBJUMP: "1"
             - AUTO_LOAD_PLUGINS:   "1"
+            - FILEHANDLE_IO_BUFFERSIZE: "1"
             - ECCODES_ECKIT_GEO:   "1"
             - ECCODES_VERSION_CHECK_OFF: "1"
             - PYTHONUSERBASE: "$@mount@/venvs/fdb"
@@ -84,6 +90,7 @@ fdb:
           set:
             - FDB_HOME:          "$@view_path@"
             - ECKIT_HOME:        "$@view_path@"
+            - FINDLIBS_DISABLE_PACKAGE: "yes"
             - GRIB_DEFINITION_PATH: "$@mount@/data/share/eccodes-cosmo-mars/definitions:\
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
                                      $@mount@/env/fdb/share/eccodes/definitions"
@@ -91,6 +98,7 @@ fdb:
             - FDB_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
             - FDB_ENABLE_GRIBJUMP: "1"
             - AUTO_LOAD_PLUGINS:   "1"
+            - FILEHANDLE_IO_BUFFERSIZE: "1"
             - ECCODES_ECKIT_GEO:   "1"
             - ECCODES_VERSION_CHECK_OFF: "1"
             - PYTHONUSERBASE: "$@mount@/venvs/fdb"
@@ -105,6 +113,7 @@ fdb:
           set:
             - FDB_HOME:          "$@view_path@"
             - ECKIT_HOME:        "$@view_path@"
+            - FINDLIBS_DISABLE_PACKAGE: "yes"
             - GRIB_DEFINITION_PATH: "$@mount@/data/share/eccodes-cosmo-mars/definitions:\
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
                                      $@mount@/env/fdb/share/eccodes/definitions"
@@ -112,6 +121,7 @@ fdb:
             - FDB_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
             - FDB_ENABLE_GRIBJUMP: "1"
             - AUTO_LOAD_PLUGINS:   "1"
+            - FILEHANDLE_IO_BUFFERSIZE: "1"
             - ECCODES_ECKIT_GEO:   "1"
             - ECCODES_VERSION_CHECK_OFF: "1"
             - PYTHONUSERBASE: "$@mount@/venvs/fdb"
