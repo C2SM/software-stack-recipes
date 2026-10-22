@@ -23,6 +23,7 @@ fdb:
             - FDB_HOME:          "$@view_path@"
             - FDB5_HOME:         "$@view_path@"
             - ECKIT_HOME:        "$@view_path@"
+            - FINDLIBS_DISABLE_PACKAGE: "yes"
             - GRIB_DEFINITION_PATH: "$@mount@/data/share/eccodes-cosmo-mars/definitions:\
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
                                      $@mount@/env/fdb/share/eccodes/definitions"
@@ -44,6 +45,7 @@ fdb:
             - FDB_HOME:          "$@view_path@"
             - FDB5_HOME:         "$@view_path@"
             - ECKIT_HOME:        "$@view_path@"
+            - FINDLIBS_DISABLE_PACKAGE: "yes"
             - GRIB_DEFINITION_PATH: "$@mount@/data/share/eccodes-cosmo-mars/definitions:\
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
                                      $@mount@/env/fdb/share/eccodes/definitions"
@@ -67,6 +69,7 @@ fdb:
             - FDB_HOME:          "$@view_path@"
             - FDB5_HOME:         "$@view_path@"
             - ECKIT_HOME:        "$@view_path@"
+            - FINDLIBS_DISABLE_PACKAGE: "yes"
             - GRIB_DEFINITION_PATH: "$@mount@/data/share/eccodes-cosmo-mars/definitions:\
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
                                      $@mount@/env/fdb/share/eccodes/definitions"
@@ -91,6 +94,7 @@ fdb:
             - FDB_HOME:          "$@view_path@"
             - FDB5_HOME:         "$@view_path@"
             - ECKIT_HOME:        "$@view_path@"
+            - FINDLIBS_DISABLE_PACKAGE: "yes"
             - GRIB_DEFINITION_PATH: "$@mount@/data/share/eccodes-cosmo-mars/definitions:\
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
                                      $@mount@/env/fdb/share/eccodes/definitions"
@@ -114,6 +118,7 @@ fdb:
             - FDB_HOME:          "$@view_path@"
             - FDB5_HOME:         "$@view_path@"
             - ECKIT_HOME:        "$@view_path@"
+            - FINDLIBS_DISABLE_PACKAGE: "yes"
             - GRIB_DEFINITION_PATH: "$@mount@/data/share/eccodes-cosmo-mars/definitions:\
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
                                      $@mount@/env/fdb/share/eccodes/definitions"
