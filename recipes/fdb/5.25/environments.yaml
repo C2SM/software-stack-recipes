@@ -3,13 +3,17 @@ fdb:
   unify: when_possible
   packages: []
   specs:
-  - fdb@=5.21.4 backends=lustre
-  - gribjump@=0.12.0
-  - eckit@=2.1.0 linalg=none compression=lz4 +curl +ssl
-  - metkit@=1.18.3-levelist
-  - eccodes@=2.47.3 jp2k=none ~fortran +pthreads +aec +geo
+  - fdb@=5.25.0 backends=lustre
+  - gribjump@=0.13.1
+  - eckit@=2.5.0 linalg=none compression=lz4 +curl +ssl +proj +python
+  - metkit@=1.22.0
+  - eccodes@=2.50.0 jp2k=none ~fortran +pthreads +aec +geo
   - ecbuild@=3.13.1
   - python@=3.11.15
+  - mir@=1.30.2 +python
+  - ecmwf-atlas@=0.47.0 +tesselation ~fckit ~fftw ~eigen
+  - proj@=9.7.0 ~tiff ~curl
+  - py-pyproj@=3.7.2
   variants:
   - ~mpi
   views:
@@ -35,6 +39,7 @@ fdb:
             - PYTHONUSERBASE: "$@mount@/venvs/fdb"
           prepend_path:
             - PATH: "$@mount@/venvs/fdb/bin/"
+            - PYTHONPATH: "$@view_path@/lib/python3.11/site-packages"
     realtime:
       link: roots
       uenv:
@@ -50,7 +55,7 @@ fdb:
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
                                      $@mount@/env/fdb/share/eccodes/definitions"
             # NOTE: this assumes that the fdb config names match the view names
-            - FDB5_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
+            - FDB_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
             - FDB_ENABLE_GRIBJUMP: "1"
             - AUTO_LOAD_PLUGINS:   "1"
             - FILEHANDLE_IO_BUFFERSIZE: "1"
@@ -59,6 +64,7 @@ fdb:
             - PYTHONUSERBASE: "$@mount@/venvs/fdb"
           prepend_path:
             - PATH: "$@mount@/venvs/fdb/bin/"
+            - PYTHONPATH: "$@view_path@/lib/python3.11/site-packages"
     rea-l-ch1:
       link: roots
       uenv:
@@ -74,7 +80,7 @@ fdb:
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
                                      $@mount@/env/fdb/share/eccodes/definitions"
             # NOTE: this assumes that the fdb config names match the view names
-            - FDB5_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
+            - FDB_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
             - FDB_ENABLE_GRIBJUMP: "1"
             - AUTO_LOAD_PLUGINS:   "1"
             - FILEHANDLE_IO_BUFFERSIZE: "1"
@@ -83,6 +89,7 @@ fdb:
             - PYTHONUSERBASE: "$@mount@/venvs/fdb"
           prepend_path:
             - PATH: "$@mount@/venvs/fdb/bin/"
+            - PYTHONPATH: "$@view_path@/lib/python3.11/site-packages"
             - PYTHONPATH: "$@view_path@/share/python"
     remote-devt:
       link: roots
@@ -99,7 +106,7 @@ fdb:
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
                                      $@mount@/env/fdb/share/eccodes/definitions"
             # NOTE: this assumes that the fdb config names match the view names
-            - FDB5_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
+            - FDB_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
             - FDB_ENABLE_GRIBJUMP: "1"
             - AUTO_LOAD_PLUGINS:   "1"
             - FILEHANDLE_IO_BUFFERSIZE: "1"
@@ -108,6 +115,7 @@ fdb:
             - PYTHONUSERBASE: "$@mount@/venvs/fdb"
           prepend_path:
             - PATH: "$@mount@/venvs/fdb/bin/"
+            - PYTHONPATH: "$@view_path@/lib/python3.11/site-packages"
     remote-depl:
       link: roots
       uenv:
@@ -123,7 +131,7 @@ fdb:
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
                                      $@mount@/env/fdb/share/eccodes/definitions"
             # NOTE: this assumes that the fdb config names match the view names
-            - FDB5_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
+            - FDB_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
             - FDB_ENABLE_GRIBJUMP: "1"
             - AUTO_LOAD_PLUGINS:   "1"
             - FILEHANDLE_IO_BUFFERSIZE: "1"
@@ -132,3 +140,4 @@ fdb:
             - PYTHONUSERBASE: "$@mount@/venvs/fdb"
           prepend_path:
             - PATH: "$@mount@/venvs/fdb/bin/"
+            - PYTHONPATH: "$@view_path@/lib/python3.11/site-packages"

@@ -51,6 +51,7 @@ class Eccodes(CMakePackage):
 
     version("develop", branch="develop")
 
+    version("2.50.0", sha256="221880302583c378adefd8849ee870b15499fdb810a361a25aa4f7457631a537")
     version("2.47.3", tag="2.47.3", commit="f7351a51f77940b3fdb1496b14adae3781cda39a")
     version("2.47.2", tag="2.47.2", commit="cae0ee95e90669e7cac56fb5ac7d7a2375585f26")
     version("2.47.0", sha256="82da819aa9b51831dc14b3bf2918bfee50b1cd53a05088d0c3f4493758aae094")
