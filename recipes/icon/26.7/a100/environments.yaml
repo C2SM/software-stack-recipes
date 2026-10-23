@@ -19,9 +19,10 @@ icon:
     - serialbox +fortran +netcdf %c,cxx,fortran=nvhpc
     # remove: not part of MCH production ICON stack
     #- cdo
-    #- nccl@2.29.2
-    #- nccl-tests
-    #- aws-ofi-nccl@1.17.2
+    # everything needed for nccl on SS11 (ghex NCCL backend)
+    - nccl@2.29.2
+    - nccl-tests
+    - aws-ofi-nccl@1.17.2
     # extras
     - libfyaml
     - zlib-ng
