@@ -42,9 +42,12 @@ popd
 # --- Constraints for user venvs: pin only the ECMWF stack ---
 python - > {{ env.mount }}/venvs/fdb/uenv-constraints.txt <<'EOF'
 import importlib.metadata as md
-for name in ["atlaslib-ecmwf", "eccodes", "eccodeslib", "eckit", "eckitlib", "fdb5lib", "findlibs", "metkitlib",
-             "mir-python", "mirlib", "odclib", "pyfdb", "pygribjump", "pyodc", "pyproj"]:
-    print(f"{name}=={md.version(name)}")
+names = {"atlaslib-ecmwf", "eccodes", "eccodeslib", "eckit", "eckitlib", "fdb5lib", "findlibs", "metkitlib",
+         "mir-python", "mirlib", "odclib", "pyfdb", "pygribjump", "pyodc", "pyproj"}
+# pin only the packages that are installed
+for name, version in sorted((d.metadata["Name"], d.version) for d in md.distributions()):
+    if name in names:
+        print(f"{name}=={version}")
 EOF
 
 # determine path of eccodes cosmo resources from python package
