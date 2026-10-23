@@ -64,8 +64,10 @@ uenvs:
     "26.7":
       recipes:
         gh200: '26.7/gh200'
+        a100: '26.7/a100'
       deploy:
         santis: [gh200]
+        linard: [a100]
     "25.2":
       recipes:
         gh200: '25.2/gh200'
