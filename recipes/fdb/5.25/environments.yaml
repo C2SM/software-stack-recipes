@@ -5,13 +5,15 @@ fdb:
   specs:
   - fdb@=5.25.0 backends=lustre
   - gribjump@=0.13.1
-  - eckit@=2.5.0 linalg=none compression=lz4 +curl +ssl +proj +python ^proj ~tiff ~curl
+  - eckit@=2.5.0 linalg=none compression=lz4 +curl +ssl +proj +python
   - metkit@=1.22.0
   - eccodes@=2.50.0 jp2k=none ~fortran +pthreads +aec +geo
   - ecbuild@=3.13.1
   - python@=3.11.15
   - mir@=1.30.2 +python
   - ecmwf-atlas@=0.47.0 +tesselation ~fckit ~fftw ~eigen
+  - proj@=9.7.0 ~tiff ~curl
+  - py-pyproj@=3.7.2
   variants:
   - ~mpi
   views:
