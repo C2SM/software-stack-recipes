@@ -3,6 +3,7 @@
 #  - Fetch eccodes/GRIB shared definitions
 #  - Install Poetry and create a venv for FDB tooling
 #  - Expand metkit param/language tables (adds ICON models/streams/params)
+#    and generate metkit params.bin again
 #  - Configure env vars per view
 #  - For 'rea-l-ch1' only: install a tiny Python helper (shortName -> paramId)
 
@@ -45,6 +46,12 @@ metkit_dir=$(dirname $(find $install_root -name language.yaml))
 
 python {{ env.mount }}/meta/recipe/meta/private/expand_params.py ${metkit_dir}/paramids.yaml ${eccodes_cosmo_resources_path}/grib2/shortName.def,${eccodes_cosmo_resources_path}/grib2/localConcepts/edzw/shortName.def
 python {{ env.mount }}/meta/recipe/meta/private/expand_language.py ${metkit_dir}/language.yaml
+
+# Generate params.bin again: metkit reads it in place of the param yaml files
+metkit_prefix=$(dirname $(dirname ${metkit_dir}))
+rm -f ${metkit_dir}/params.bin
+METKIT_HOME=${metkit_prefix} METKIT_FORCE_BINFILE_CREATION=1 AUTO_LOAD_PLUGINS=0 \
+    ${metkit_prefix}/bin/create-binary-files
 
 # --- rea-l-ch1 only: install Python helper for shortName → paramId mapping ---
 # Makes it importable via: from uenv_param_map import shortname_to_paramid
