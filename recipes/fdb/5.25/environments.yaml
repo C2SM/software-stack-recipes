@@ -12,7 +12,7 @@ fdb:
   - python@=3.11.15
   - mir@=1.30.2 +python
   - ecmwf-atlas@=0.47.0 +tesselation ~fckit ~fftw ~eigen build_type=Release
-  - proj@=9.7.0 ~tiff ~curl
+  - proj@=9.7.0 ~tiff ~curl ~grids
   - py-pyproj@=3.7.2
   variants:
   - ~mpi
