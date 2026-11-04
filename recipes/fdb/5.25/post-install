@@ -74,7 +74,7 @@ helper_dir="{{ env.mount }}/env/rea-l-ch1/share/python"
 mkdir -p "$helper_dir"
 cp -f "$helper_src" "$helper_dir/"
 
-# --- Remove the libraries of the lib wheels: spack provides them ---
+# --- Remove the wheel files that spack provides (lib wheels, pyproj) ---
 # The dist-info stays, so that pip still sees the packages as installed.
 venv_site={{ env.mount }}/venvs/fdb/lib/python3.11/site-packages
-rm -rf $venv_site/{atlaslib_ecmwf,eccodeslib,eckitlib,eckitlib.libs,fdb5lib,metkitlib,mirlib,odclib,pyproj.libs}
+rm -rf $venv_site/{atlaslib_ecmwf,eccodeslib,eckitlib,eckitlib.libs,fdb5lib,metkitlib,mirlib,odclib,pyproj,pyproj.libs}
