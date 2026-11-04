@@ -8,3 +8,5 @@ spack:
     commit: releases/v2026.06
 description: MCH FDB uenv
 version: 2
+# remove build-only dependencies (spack gc) before the views are created
+cleanup: runtime
