@@ -30,7 +30,7 @@ The `NAME` is specific to the git provider:
 
 ### `eobs-lab`: `C2SM/narthex` (private)
 
-`recipes/eobs-lab/1.2/gh200/post-install` (and 1.1's) pulls the
+`recipes/eobs-lab/1.3/gh200/post-install` (and 1.1's and 1.2's) pulls the
 `narthex_launcher` extension and the `narthex-client` wheel from the release
 assets of the private `github.com/C2SM/narthex` repo. Those are plain HTTPS downloads, not
 git operations, so the credential rewriting above does not apply. Set instead

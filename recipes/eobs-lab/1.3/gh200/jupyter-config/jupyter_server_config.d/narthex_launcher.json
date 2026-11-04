@@ -1,0 +1,7 @@
+{
+  "ServerApp": {
+    "jpserver_extensions": {
+      "narthex_launcher": true
+    }
+  }
+}
