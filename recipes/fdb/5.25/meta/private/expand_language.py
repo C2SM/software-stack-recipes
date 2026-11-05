@@ -43,7 +43,7 @@ def main():
     metkit_lang["_field"]["model"]["type"].append(
         {
             "type": "enum",
-            "values": [["icon-ch1-eps"], ["icon-ch2-eps"], ["icon-rea-l-ch1"]],
+            "values": [["icon-ch1-eps"], ["icon-ch2-eps"], ["icon-rea-l-ch1"], ["varda-single"], ["varda-ens"]],
         }
     )
 
