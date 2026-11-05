@@ -3,11 +3,11 @@ fdb:
   unify: when_possible
   packages: []
   specs:
-  - fdb@=5.21.4 backends=lustre
-  - gribjump@=0.12.0
-  - eckit@=2.1.0 linalg=none compression=lz4 +curl +ssl
-  - metkit@=1.18.3-levelist
-  - eccodes@=2.47.3 jp2k=none ~fortran +pthreads +aec +geo
+  - fdb@=5.25.0 backends=lustre
+  - gribjump@=0.13.1
+  - eckit@=2.5.0 linalg=none compression=lz4 +curl +ssl
+  - metkit@=1.22.0
+  - eccodes@=2.50.0 jp2k=none ~fortran +pthreads +aec +geo
   - ecbuild@=3.13.1
   - python@=3.11.15
   variants:
@@ -50,7 +50,7 @@ fdb:
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
                                      $@mount@/env/fdb/share/eccodes/definitions"
             # NOTE: this assumes that the fdb config names match the view names
-            - FDB5_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
+            - FDB_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
             - FDB_ENABLE_GRIBJUMP: "1"
             - AUTO_LOAD_PLUGINS:   "1"
             - FILEHANDLE_IO_BUFFERSIZE: "1"
@@ -74,7 +74,7 @@ fdb:
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
                                      $@mount@/env/fdb/share/eccodes/definitions"
             # NOTE: this assumes that the fdb config names match the view names
-            - FDB5_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
+            - FDB_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
             - FDB_ENABLE_GRIBJUMP: "1"
             - AUTO_LOAD_PLUGINS:   "1"
             - FILEHANDLE_IO_BUFFERSIZE: "1"
@@ -99,7 +99,7 @@ fdb:
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
                                      $@mount@/env/fdb/share/eccodes/definitions"
             # NOTE: this assumes that the fdb config names match the view names
-            - FDB5_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
+            - FDB_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
             - FDB_ENABLE_GRIBJUMP: "1"
             - AUTO_LOAD_PLUGINS:   "1"
             - FILEHANDLE_IO_BUFFERSIZE: "1"
@@ -123,7 +123,7 @@ fdb:
                                      $@mount@/venvs/fdb/share/eccodes-cosmo-resources/definitions:\
                                      $@mount@/env/fdb/share/eccodes/definitions"
             # NOTE: this assumes that the fdb config names match the view names
-            - FDB5_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
+            - FDB_CONFIG_FILE:  "$@mount@/meta/recipe/meta/private/fdb_config/$@view_name@.yaml"
             - FDB_ENABLE_GRIBJUMP: "1"
             - AUTO_LOAD_PLUGINS:   "1"
             - FILEHANDLE_IO_BUFFERSIZE: "1"

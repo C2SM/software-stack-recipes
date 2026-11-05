@@ -55,11 +55,11 @@ uenvs:
       deploy:
         balfrin: [zen3]
   fdb:
-    "5.21":
+    "5.25":
       recipes:
-        zen2: '5.21'
-        zen3: '5.21'
-        a100: '5.21'
+        zen2: '5.25'
+        zen3: '5.25'
+        a100: '5.25'
   icon:
     "26.7":
       recipes:
