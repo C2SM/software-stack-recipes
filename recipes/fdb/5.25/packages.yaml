@@ -4,3 +4,6 @@ packages:
     externals:
     - spec: lustre@2.15
       prefix: /usr
+  # re2c is only needed to regenerate the ninja lexer; it is a large build-only dependency
+  ninja:
+    require: "~re2c"
