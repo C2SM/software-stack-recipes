@@ -88,6 +88,8 @@ class Eckit(CMakePackage):
         description="Enable support for Unicode characters in Yaml/JSON parsers",
     )
     variant("aio", default=True, description="Enable asynchronous IO")
+    variant("proj", default=False, description="Enable PROJ-based projections in eckit::geo")
+    variant("python", default=False, description="Build Python bindings")
     variant("fismahigh", default=False, description="Apply patching for FISMA-high compliance")
 
     depends_on("c", type="build")
@@ -124,6 +126,11 @@ class Eckit(CMakePackage):
     depends_on("curl", when="+curl")
 
     depends_on("jemalloc", when="+jemalloc")
+
+    depends_on("proj@9.1.1:", when="+proj")
+
+    depends_on("python@3:", when="+python", type=("build", "link", "run"))
+    depends_on("py-cython@3:", when="+python", type="build")
 
     # The package enables LAPACK backend (together with MKL backend)
     # when='linalg=mkl'. This leads to two identical installations when:
@@ -168,6 +175,8 @@ class Eckit(CMakePackage):
             self.define_from_variant("ENABLE_JEMALLOC", "jemalloc"),
             self.define_from_variant("ENABLE_UNICODE", "unicode"),
             self.define_from_variant("ENABLE_AIO", "aio"),
+            self.define_from_variant("ENABLE_PROJ", "proj"),
+            self.define_from_variant("ENABLE_PYTHON", "python"),
             self.define("ENABLE_TESTS", self.run_tests),
             # Unconditionally disable additional unit/performance tests, since
             # they download additional data (~1.6GB):
@@ -195,6 +204,9 @@ class Eckit(CMakePackage):
         # Static build of eckit not working, many places in eckit's build
         # system have SHARED hardcoded (in several CMakeLists.txt files).
         args.append("-DBUILD_SHARED_LIBS=ON")
+
+        if "+python" in self.spec:
+            args.append(self.define("Python3_EXECUTABLE", self.spec["python"].command.path))
 
         if "linalg=mkl" not in self.spec:
             # ENABLE_LAPACK is ignored if MKL backend is enabled
