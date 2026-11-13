@@ -1,0 +1,51 @@
+modules:
+  default:
+    arch_folder: false
+    tcl:
+      all:
+        autoload: none
+      eccodes:
+        environment:
+          set:
+            ECCODES_DIR: '{prefix}'
+            ECCODES_INCLUDE: '{prefix}/include'
+            ECCODES_VERSION: '{version}'
+      exclude: []
+      exclude_implicits: true
+      hash_length: 0
+      hide_implicits: false
+      # gcc is an implicit dependency (built by stackinator's compiler step), so include it explicitly
+      include: ['gcc@15']
+      netcdf-c:
+        environment:
+          set:
+            NETCDF_C_ROOT: '{prefix}'
+      netlib-scalapack:
+        environment:
+          set:
+            NETLIB_SCALAPACK_ROOT: '{prefix}'
+      openblas:
+        environment:
+          set:
+            OPENBLAS_ROOT: '{prefix}'
+      projections:
+        all: '{name}/{version}'
+        cray-mpich: cray-mpich/{version}
+        gcc: '{name}/{version}'
+        hdf5~mpi: '{name}/{version}-serial'
+        hdf5+mpi: '{name}/{version}'
+        netcdf-c~mpi: '{name}/{version}-serial'
+        netcdf-fortran^netcdf-c~mpi: '{name}/{version}-serial'
+        nvhpc: '{name}/{version}'
+        python: '{name}/{version}'
+  prefix_inspections:
+    bin:
+    - PATH
+    lib:
+    - LD_LIBRARY_PATH
+    lib/pkgconfig:
+    - PKG_CONFIG_PATH
+    lib64:
+    - LD_LIBRARY_PATH
+    lib64/pkgconfig:
+    - PKG_CONFIG_PATH

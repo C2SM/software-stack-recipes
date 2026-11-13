@@ -81,6 +81,12 @@ uenvs:
         balfrin: [a100]
     "v8":
       recipes:
+        a100: 'v9'
+      deploy:
+        linard: [zen3]
+        balfrin: [zen3]
+    "v9":
+      recipes:
         a100: 'v8'
       deploy:
         balfrin: [a100]

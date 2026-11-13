@@ -1,0 +1,44 @@
+from spack.package import *
+
+
+class CosmoEccodesDefinitions(Package):
+    """To simplify the usage of the GRIB 2 format within the COSMO Consortium, a COSMO GRIB 2
+    Policy has been defined. One element of this policy is to define a unified ecCodes system for
+    the COSMO community, which is compatible with all COSMO software. This unified system is split
+    into two parts, the vendor distribution of the ecCodes, available from ECMWF and the modified
+    samples and definitions used by the COSMO consortium, available in the current repository."""
+
+    homepage = "https://github.com/COSMO-ORG/eccodes-cosmo-resources"
+    git = "https://github.com/COSMO-ORG/eccodes-cosmo-resources.git"
+
+    maintainers("huppd", "lxavier")
+
+    version("2.47.0.2", tag="v2.47.0.2", commit="019e3357ebbfcc1924b237565514978b451c9b51")
+    version("2.47.0.1", tag="v2.47.0.1", commit="02969871a113f6f4ed3e928b091cd35ea1c69fc6")
+
+    # the definitions are tied to a specific ecCodes release
+    depends_on("eccodes@2.47.0", type=("build", "link", "run"), when="@2.47.0.1:2.47.0.2")
+
+    def setup_run_environment(self, env):
+        eccodes_definition_path = ":".join(
+            [
+                self.prefix + "/cosmoDefinitions/definitions/",
+                self.spec["eccodes"].prefix + "/share/eccodes/definitions/",
+            ]
+        )
+        env.prepend_path("GRIB_DEFINITION_PATH", eccodes_definition_path)
+        env.prepend_path("ECCODES_DEFINITION_PATH", eccodes_definition_path)
+
+        eccodes_samples_path = self.prefix + "/cosmoDefinitions/samples/"
+        env.prepend_path("GRIB_SAMPLES_PATH", eccodes_samples_path)
+        env.prepend_path("ECCODES_SAMPLES_PATH", eccodes_samples_path)
+
+    def setup_dependent_build_environment(self, env, dependent_spec):
+        self.setup_run_environment(env)
+
+    def install(self, spec, prefix):
+        mkdirp(prefix.cosmoDefinitions.definitions)
+        mkdirp(prefix.cosmoDefinitions.samples)
+        install_tree("definitions", prefix.cosmoDefinitions.definitions)
+        install_tree("samples", prefix.cosmoDefinitions.samples)
+        install("RELEASE", prefix.cosmoDefinitions)
