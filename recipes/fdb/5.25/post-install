@@ -6,6 +6,9 @@
 #    and generate metkit params.bin again
 #  - Configure env vars per view
 #  - For 'rea-l-ch1' only: install a tiny Python helper (shortName -> paramId)
+#  - Write a constraints file for user venvs
+#  - Remove the libraries of the lib wheels (spack provides them)
+#  - Use the spack-built eckit/mir Python bindings in the venv (via a .pth file)
 
 set -e
 
@@ -38,6 +41,17 @@ source {{ env.mount }}/venvs/fdb/bin/activate
 {{ env.mount }}/bin/poetry install
 popd
 
+# --- Constraints for user venvs: pin only the ECMWF stack ---
+python - > {{ env.mount }}/venvs/fdb/uenv-constraints.txt <<'EOF'
+import importlib.metadata as md
+names = {"atlaslib-ecmwf", "eccodes", "eccodeslib", "eckit", "eckitlib", "fdb5lib", "findlibs", "metkitlib",
+         "mir-python", "mirlib", "odclib", "pyfdb", "pygribjump", "pyodc", "pyproj"}
+# pin only the packages that are installed
+for name, version in sorted((d.metadata["Name"], d.version) for d in md.distributions()):
+    if name in names:
+        print(f"{name}=={version}")
+EOF
+
 # determine path of eccodes cosmo resources from python package
 eccodes_cosmo_resources_path=$(python -c "import eccodes_cosmo_resources as res; print(res.get_definitions_path())")
 
@@ -60,3 +74,33 @@ helper_src="{{ env.mount }}/meta/recipe/meta/private/uenv_param_map.py"
 helper_dir="{{ env.mount }}/env/rea-l-ch1/share/python"
 mkdir -p "$helper_dir"
 cp -f "$helper_src" "$helper_dir/"
+
+# --- Remove the wheel files that spack provides (lib wheels, pyproj) ---
+# The dist-info stays, so that pip still sees the packages as installed.
+venv_site={{ env.mount }}/venvs/fdb/lib/python3.11/site-packages
+rm -rf $venv_site/{atlaslib_ecmwf,eccodeslib,eckitlib,eckitlib.libs,fdb5lib,metkitlib,mirlib,odclib,pyproj,pyproj.libs}
+
+# --- Use the eckit and mir Python bindings built by spack (eckit +python, mir +python) ---
+# As above, only the code of the 'eckit' and 'mir-python' wheels is removed; a .pth file
+# adds the site-packages directories of the spack installations to sys.path of the venv.
+pth_file="$venv_site/spack-bindings.pth"
+for module in eckit mir; do
+    mapfile -t init_files < <(find "$install_root" -path "*/python3.11/site-packages/$module/__init__.py" -type f)
+    {% raw %}if [ ${#init_files[@]} -ne 1 ]; then{% endraw %}
+        echo "ERROR: expected exactly one spack installation of the '$module' Python bindings, found:" >&2
+        printf '%s\n' "${init_files[@]:-<none>}" >&2
+        exit 1
+    fi
+    rm -rf "$venv_site/$module"
+    site_dir=$(dirname "$(dirname "${init_files[0]}")")
+    echo "$site_dir" >> "$pth_file"
+done
+
+# Check that the bindings are imported from the spack installations
+python - "$install_root" <<'EOF'
+import sys
+import eckit, mir
+for m in (eckit, mir):
+    assert m.__file__.startswith(sys.argv[1]), f"{m.__name__} imported from {m.__file__}"
+    print(f"{m.__name__}: {m.__file__}")
+EOF
