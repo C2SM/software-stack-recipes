@@ -86,7 +86,7 @@ rm -rf $venv_site/{atlaslib_ecmwf,eccodeslib,eckitlib,eckitlib.libs,fdb5lib,metk
 pth_file="$venv_site/spack-bindings.pth"
 for module in eckit mir; do
     mapfile -t init_files < <(find "$install_root" -path "*/python3.11/site-packages/$module/__init__.py" -type f)
-    if [ ${#init_files[@]} -ne 1 ]; then
+    {% raw %}if [ ${#init_files[@]} -ne 1 ]; then{% endraw %}
         echo "ERROR: expected exactly one spack installation of the '$module' Python bindings, found:" >&2
         printf '%s\n' "${init_files[@]:-<none>}" >&2
         exit 1
