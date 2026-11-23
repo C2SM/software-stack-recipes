@@ -9,7 +9,7 @@ fdb:
   - metkit@=1.22.0
   - eccodes@=2.50.0 jp2k=none ~fortran +pthreads +aec +geo
   - ecbuild@=3.13.1
-  - python@=3.11.15
+  - python@=3.11.17
   - mir@=1.30.2 +python
   - ecmwf-atlas@=0.47.0 +tesselation ~fckit ~fftw ~eigen build_type=Release
   - proj@=9.7.0 ~tiff ~curl ~grids
