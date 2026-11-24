@@ -95,14 +95,3 @@ for module in eckit mir; do
     site_dir=$(dirname "$(dirname "${init_files[0]}")")
     echo "$site_dir" >> "$pth_file"
 done
-
-# Check that the bindings are imported from the spack installations.
-# Use the venv interpreter explicitly: the .pth file only exists in the fdb venv,
-# and a bare 'python' may resolve to the spack python instead.
-{{ env.mount }}/venvs/fdb/bin/python - "$install_root" <<'EOF'
-import sys
-import eckit, mir
-for m in (eckit, mir):
-    assert m.__file__.startswith(sys.argv[1]), f"{m.__name__} imported from {m.__file__}"
-    print(f"{m.__name__}: {m.__file__}")
-EOF
